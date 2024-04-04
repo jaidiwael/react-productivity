@@ -5,6 +5,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "../theme.css";
+import HomePage from "./pages/home-page";
 
 const queryClient = new QueryClient();
 
@@ -12,8 +13,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <PrimeReactProvider>
-        <div className="App surface-b  p-2 h-screen overflow-auto	">
-          {/** content here */}
+        <div className="App">
+          <HomePage />
         </div>
       </PrimeReactProvider>
     </QueryClientProvider>

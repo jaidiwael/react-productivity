@@ -7,3 +7,20 @@ body {
 code {
   font-family: 'Poppins', sans-serif;
 }
+
+
+.home-page-background{
+  background-image: linear-gradient(90deg, #00179d 0, #306bec 100%);
+}
+
+.objective-card-background{
+  background-image: linear-gradient(45deg, #008fbf 0, #00e5ff 100%);
+}
+
+.best-performance-bg{
+  background-image: linear-gradient(0deg, #008fbf 0, #00e5ff 100%);
+}
+
+.worst-performance-bg{
+  background-image: linear-gradient(0deg, #ff4e3b 0, #fd8b89 100%);
+}

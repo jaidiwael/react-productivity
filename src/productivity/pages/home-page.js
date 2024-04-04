@@ -1,0 +1,50 @@
+import ChargeCard from "../components/charge-card";
+import ObjectiveCard from "../components/objective-card";
+import PerformanceSlider from "../components/performance-slider";
+import ResourcesCard from "../components/resources-card";
+import TempsCard from "../components/temps-card";
+
+const HomePage = () => {
+  return (
+    <div className="home-page-background h-screen overflow-auto p-4">
+      <div className="flex justify-content-between align-items-center text-white mb-4">
+        <div>
+          <div className="text-xl font-bold">Bonjour, Jean</div>
+          <div className="text-sm">Voici les chiffres des 7 derniers jours</div>
+        </div>
+        <div className="text-sm">Vendredi 8 mars</div>
+      </div>
+      <div>
+        <div className="text-base text-white">Productivité</div>
+        <div className="grid my-2">
+          <div className="col-2">
+            <ObjectiveCard />
+          </div>
+          <div className="col-2">
+            <TempsCard />
+          </div>
+          <div className="col-8">
+            <PerformanceSlider />
+          </div>
+        </div>
+      </div>
+      <div className="grid">
+        <div className="col-6">
+          <div className="text-base text-white mb-2">Charge</div>
+        </div>
+        <div className="col-6">
+          <div className="text-base text-white mb-2">Resources</div>
+        </div>
+      </div>
+      <div className="grid">
+        <div className="col-6">
+          <ChargeCard />
+        </div>
+        <div className="col-6">
+          <ResourcesCard />
+        </div>
+      </div>
+    </div>
+  );
+};
+export default HomePage;

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import "primeicons/primeicons.css";
 import App from "./productivity";
 import reportWebVitals from "./reportWebVitals";
 
