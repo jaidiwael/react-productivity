@@ -13,7 +13,7 @@ const ResourcesCard = () => {
     );
     const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
     const data = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: ["v", "S", "D", "L", "M", "Me", "J"],
       datasets: [
         {
           label: "Etp plannifié",
@@ -37,7 +37,7 @@ const ResourcesCard = () => {
     };
     const options = {
       maintainAspectRatio: false,
-      aspectRatio: 0.8,
+      aspectRatio: 0.9,
       plugins: {
         legend: {
           labels: {
@@ -54,7 +54,7 @@ const ResourcesCard = () => {
             },
           },
           grid: {
-            display: false,
+            color: surfaceBorder,
             drawBorder: false,
           },
         },
@@ -63,7 +63,7 @@ const ResourcesCard = () => {
             color: textColorSecondary,
           },
           grid: {
-            color: surfaceBorder,
+            display: false,
             drawBorder: false,
           },
         },
@@ -76,7 +76,7 @@ const ResourcesCard = () => {
   return (
     <div className="bg-white border-round-2xl p-3">
       <Chart type="bar" data={chartData} options={chartOptions} />
-      <div className="flex gap-3 mt-4">
+      <div className="flex gap-3 mt-5">
         <ResourcesPercentage
           value={110}
           label={`Taux d'utilisation de la capacité`}

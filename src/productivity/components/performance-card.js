@@ -1,17 +1,28 @@
+import img1 from "../images/bg1.png";
+import img2 from "../images/bg2.png";
+
 const PerformanceCard = ({ data }) => {
   return (
-    <div className="bg-white border-round-2xl p-3 shadow-1 h-full flex flex-column">
+    <div
+      className="bg-white border-round-2xl px-3 shadow-1 h-full flex flex-column"
+      style={{
+        backgroundImage: `url(${data?.award === "best" ? img1 : img2})`,
+        backgroundPosition: "bottom center",
+        backgroundRepeat: "no-repeat",
+        paddingBottom: "70px",
+      }}
+    >
       {data?.award === "best" && (
-        <div className="best-performance-bg text-white text-center -mt-3 mb-3 -mx-3 p-2 border-round-top-2xl">
+        <div className="best-performance-bg text-white text-center -mx-3 p-2 border-round-top-2xl">
           Meilleure performance
         </div>
       )}
       {data?.award === "worst" && (
-        <div className="worst-performance-bg text-white text-center -mt-3 mb-3 -mx-3 p-2 border-round-top-2xl">
+        <div className="worst-performance-bg text-white text-center -mx-3 p-2 border-round-top-2xl">
           Moins bonnes performances
         </div>
       )}
-      <div className="text-l text-color text-center border-bottom-1 border-200 pb-2 mb-2">
+      <div className="text-l text-color text-center border-bottom-1 border-200 pb-2 mb-2 mt-3">
         {data.equipe}
       </div>
       <div className="text-3xl text-color text-center font-bold">

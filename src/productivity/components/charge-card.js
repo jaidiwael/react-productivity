@@ -45,7 +45,7 @@ const ChargeCard = () => {
       plugins: {
         legend: {
           labels: {
-            color: textColor,
+            fontColor: textColor,
           },
         },
       },
@@ -53,9 +53,13 @@ const ChargeCard = () => {
         x: {
           ticks: {
             color: textColorSecondary,
+            font: {
+              weight: 500,
+            },
           },
           grid: {
             color: surfaceBorder,
+            drawBorder: false,
           },
         },
         y: {
@@ -63,7 +67,8 @@ const ChargeCard = () => {
             color: textColorSecondary,
           },
           grid: {
-            color: surfaceBorder,
+            display: false,
+            drawBorder: false,
           },
         },
       },
