@@ -1,7 +1,7 @@
 import { Carousel } from "primereact/carousel";
 import PerformanceCard from "./performance-card";
 
-const PerformanceSlider = () => {
+const PerformanceSlider = ({ onClickCard }) => {
   const products = [
     {
       equipe: "Picking",
@@ -13,7 +13,7 @@ const PerformanceSlider = () => {
       amountUnit: "commandes",
     },
     {
-      equipe: "Réseption",
+      equipe: "Réception",
       award: "worst",
       average: 80,
       averageUnit: "lignes/h",
@@ -45,7 +45,7 @@ const PerformanceSlider = () => {
   ];
 
   const productTemplate = (product) => {
-    return <PerformanceCard data={product} />;
+    return <PerformanceCard data={product} onClick={onClickCard} />;
   };
 
   return (

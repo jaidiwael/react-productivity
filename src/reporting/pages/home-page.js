@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import ChargeCard from "../components/charge-card";
 import ObjectiveCard from "../components/objective-card";
 import PerformanceSlider from "../components/performance-slider";
@@ -5,6 +7,7 @@ import ResourcesCard from "../components/resources-card";
 import TempsCard from "../components/temps-card";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   return (
     <div className="home-page-background h-screen overflow-auto p-4">
       <div className="flex justify-content-between align-items-center text-white mb-4">
@@ -18,13 +21,13 @@ const HomePage = () => {
         <div className="text-base text-white">Productivité</div>
         <div className="grid my-2">
           <div className="col-2">
-            <ObjectiveCard />
+            <ObjectiveCard onClick={() => navigate("/objective")} />
           </div>
           <div className="col-2">
-            <TempsCard />
+            <TempsCard onClick={() => navigate("/temps")} />
           </div>
           <div className="col-8">
-            <PerformanceSlider />
+            <PerformanceSlider onClickCard={() => navigate("/productivity")} />
           </div>
         </div>
       </div>

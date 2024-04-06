@@ -1,9 +1,10 @@
 import img1 from "../images/bg1.png";
 import img2 from "../images/bg2.png";
 
-const PerformanceCard = ({ data }) => {
+const PerformanceCard = ({ data, onClick }) => {
   return (
     <div
+      onClick={onClick}
       className="bg-white border-round-2xl px-3 shadow-1 h-full flex flex-column"
       style={{
         backgroundImage: `url(${data?.award === "best" ? img1 : img2})`,

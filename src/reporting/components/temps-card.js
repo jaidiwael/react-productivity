@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
 
-const TempsCard = () => {
+const TempsCard = ({ onClick }) => {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
 
@@ -42,7 +42,10 @@ const TempsCard = () => {
     setChartOptions(options);
   }, []);
   return (
-    <div className="bg-white border-round-2xl p-3 h-full flex flex-column align-items-between gap-4">
+    <div
+      onClick={onClick}
+      className="bg-white border-round-2xl p-3 h-full flex flex-column align-items-between gap-4 cursor-pointer"
+    >
       <div className="text-l text-color text-center border-bottom-1 border-200 pb-2">
         Temps
       </div>
