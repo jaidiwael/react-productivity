@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
-import { Button } from "primereact/button";
-import MeterGroup from "../components/meter-group";
-import DaySelector from "../components/day-selector";
-import OperatorList from "../components/operator-list";
-import OperatorRepetition from "../components/operator-repetition";
+import ResourcesPercentage from "./resources-percentage";
+import DaySelector from "./day-selector";
 
-const Temps = () => {
+const OperatorRepetition = ({ operator }) => {
   const [selectedDays, setSelectedDays] = useState("7");
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
+  const days = [
+    {
+      label: "7 dernier jours",
+      value: "7",
+    },
+    {
+      label: "14 dernier jours",
+      value: "14",
+    },
+    {
+      label: "30 dernier jours",
+      value: "30",
+    },
+  ];
   useEffect(() => {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue("--text-color");
@@ -96,95 +107,35 @@ const Temps = () => {
     setChartData(data);
     setChartOptions(options);
   }, []);
-
-  const days = [
-    {
-      label: "7 dernier jours",
-      value: "7",
-    },
-    {
-      label: "14 dernier jours",
-      value: "14",
-    },
-    {
-      label: "30 dernier jours",
-      value: "30",
-    },
-  ];
-  const values = [
-    {
-      label: "mn pick",
-      value: "20",
-      color: "#00308F",
-    },
-    {
-      label: "mn Pack",
-      value: "10",
-      color: "turquoise",
-    },
-    {
-      label: "mn Support",
-      value: "8",
-      color: "#6CB4EE",
-    },
-    {
-      label: "mn Temps manquant",
-      value: "8",
-      color: "#EA3C53",
-    },
-  ];
-  const labelTemplate = (item) => {
-    return (
-      <div className="text-center text-sm">
-        <span>{item?.percentage + "%"}</span>
-        <br />
-        {item?.value}
-        {item?.label}
-      </div>
-    );
-  };
   return (
-    <div className="p-4">
-      <div className="flex justify-content-between align-items-center">
-        <DaySelector
-          items={days}
-          selected={selectedDays}
-          setSelected={setSelectedDays}
-        />
-        <div className="text-xl font-bold">Temps</div>
-        <Button
-          icon="pi pi-times"
-          rounded
-          aria-label="Cancel"
-          className="w-1rem h-1rem p-1"
-          pt={{
-            icon: {
-              className: "text-xs",
-            },
-          }}
-        />
+    <div className="grid bg-white border-round-2xl shadow-1 h-full p-4">
+      <div className="col-12 text-center font-medium">
+        Repetition du temps de {operator?.name}
       </div>
-      <div className="py-6 px-4">
-        <MeterGroup
-          data={values}
-          orientation="horizontal"
-          legend={false}
-          labelTemplate={labelTemplate}
-        />
+      <div className="col-4">
+        <div className="font-medium">Temps Global</div>
+        <div className="flex gap-3 mt-4">
+          <div className="flex flex-column  gap-3">
+            <ResourcesPercentage value={3} label={`Temps manquants`} />
+            <ResourcesPercentage value={10} label={`Support`} />
+          </div>
+          <div>
+            <ResourcesPercentage value={65} label={`pack`} className="h-full" />
+          </div>
+        </div>
       </div>
-      <div className="py-6 ">
+      <div className="col-8">
+        <div className="text-right">
+          <DaySelector
+            items={days}
+            selected={selectedDays}
+            setSelected={setSelectedDays}
+          />
+        </div>
         <Chart type="bar" data={chartData} options={chartOptions} />
-      </div>
-      <div className="px-4 grid">
-        <div className="col-3">
-          <OperatorList />
-        </div>
-        <div className="col-9">
-          <OperatorRepetition />
-        </div>
       </div>
     </div>
   );
 };
 
-export default Temps;
+export default OperatorRepetition;

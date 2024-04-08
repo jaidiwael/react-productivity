@@ -20,18 +20,36 @@ const ResourcesCard = () => {
           backgroundColor: documentStyle.getPropertyValue("--cyan-500"),
           borderColor: documentStyle.getPropertyValue("--cyan-500"),
           data: [65, 59, 80, 81, 56, 55, 40],
+          borderRadius: {
+            topLeft: 20,
+            topRight: 20,
+            bottomLeft: 20,
+            bottomRight: 20,
+          },
         },
         {
           label: "Etp Réel",
           backgroundColor: documentStyle.getPropertyValue("--blue-500"),
           borderColor: documentStyle.getPropertyValue("--blue-500"),
           data: [28, 48, 40, 40, 86, 60, 90],
+          borderRadius: {
+            topLeft: 20,
+            topRight: 20,
+            bottomLeft: 20,
+            bottomRight: 20,
+          },
         },
         {
           label: "Etp semaine précèdente",
           backgroundColor: documentStyle.getPropertyValue("--gray-400"),
           borderColor: documentStyle.getPropertyValue("--gray-400"),
           data: [40, 60, 50, 19, 20, 27, 10],
+          borderRadius: {
+            topLeft: 20,
+            topRight: 20,
+            bottomLeft: 20,
+            bottomRight: 20,
+          },
         },
       ],
     };
@@ -40,8 +58,13 @@ const ResourcesCard = () => {
       aspectRatio: 0.9,
       plugins: {
         legend: {
+          position: "bottom",
+          align: "end",
           labels: {
+            //pointStyleWidth: 5,
+            usePointStyle: true,
             fontColor: textColor,
+            //pointStyle: "circle",
           },
         },
       },
@@ -75,8 +98,7 @@ const ResourcesCard = () => {
   }, []);
   return (
     <div className="bg-white border-round-2xl p-3">
-      <Chart type="bar" data={chartData} options={chartOptions} />
-      <div className="flex gap-3 mt-5">
+      <div className="flex gap-3 mb-5">
         <ResourcesPercentage
           value={110}
           label={`Taux d'utilisation de la capacité`}
@@ -88,6 +110,7 @@ const ResourcesCard = () => {
         <ResourcesPercentage value={2} label={`Taux d'absenteisme`} />
         <ResourcesPercentage value={50} label={`Taux multi-tâches`} />
       </div>
+      <Chart type="bar" data={chartData} options={chartOptions} />
     </div>
   );
 };

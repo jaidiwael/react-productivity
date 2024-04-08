@@ -1,6 +1,6 @@
 import { Knob } from "primereact/knob";
 
-const ResourcesPercentage = ({ value, label }) => {
+const ResourcesPercentage = ({ value, label, className }) => {
   const renderColor = () => {
     if (value >= 90) {
       return "#d9342b";
@@ -13,8 +13,10 @@ const ResourcesPercentage = ({ value, label }) => {
     }
   };
   return (
-    <div className="text-center">
-      <div className="font-bold">{label}</div>
+    <div
+      className={`text-center shadow-2 bg-white	p-2 border-round-xl ${className}`}
+    >
+      <div className="font-medium">{label}</div>
       <Knob
         value={value > 100 ? 100 : value}
         valueColor={renderColor()}

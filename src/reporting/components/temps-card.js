@@ -1,46 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Chart } from "primereact/chart";
+import MeterGroup from "./meter-group";
 
 const TempsCard = ({ onClick }) => {
-  const [chartData, setChartData] = useState({});
-  const [chartOptions, setChartOptions] = useState({});
-
-  useEffect(() => {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const data = {
-      labels: ["Temps productive", "Temps non-productif", "Temps manquantes"],
-      datasets: [
-        {
-          data: [86, 6, 8],
-          backgroundColor: [
-            documentStyle.getPropertyValue("--blue-800"),
-            documentStyle.getPropertyValue("--blue-500"),
-            documentStyle.getPropertyValue("--red-500"),
-          ],
-          hoverBackgroundColor: [
-            documentStyle.getPropertyValue("--blue-700"),
-            documentStyle.getPropertyValue("--blue-300"),
-            documentStyle.getPropertyValue("--red-300"),
-          ],
-        },
-      ],
-    };
-    const options = {
-      plugins: {
-        legend: {
-          labels: {
-            usePointStyle: true,
-            textAlign: "left",
-          },
-          position: "bottom",
-          // align: "start",
-        },
-      },
-    };
-
-    setChartData(data);
-    setChartOptions(options);
-  }, []);
+  const values = [
+    {
+      label: "mn pick",
+      value: "20",
+      color: "blue",
+    },
+    {
+      label: "mn Pack",
+      value: "10",
+      color: "red",
+    },
+    {
+      label: "mn Support",
+      value: "8",
+      color: "pink",
+    },
+    {
+      label: "mn Temps manquant",
+      value: "8",
+      color: "teal",
+    },
+  ];
   return (
     <div
       onClick={onClick}
@@ -49,12 +31,9 @@ const TempsCard = ({ onClick }) => {
       <div className="text-l text-color text-center border-bottom-1 border-200 pb-2">
         Temps
       </div>
-      <Chart
-        type="pie"
-        data={chartData}
-        options={chartOptions}
-        className="w-full"
-      />
+      <div className="flex-grow-1">
+        <MeterGroup data={values} orientation="vertical" />
+      </div>
     </div>
   );
 };
