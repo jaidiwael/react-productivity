@@ -6972,28 +6972,29 @@ div.p-inputtext:focus,
 }
 
 .p-tabmenu .p-tabmenu-nav {
-  border: 1px solid #e1dfea;
+  border: 1px solid transparent;
   border-width: 0 0 2px 0;
   background: #fff;
 }
 
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem {
   margin-right: 0;
+  padding:0 1rem;
 }
 
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
   height: calc(100% + 2px);
   margin: 0 0 -2px 0;
-  padding: 1.25rem;
+  padding: 0.5rem 0;
   transition: box-shadow 0.2s;
   border: solid #e1dfea;
   border-width: 0 0 2px 0;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
-  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #e1dfea rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
   background: #fff;
   color: #6c757d;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link .p-menuitem-icon {
