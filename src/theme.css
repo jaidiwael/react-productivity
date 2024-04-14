@@ -8004,3 +8004,20 @@ s .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
   color:var(--primary-500);
 }
 
+.bg-card{
+  background-color: var(--blue-800);
+  transition: all 0.2s ease-in-out;
+  color: var(--gray-100);
+}
+
+.bg-card:hover{
+  background-color: var(--blue-700);
+}
+
+.blue-shadow{
+  transition: all 0.2s ease-in-out;
+}
+
+.blue-shadow:hover{
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.6);
+}

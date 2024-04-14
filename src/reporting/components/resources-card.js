@@ -7,18 +7,16 @@ const ResourcesCard = () => {
   const [chartOptions, setChartOptions] = useState({});
   useEffect(() => {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue("--text-color");
-    const textColorSecondary = documentStyle.getPropertyValue(
-      "--text-color-secondary"
-    );
-    const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
+    const textColor = "rgba(255,255,255,1";
+    const textColorSecondary = documentStyle.getPropertyValue("--gray-100");
+    const surfaceBorder = "rgba(255,255,255,0.4)";
     const data = {
       labels: ["v", "S", "D", "L", "M", "Me", "J"],
       datasets: [
         {
           label: "Etp plannifié",
-          backgroundColor: documentStyle.getPropertyValue("--cyan-500"),
-          borderColor: documentStyle.getPropertyValue("--cyan-500"),
+          backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
+          borderColor: documentStyle.getPropertyValue("--cyan-300"),
           data: [65, 59, 80, 81, 56, 55, 40],
           borderRadius: {
             topLeft: 20,
@@ -29,21 +27,9 @@ const ResourcesCard = () => {
         },
         {
           label: "Etp Réel",
-          backgroundColor: documentStyle.getPropertyValue("--blue-500"),
-          borderColor: documentStyle.getPropertyValue("--blue-500"),
+          backgroundColor: documentStyle.getPropertyValue("--gray-100"),
+          borderColor: documentStyle.getPropertyValue("--gray-100"),
           data: [28, 48, 40, 40, 86, 60, 90],
-          borderRadius: {
-            topLeft: 20,
-            topRight: 20,
-            bottomLeft: 20,
-            bottomRight: 20,
-          },
-        },
-        {
-          label: "Etp semaine précèdente",
-          backgroundColor: documentStyle.getPropertyValue("--gray-400"),
-          borderColor: documentStyle.getPropertyValue("--gray-400"),
-          data: [40, 60, 50, 19, 20, 27, 10],
           borderRadius: {
             topLeft: 20,
             topRight: 20,
@@ -55,7 +41,7 @@ const ResourcesCard = () => {
     };
     const options = {
       maintainAspectRatio: false,
-      aspectRatio: 0.9,
+      aspectRatio: 0.8,
       plugins: {
         legend: {
           position: "bottom",
@@ -63,8 +49,9 @@ const ResourcesCard = () => {
           labels: {
             //pointStyleWidth: 5,
             usePointStyle: true,
-            fontColor: textColor,
-            //pointStyle: "circle",
+            color: textColor,
+            pointStyle: "circle",
+            padding: 30,
           },
         },
       },
@@ -76,9 +63,12 @@ const ResourcesCard = () => {
               weight: 500,
             },
           },
+          border: {
+            color: surfaceBorder,
+          },
           grid: {
             color: surfaceBorder,
-            drawBorder: false,
+            drawBorder: true,
           },
         },
         y: {
@@ -86,8 +76,9 @@ const ResourcesCard = () => {
             color: textColorSecondary,
           },
           grid: {
+            color: "white",
             display: false,
-            drawBorder: false,
+            drawBorder: true,
           },
         },
       },
@@ -97,7 +88,7 @@ const ResourcesCard = () => {
     setChartOptions(options);
   }, []);
   return (
-    <div className="bg-white border-round-2xl p-3">
+    <div className="bg-card border-round-2xl p-3">
       <div className="flex gap-3 mb-5">
         <ResourcesPercentage
           value={110}

@@ -9,7 +9,7 @@ const Productivity = () => {
   const [selectedActivity, setSelectedActivity] = useState();
   const [dropDownFilter, setDropDownFilter] = useState("productivity");
   return (
-    <div className="p-4">
+    <div className="p-4 bg-blue-900">
       <div className="flex justify-content-between mb-3">
         <div className="flex align-items-center gap-2">
           <Dropdown
@@ -28,27 +28,19 @@ const Productivity = () => {
             className="w-14rem surface-100 border-round-3xl text-primary"
             pt={{
               input: {
-                className: "text-primary",
-              },
-              trigger: {
-                className: "text-primary",
+                className: "py-2",
               },
             }}
           />
-          <TabMenu
-            model={[
-              { label: "Par Activité" },
-              { label: "Par Opérateur" },
-              { label: "Par Client" },
-            ]}
-          />
         </div>
-        <div>
+        <div className="flex align-items-center gap-2">
           <TimeRangeSelector
             options={["Hier", "7 derniers jours", "comule du mois", "3 mois"]}
             selected={"7 derniers jours"}
           />
-          <div></div>
+          <div className="text-sm flex align-items-center gap-2 py-1 px-3 border-round-3xl bg-white-alpha-10 text-gray-200">
+            2 mars <span className="pi pi-angle-right" />8 mars
+          </div>
         </div>
       </div>
       <div className="grid">
@@ -63,6 +55,7 @@ const Productivity = () => {
                 activity: "Pinking",
                 productivity: "120",
                 performance: "+8%",
+                volumes: "199 000",
                 objective: "100%",
               },
               {
@@ -70,6 +63,7 @@ const Productivity = () => {
                 activity: "Packing",
                 productivity: "98",
                 performance: "+2%",
+                volumes: "199 000",
                 objective: "99%",
               },
               {
@@ -77,6 +71,7 @@ const Productivity = () => {
                 activity: "Emballage",
                 productivity: "110",
                 performance: "-2%",
+                volumes: "199 000",
                 objective: "98%",
               },
               {
@@ -84,6 +79,7 @@ const Productivity = () => {
                 activity: "Reception",
                 productivity: "80",
                 performance: "-2%",
+                volumes: "199 000",
                 objective: "90%",
               },
               {
@@ -91,6 +87,7 @@ const Productivity = () => {
                 activity: "Pinking",
                 productivity: "120",
                 performance: "+8%",
+                volumes: "199 000",
                 objective: "100%",
               },
               {
@@ -98,13 +95,14 @@ const Productivity = () => {
                 activity: "Packing 1",
                 productivity: "98",
                 performance: "+2%",
+                volumes: "199 000",
                 objective: "99%",
               },
             ]}
           />
-          <div className="my-3">
+          <div className="mt-3">
             <ProductivityDataTable
-              firstColumn={{ field: "client", header: "Clients" }}
+              firstColumn={{ field: "client", header: "Client" }}
               selectedRow={selectedActivity}
               onRowSelection={setSelectedActivity}
               products={[
@@ -113,6 +111,7 @@ const Productivity = () => {
                   client: "name name",
                   productivity: "120",
                   performance: "+8%",
+                  volumes: "199 000",
                   objective: "100%",
                 },
                 {
@@ -120,6 +119,7 @@ const Productivity = () => {
                   client: "name name",
                   productivity: "98",
                   performance: "+2%",
+                  volumes: "199 000",
                   objective: "99%",
                 },
                 {
@@ -127,6 +127,7 @@ const Productivity = () => {
                   client: "name name",
                   productivity: "110",
                   performance: "-2%",
+                  volumes: "199 000",
                   objective: "98%",
                 },
                 {
@@ -134,6 +135,7 @@ const Productivity = () => {
                   client: "name name",
                   productivity: "80",
                   performance: "-2%",
+                  volumes: "199 000",
                   objective: "90%",
                 },
                 {
@@ -141,6 +143,7 @@ const Productivity = () => {
                   client: "name name",
                   productivity: "120",
                   performance: "+8%",
+                  volumes: "199 000",
                   objective: "100%",
                 },
                 {
@@ -148,60 +151,13 @@ const Productivity = () => {
                   client: "name name",
                   productivity: "98",
                   performance: "+2%",
+                  volumes: "199 000",
                   objective: "99%",
                 },
               ]}
+              blueTheme
             />
           </div>
-          <ProductivityDataTable
-            firstColumn={{ field: "operator", header: "Operators" }}
-            selectedRow={selectedActivity}
-            onRowSelection={setSelectedActivity}
-            products={[
-              {
-                id: 1,
-                operator: "name name",
-                productivity: "120",
-                performance: "+8%",
-                objective: "100%",
-              },
-              {
-                id: 2,
-                operator: "name name",
-                productivity: "98",
-                performance: "+2%",
-                objective: "99%",
-              },
-              {
-                id: 3,
-                operator: "name name",
-                productivity: "110",
-                performance: "-2%",
-                objective: "98%",
-              },
-              {
-                id: 4,
-                operator: "name name",
-                productivity: "80",
-                performance: "-2%",
-                objective: "90%",
-              },
-              {
-                id: 5,
-                operator: "name name",
-                productivity: "120",
-                performance: "+8%",
-                objective: "100%",
-              },
-              {
-                id: 6,
-                operator: "name name",
-                productivity: "98",
-                performance: "+2%",
-                objective: "99%",
-              },
-            ]}
-          />
         </div>
         <div className="col-8">
           <ProductivityChart />

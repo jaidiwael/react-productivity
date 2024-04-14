@@ -26,7 +26,8 @@ code {
 }
 
 .selectedTableRow{
-  background-image: linear-gradient(90deg, #00179d 0, #306bec 100%);
+  background-color: var(--teal-300);
+  color: var(--text-color);
   position: relative;
 }
 
@@ -35,12 +36,17 @@ code {
   height: 100%;
   border: 20px solid white;
   border-left-width: 26px;
-  border-left-color: #2c65e6;
+  border-left-color: var(--teal-300);
   content: '';
   top: 0;
   right: -24px;
   position: absolute;
   box-sizing: border-box;
+}
+
+.bg-blue-800 .selectedTableRow::after{
+  border-color: var(--blue-800);
+  border-left-color: var(--teal-300);
 }
 
 .objective-bg1{

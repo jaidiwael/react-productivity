@@ -4,22 +4,18 @@ import { SelectButton } from "primereact/selectbutton";
 import { Chart } from "primereact/chart";
 
 const ProductivityChart = ({ award, breadCrumb }) => {
-  const [view, setView] = useState(null);
-  const [timeRange, setTimeRange] = useState(null);
-  // const [lineChartData, setLineChartData] = useState({});
-  // const [lineChartOptions, setLineChartOptions] = useState({});
+  const [view, setView] = useState("chart");
+  const [timeRange, setTimeRange] = useState("Jour");
 
   const documentStyle = getComputedStyle(document.documentElement);
-  const textColor = documentStyle.getPropertyValue("--text-color");
-  const textColorSecondary = documentStyle.getPropertyValue(
-    "--text-color-secondary"
-  );
-  const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
+  const textColor = "rgba(255,255,255,1";
+  const textColorSecondary = documentStyle.getPropertyValue("--gray-100");
+  const surfaceBorder = "rgba(255,255,255,0.4)";
   const lineChartData = {
     labels: ["v", "S", "D", "L", "M", "Me", "J"],
     datasets: [
       {
-        label: "Predit",
+        label: "Cible",
         data: [65, 59, 80, 81, 56, 55, 40],
         fill: false,
         tension: 0.4,
@@ -28,45 +24,87 @@ const ProductivityChart = ({ award, breadCrumb }) => {
       {
         label: "Realisé",
         data: [12, 51, 62, 33, 21, 62, 45],
-        fill: true,
+        fill: false,
         borderColor: documentStyle.getPropertyValue("--blue-500"),
         tension: 0.4,
         backgroundColor: "rgba(12, 105, 213,0.2)",
       },
-      {
-        label: "semaine Precedente",
-        data: [28, 48, 40, 19, 86, 27, 90],
-        fill: false,
-        borderDash: [5, 5],
-        tension: 0.4,
-        borderColor: documentStyle.getPropertyValue("--gray-400"),
-      },
     ],
   };
   const pieChartData = {
-    labels: ["Temps productif", "Temps non-productif", "Temps manquants"],
+    labels: ["v", "S", "D", "L", "M", "Me", "J"],
     datasets: [
       {
-        data: [86, 6, 8],
-        backgroundColor: [
-          documentStyle.getPropertyValue("--blue-900"),
-          documentStyle.getPropertyValue("--blue-400"),
-          documentStyle.getPropertyValue("--red-300"),
-        ],
-        hoverBackgroundColor: [
-          documentStyle.getPropertyValue("--blue-800"),
-          documentStyle.getPropertyValue("--blue-300"),
-          documentStyle.getPropertyValue("--red-200"),
-        ],
+        label: "Etp plannifié",
+        backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
+        borderColor: documentStyle.getPropertyValue("--cyan-300"),
+        data: [65, 59, 80, 81, 56, 55, 40],
+        barThickness: 20,
+        borderRadius: {
+          topLeft: 20,
+          topRight: 20,
+          bottomLeft: 20,
+          bottomRight: 20,
+        },
+      },
+      {
+        label: "Etp Réel",
+        backgroundColor: documentStyle.getPropertyValue("--gray-100"),
+        borderColor: documentStyle.getPropertyValue("--gray-100"),
+        data: [28, 48, 40, 40, 86, 60, 90],
+        barThickness: 20,
+        borderRadius: {
+          topLeft: 20,
+          topRight: 20,
+          bottomLeft: 20,
+          bottomRight: 20,
+        },
       },
     ],
   };
   const pieChartOptions = {
+    maintainAspectRatio: false,
+    aspectRatio: 0.8,
     plugins: {
       legend: {
-        position: "left",
+        position: "bottom",
+        align: "end",
         labels: {
+          //pointStyleWidth: 5,
           usePointStyle: true,
+          color: textColor,
+          pointStyle: "circle",
+          padding: 30,
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: textColorSecondary,
+          font: {
+            weight: 500,
+          },
+        },
+        border: {
+          color: surfaceBorder,
+        },
+        grid: {
+          drawBorder: true,
+          display: false,
+        },
+      },
+      y: {
+        ticks: {
+          color: textColorSecondary,
+        },
+        border: {
+          color: surfaceBorder,
+        },
+        grid: {
+          color: "white",
+          color: surfaceBorder,
+          drawBorder: true,
         },
       },
     },
@@ -79,7 +117,9 @@ const ProductivityChart = ({ award, breadCrumb }) => {
         position: "bottom",
         align: "end",
         labels: {
-          fontColor: textColor,
+          color: textColor,
+          usePointStyle: true,
+          pointStyle: "line",
         },
       },
     },
@@ -91,17 +131,24 @@ const ProductivityChart = ({ award, breadCrumb }) => {
             weight: 500,
           },
         },
-        grid: {
+        border: {
           color: surfaceBorder,
+        },
+        grid: {
+          //color: surfaceBorder,
           drawBorder: false,
+          display: false,
         },
       },
       y: {
         ticks: {
           color: textColorSecondary,
         },
+        border: {
+          color: surfaceBorder,
+        },
         grid: {
-          display: false,
+          color: surfaceBorder,
           drawBorder: false,
         },
       },
@@ -121,8 +168,12 @@ const ProductivityChart = ({ award, breadCrumb }) => {
     },
   ];
   const timeOptions = [
-    { value: "Heure", className: "border-noround-right border-round-left-3xl" },
-    { value: "Jour", className: "border-noround-left border-round-right-3xl" },
+    { value: "Jour", className: "border-noround-right border-round-left-3xl" },
+    {
+      value: "Semaine",
+      className: "border-noround-left border-noround-right",
+    },
+    { value: "Mois", className: "border-noround-left border-round-right-3xl" },
   ];
 
   const viewsTemplate = (item) => {
@@ -134,7 +185,7 @@ const ProductivityChart = ({ award, breadCrumb }) => {
   };
 
   return (
-    <div className="bg-white border-round-2xl px-3 shadow-1 h-full flex flex-column">
+    <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1 h-full flex flex-column">
       {award === "best" && (
         <div className="best-performance-bg text-white text-center -mx-3 p-2 border-round-top-2xl">
           Meilleure performance
@@ -155,9 +206,11 @@ const ProductivityChart = ({ award, breadCrumb }) => {
           itemTemplate={viewsTemplate}
           options={views}
           pt={{
-            button: {
-              className: "p-2",
-            },
+            button: ({ context }) => ({
+              className: context.selected
+                ? "p-2 text-blue-500 border-none bg-none"
+                : "p-2 bg-none border-none text-white",
+            }),
           }}
         />
         <SelectButton
@@ -166,19 +219,21 @@ const ProductivityChart = ({ award, breadCrumb }) => {
           options={timeOptions}
           itemTemplate={timeTemplate}
           pt={{
-            button: {
-              className: "py-1 px-3",
-            },
+            button: ({ context }) => ({
+              className: context.selected
+                ? "py-1 px-3 bg-blue-700 border-none text-white"
+                : "py-1 px-3 bg-blue-900 border-none text-white",
+            }),
           }}
         />
       </div>
       <div className="my-3">
         <Chart type="line" data={lineChartData} options={lineChartOptions} />
         <Chart
-          type="pie"
+          type="bar"
           data={pieChartData}
           options={pieChartOptions}
-          className="w-30rem"
+          //className="w-30rem"
         />
       </div>
     </div>

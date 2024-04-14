@@ -14,7 +14,7 @@ const ResourcesPercentage = ({ value, label, className }) => {
   };
   return (
     <div
-      className={`text-center shadow-2 bg-white	p-2 border-round-xl ${className}`}
+      className={`text-center text-color bg-white blue-shadow p-2 border-round-xl ${className}`}
     >
       <div className="font-medium">{label}</div>
       <Knob

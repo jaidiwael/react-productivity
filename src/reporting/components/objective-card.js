@@ -6,7 +6,7 @@ const ObjectiveCard = ({ onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="border-round-2xl p-3 objective-card-background h-full flex flex-column justify-content-between cursor-pointer"
+      className="border-round-2xl p-3 bg-card h-full flex flex-column justify-content-between cursor-pointer"
     >
       <div className="text-l text-white text-center">Objectif Global</div>
       <Chart

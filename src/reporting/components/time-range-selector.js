@@ -12,7 +12,9 @@ const TimeRangeSelector = ({ options, selected, setSelected }) => {
             text={selected !== option}
             onClick={setSelected}
             size="small"
-            className="py-2"
+            className={`py-2 ${
+              selected === option ? "bg-gray-200 text-color" : "text-gray-200"
+            }`}
           />
         );
       })}

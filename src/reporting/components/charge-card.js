@@ -6,11 +6,9 @@ const ChargeCard = () => {
   const [chartOptions, setChartOptions] = useState({});
   useEffect(() => {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue("--text-color");
-    const textColorSecondary = documentStyle.getPropertyValue(
-      "--text-color-secondary"
-    );
-    const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
+    const textColor = "rgba(255,255,255,1";
+    const textColorSecondary = documentStyle.getPropertyValue("--gray-100");
+    const surfaceBorder = "rgba(255,255,255,0.4)";
     const data = {
       labels: ["v", "S", "D", "L", "M", "Me", "J"],
       datasets: [
@@ -20,23 +18,24 @@ const ChargeCard = () => {
           fill: false,
           tension: 0.4,
           borderColor: documentStyle.getPropertyValue("--teal-300"),
+          backgroundColor: documentStyle.getPropertyValue("--teal-300"),
         },
         {
           label: "Realisé",
           data: [12, 51, 62, 33, 21, 62, 45],
-          fill: true,
+          fill: false,
           borderColor: documentStyle.getPropertyValue("--blue-500"),
           tension: 0.4,
-          backgroundColor: "rgba(12, 105, 213,0.2)",
+          backgroundColor: documentStyle.getPropertyValue("--blue-500"),
         },
-        {
+        /* {
           label: "semaine Precedente",
           data: [28, 48, 40, 19, 86, 27, 90],
           fill: false,
           borderDash: [5, 5],
           tension: 0.4,
-          borderColor: documentStyle.getPropertyValue("--gray-400"),
-        },
+          borderColor: documentStyle.getPropertyValue("--gray-200"),
+        }, */
       ],
     };
     const options = {
@@ -44,8 +43,14 @@ const ChargeCard = () => {
       aspectRatio: 0.6,
       plugins: {
         legend: {
+          position: "bottom",
+          align: "end",
           labels: {
-            fontColor: textColor,
+            //pointStyleWidth: 5,
+            usePointStyle: true,
+            color: textColor,
+            pointStyle: "circle",
+            padding: 30,
           },
         },
       },
@@ -57,9 +62,12 @@ const ChargeCard = () => {
               weight: 500,
             },
           },
+          border: {
+            color: surfaceBorder,
+          },
           grid: {
             color: surfaceBorder,
-            drawBorder: false,
+            drawBorder: true,
           },
         },
         y: {
@@ -67,8 +75,9 @@ const ChargeCard = () => {
             color: textColorSecondary,
           },
           grid: {
+            color: "white",
             display: false,
-            drawBorder: false,
+            drawBorder: true,
           },
         },
       },
@@ -78,7 +87,7 @@ const ChargeCard = () => {
     setChartOptions(options);
   }, []);
   return (
-    <div className="bg-white border-round-2xl p-3 h-full">
+    <div className="bg-card border-round-2xl p-3 h-full">
       <Chart type="line" data={chartData} options={chartOptions} />
     </div>
   );

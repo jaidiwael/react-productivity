@@ -5,7 +5,7 @@ const PerformanceCard = ({ data, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="bg-white border-round-2xl px-3 shadow-1 h-full flex flex-column"
+      className="bg-white border-round-2xl px-3 min-h-full flex flex-column blue-shadow"
       style={{
         backgroundImage: `url(${data?.award === "best" ? img1 : img2})`,
         backgroundPosition: "bottom center",

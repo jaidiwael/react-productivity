@@ -9,13 +9,12 @@ import TempsCard from "../components/temps-card";
 const HomePage = () => {
   const navigate = useNavigate();
   return (
-    <div className="home-page-background h-screen overflow-auto p-4">
+    <div className="bg-blue-900 h-screen overflow-auto p-4">
       <div className="flex justify-content-between align-items-center text-white mb-4">
         <div>
           <div className="text-xl font-bold">Bonjour, Jean</div>
           <div className="text-sm">Voici les chiffres des 7 derniers jours</div>
         </div>
-        <div className="text-sm">Vendredi 8 mars</div>
       </div>
       <div>
         <div className="text-base text-white">Productivité</div>

@@ -5,20 +5,25 @@ const ProductivityDataTable = ({
   products,
   selectedRow,
   onRowSelection,
+  blueTheme,
 }) => {
   const itemTemplate = (item) => {
     return (
       <div
-        className={`grid cursor-pointer border-bottom-1 border-200 h-full m-auto align-items-center ${
-          item?.id === selectedRow?.id ? "selectedTableRow text-white" : ""
+        className={`grid cursor-pointer border-bottom-1 h-full m-auto align-items-center ${
+          item?.id === selectedRow?.id ? "selectedTableRow text-color" : ""
+        } ${
+          blueTheme
+            ? "text-white border-white-alpha-10"
+            : "border-black-alpha-10 text-color"
         }`}
         onClick={() => onRowSelection(item)}
       >
-        <div className="col-4">{item[firstColumn?.field]}</div>
-        <div className="flex align-items-center gap-3 col-4">
+        <div className="col-3">{item[firstColumn?.field]}</div>
+        <div className="flex align-items-center gap-3 col-3">
           <span>{item.productivity}/h</span>
           <div
-            className={`text-sm bg-white p-1 border-round-xl text-center ${
+            className={`text-sm text-center ${
               item?.performance[0] === "-" ? "text-red-400" : "text-teal-400"
             }`}
           >
@@ -30,24 +35,31 @@ const ProductivityDataTable = ({
             {item?.performance}
           </div>
         </div>
-        <div className={`col-4 `}>
-          <span
-            className={`text-white border-round-2xl py-1 px-3 ${
-              item?.objective !== "100%" ? "objective-bg1" : "objective-bg2"
-            }`}
-          >
-            {item?.objective}
-          </span>
+        <div className={`col-3`}>
+          <span className="font-bold">{item?.volumes} </span>
+          <span className="font-light">lignes</span>
+        </div>
+        <div className={`col-3`}>
+          <span>{item?.objective}</span>
         </div>
       </div>
     );
   };
   return (
-    <div className="ba-white p-2 border-round-2xl shadow-2">
-      <div className="header grid border-bottom-1 border-200 m-auto text-600">
-        <div className="col-4">{firstColumn.header}</div>
-        <div className="col-4">Productivités</div>
-        <div className="col-4">Objectif</div>
+    <div
+      className={`border-round-2xl shadow-2 ${
+        blueTheme ? "bg-blue-800" : "bg-white"
+      }`}
+    >
+      <div
+        className={`header grid m-auto border-round-top-2xl p-2 ${
+          blueTheme ? "bg-black-alpha-10 text-white" : "text-color surface-50"
+        }`}
+      >
+        <div className="col-3">{firstColumn.header}</div>
+        <div className="col-3">Productivités</div>
+        <div className="col-3">Volumes</div>
+        <div className="col-3">Objectif</div>
       </div>
       <Carousel
         value={products}
@@ -57,6 +69,14 @@ const ProductivityDataTable = ({
         verticalViewPortHeight="200px"
         itemTemplate={itemTemplate}
         showIndicators={false}
+        pt={{
+          previousbutton: {
+            className: blueTheme ? "text-white" : "",
+          },
+          nextbutton: {
+            className: blueTheme ? "text-white" : "",
+          },
+        }}
       />
       {/*  <DataTable
         value={products}

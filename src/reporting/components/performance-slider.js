@@ -49,7 +49,7 @@ const PerformanceSlider = ({ onClickCard }) => {
   };
 
   return (
-    <div className="bg-white border-round-2xl p-3 ">
+    <div className="bg-blue-800 border-round-2xl p-3 ">
       <Carousel
         value={products}
         numVisible={4}
@@ -59,7 +59,13 @@ const PerformanceSlider = ({ onClickCard }) => {
         showIndicators={false}
         pt={{
           item: {
-            className: "py-1 px-2",
+            className: "p-3",
+          },
+          previousbutton: {
+            className: "text-white",
+          },
+          nextbutton: {
+            className: "text-white",
           },
         }}
       />
