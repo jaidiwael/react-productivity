@@ -20,6 +20,7 @@ const ResourcesCard = () => {
           backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
           borderColor: documentStyle.getPropertyValue("--cyan-300"),
           data: [65, 59, 80, 81, 56, 55, 40],
+          barThickness: 20,
           borderRadius: {
             topLeft: 20,
             topRight: 20,
@@ -32,6 +33,7 @@ const ResourcesCard = () => {
           backgroundColor: documentStyle.getPropertyValue("--gray-100"),
           borderColor: documentStyle.getPropertyValue("--gray-100"),
           data: [28, 48, 40, 40, 86, 60, 90],
+          barThickness: 20,
           borderRadius: {
             topLeft: 20,
             topRight: 20,
@@ -49,7 +51,6 @@ const ResourcesCard = () => {
           position: "bottom",
           align: "end",
           labels: {
-            //pointStyleWidth: 5,
             usePointStyle: true,
             color: textColor,
             pointStyle: "circle",
@@ -59,13 +60,14 @@ const ResourcesCard = () => {
         datalabels: {
           anchor: "end", // Position of the labels (start, end, center, etc.)
           align: "end", // Alignment of the labels (start, end, center, etc.)
-          color: "red", // Color of the labels
+          color: function (context) {
+            return context.dataset.backgroundColor;
+          },
           font: {
             weight: "bold",
           },
-          formatter: function (value, context) {
-            console.log("TESTETSTES");
-            return value; // Display the actual data value
+          formatter: function (value) {
+            return value + "%"; // Display the actual data value
           },
         },
       },
