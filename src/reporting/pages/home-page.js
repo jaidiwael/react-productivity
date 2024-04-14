@@ -26,7 +26,11 @@ const HomePage = () => {
             <TempsCard onClick={() => navigate("/temps")} />
           </div>
           <div className="col-8">
-            <PerformanceSlider onClickCard={() => navigate("/productivity")} />
+            <PerformanceSlider
+              onClickCard={(activityId) =>
+                navigate(`/productivity/${activityId}`)
+              }
+            />
           </div>
         </div>
       </div>

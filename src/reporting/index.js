@@ -23,7 +23,10 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/objective" element={<Objective />} />
             <Route path="/temps" element={<Temps />} />
-            <Route path="/productivity" element={<Productivity />} />
+            <Route
+              path="/productivity/:activityId"
+              element={<Productivity />}
+            />
           </Routes>
         </div>
       </PrimeReactProvider>

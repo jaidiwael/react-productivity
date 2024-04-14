@@ -1,13 +1,49 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Dropdown } from "primereact/dropdown";
-import { TabMenu } from "primereact/tabmenu";
+import { useParams } from "react-router-dom";
+
 import ProductivityDataTable from "../components/productivity-data-table";
 import TimeRangeSelector from "../components/time-range-selector";
 import ProductivityChart from "../components/productivity-chart";
 
 const Productivity = () => {
   const [selectedActivity, setSelectedActivity] = useState();
+  const [selectedClient, setSelectedClient] = useState();
   const [dropDownFilter, setDropDownFilter] = useState("productivity");
+
+  const { activityId } = useParams();
+
+  console.log("ActivityId", activityId);
+
+  useEffect(() => {
+    setSelectedActivity(parseInt(activityId));
+  }, [activityId]);
+
+  const renderBreadCrumb = useMemo(() => {
+    let breadCrumbArray = [
+      {
+        label: "Activity",
+        id: selectedActivity,
+        action: (id) => {
+          setSelectedActivity(id);
+          setSelectedClient(null);
+        },
+      },
+    ];
+    if (selectedClient) {
+      breadCrumbArray = [
+        ...breadCrumbArray,
+        {
+          label: "Client",
+          id: selectedClient,
+          action: (id) => {
+            setSelectedClient(id);
+          },
+        },
+      ];
+    }
+    return breadCrumbArray;
+  }, [selectedActivity, selectedClient]);
   return (
     <div className="p-4 bg-blue-900">
       <div className="flex justify-content-between mb-3">
@@ -48,7 +84,10 @@ const Productivity = () => {
           <ProductivityDataTable
             firstColumn={{ field: "activity", header: "Activités" }}
             selectedRow={selectedActivity}
-            onRowSelection={setSelectedActivity}
+            onRowSelection={(activityId) => {
+              setSelectedActivity(activityId);
+              setSelectedClient(null);
+            }}
             products={[
               {
                 id: 1,
@@ -103,8 +142,8 @@ const Productivity = () => {
           <div className="mt-3">
             <ProductivityDataTable
               firstColumn={{ field: "client", header: "Client" }}
-              selectedRow={selectedActivity}
-              onRowSelection={setSelectedActivity}
+              selectedRow={selectedClient}
+              onRowSelection={setSelectedClient}
               products={[
                 {
                   id: 1,
@@ -160,7 +199,7 @@ const Productivity = () => {
           </div>
         </div>
         <div className="col-8">
-          <ProductivityChart />
+          <ProductivityChart breadCrumb={renderBreadCrumb} />
         </div>
       </div>
     </div>

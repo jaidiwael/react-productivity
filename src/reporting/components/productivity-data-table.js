@@ -11,13 +11,13 @@ const ProductivityDataTable = ({
     return (
       <div
         className={`grid cursor-pointer border-bottom-1 h-full m-auto align-items-center ${
-          item?.id === selectedRow?.id ? "selectedTableRow text-color" : ""
+          item?.id === selectedRow ? "selectedTableRow text-color" : ""
         } ${
           blueTheme
             ? "text-white border-white-alpha-10"
             : "border-black-alpha-10 text-color"
         }`}
-        onClick={() => onRowSelection(item)}
+        onClick={() => onRowSelection(item?.id)}
       >
         <div className="col-3">{item[firstColumn?.field]}</div>
         <div className="flex align-items-center gap-3 col-3">

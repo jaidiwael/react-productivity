@@ -6,7 +6,12 @@ const BreadCrumb = ({ items }) => {
       {items?.map((item, index) => {
         return (
           <Fragment key={index}>
-            <div onClick={item.action}>{item.label}</div>
+            <div
+              onClick={() => item.action(item?.id)}
+              className="cursor-pointer"
+            >
+              {item.label}
+            </div>
             {index < items.length - 1 && <span className="pi pi-angle-right" />}
           </Fragment>
         );

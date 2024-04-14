@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
 import ResourcesPercentage from "./resources-percentage";
 
 const ResourcesCard = () => {
@@ -54,6 +56,18 @@ const ResourcesCard = () => {
             padding: 30,
           },
         },
+        datalabels: {
+          anchor: "end", // Position of the labels (start, end, center, etc.)
+          align: "end", // Alignment of the labels (start, end, center, etc.)
+          color: "red", // Color of the labels
+          font: {
+            weight: "bold",
+          },
+          formatter: function (value, context) {
+            console.log("TESTETSTES");
+            return value; // Display the actual data value
+          },
+        },
       },
       scales: {
         x: {
@@ -101,7 +115,12 @@ const ResourcesCard = () => {
         <ResourcesPercentage value={2} label={`Taux d'absenteisme`} />
         <ResourcesPercentage value={50} label={`Taux multi-tâches`} />
       </div>
-      <Chart type="bar" data={chartData} options={chartOptions} />
+      <Chart
+        type="bar"
+        data={chartData}
+        options={chartOptions}
+        plugins={[ChartDataLabels]}
+      />
     </div>
   );
 };
