@@ -1,5 +1,5 @@
-import img1 from "../images/bg1.png";
-import img2 from "../images/bg2.png";
+import img1 from "../../assets/images/bg1.png";
+import img2 from "../../assets/images/bg2.png";
 
 const PerformanceCard = ({ data, onClick }) => {
   return (

@@ -1,28 +1,6 @@
 import MeterGroup from "./meter-group";
 
-const TempsCard = ({ onClick }) => {
-  const values = [
-    {
-      label: "mn pick",
-      value: "20",
-      color: "blue",
-    },
-    {
-      label: "mn Pack",
-      value: "10",
-      color: "red",
-    },
-    {
-      label: "mn Support",
-      value: "8",
-      color: "pink",
-    },
-    {
-      label: "mn Temps manquant",
-      value: "8",
-      color: "teal",
-    },
-  ];
+const TempsCard = ({ onClick, values }) => {
   return (
     <div
       onClick={onClick}

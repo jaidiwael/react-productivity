@@ -1,5 +1,7 @@
 import React from "react";
 
+import { renderMinutes } from "../helpers";
+
 const MeterGroup = ({
   data,
   orientation = "horizontal",
@@ -70,10 +72,7 @@ const MeterGroup = ({
             borderRadius: "5px",
           }}
         />
-        <span>
-          {item.value}
-          {item.label}
-        </span>
+        <span>{`${renderMinutes(item.value)}mn ${item.label}`}</span>
       </div>
     );
   };
@@ -111,9 +110,12 @@ const MeterGroup = ({
                 {!!labelTemplate
                   ? labelTemplate({
                       ...item,
-                      percentage: calculatePercentage(item.value),
+                      percentage:
+                        item?.percentage || calculatePercentage(item.value),
                     })
-                  : calculatePercentage(item.value) + "%"}
+                  : (item?.percentage
+                      ? item?.percentage
+                      : calculatePercentage(item.value)) + "%"}
               </span>
             </div>
           );
