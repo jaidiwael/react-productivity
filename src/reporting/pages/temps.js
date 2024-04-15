@@ -1,15 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Chart } from "primereact/chart";
 import { Button } from "primereact/button";
+import { useQuery } from "@tanstack/react-query";
+
 import MeterGroup from "../components/meter-group";
 import DaySelector from "../components/day-selector";
 import OperatorList from "../components/operator-list";
 import OperatorRepetition from "../components/operator-repetition";
 
+import { getProductivityTimes } from "../api";
+import { arrayColors, renderMinutes } from "../helpers";
+
 const Temps = () => {
   const [selectedDays, setSelectedDays] = useState("7");
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
+
+  const { data: productivityTimes } = useQuery({
+    queryKey: ["getProductivityTimes"],
+    queryFn: getProductivityTimes,
+  });
+
   useEffect(() => {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue("--text-color");
@@ -97,6 +108,32 @@ const Temps = () => {
     setChartOptions(options);
   }, []);
 
+  const renderProductivityTimes = useMemo(() => {
+    return (
+      productivityTimes
+        // ?.sort(function (a, b) {
+        //   if (a.name < b.name) {
+        //     return -1;
+        //   }
+        //   if (a.name > b.name) {
+        //     return 1;
+        //   }
+        //   return 0;
+        // })
+        ?.map(
+          (
+            { TotalTimePassedByTrackingType, percentage, trackingTypeName },
+            index
+          ) => ({
+            label: trackingTypeName,
+            value: TotalTimePassedByTrackingType,
+            percentage,
+            color: arrayColors[index],
+          })
+        )
+    );
+  }, [productivityTimes]);
+
   const days = [
     {
       label: "7 dernier jours",
@@ -111,34 +148,14 @@ const Temps = () => {
       value: "30",
     },
   ];
-  const values = [
-    {
-      label: "mn pick",
-      value: "20",
-      color: "#00308F",
-    },
-    {
-      label: "mn Pack",
-      value: "10",
-      color: "turquoise",
-    },
-    {
-      label: "mn Support",
-      value: "8",
-      color: "#6CB4EE",
-    },
-    {
-      label: "mn Temps manquant",
-      value: "8",
-      color: "#EA3C53",
-    },
-  ];
+
   const labelTemplate = (item) => {
     return (
       <div className="text-center text-sm">
         <span>{item?.percentage + "%"}</span>
         <br />
-        {item?.value}
+        {renderMinutes(item?.value)}mn
+        <br />
         {item?.label}
       </div>
     );
@@ -166,7 +183,7 @@ const Temps = () => {
       </div>
       <div className="py-6 px-4">
         <MeterGroup
-          data={values}
+          data={renderProductivityTimes}
           orientation="horizontal"
           legend={false}
           labelTemplate={labelTemplate}
