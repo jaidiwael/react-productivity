@@ -19,7 +19,7 @@ const ResourcesCard = () => {
           label: "Etp plannifié",
           backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
           borderColor: documentStyle.getPropertyValue("--cyan-300"),
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: [65, 59, 40, 81, 56, 55, 110],
           barThickness: 20,
           borderRadius: {
             topLeft: 20,
@@ -32,7 +32,7 @@ const ResourcesCard = () => {
           label: "Etp Réel",
           backgroundColor: documentStyle.getPropertyValue("--gray-100"),
           borderColor: documentStyle.getPropertyValue("--gray-100"),
-          data: [28, 48, 40, 40, 86, 60, 90],
+          data: [28, 48, 140, 40, 86, 60, 100],
           barThickness: 20,
           borderRadius: {
             topLeft: 20,
@@ -65,9 +65,10 @@ const ResourcesCard = () => {
           },
           font: {
             weight: "bold",
+            size: "10px",
           },
           formatter: function (value) {
-            return value + "%"; // Display the actual data value
+            return value; // Display the actual data value
           },
         },
       },

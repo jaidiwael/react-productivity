@@ -87,7 +87,7 @@ const ChargeCard = () => {
     setChartOptions(options);
   }, []);
   return (
-    <div className="bg-card border-round-2xl p-3 h-full">
+    <div className="bg-card border-round-2xl p-3 h-full cursor-pointer">
       <Chart type="line" data={chartData} options={chartOptions} />
     </div>
   );

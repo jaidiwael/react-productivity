@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { useParams } from "react-router-dom";
@@ -7,6 +8,7 @@ import TimeRangeSelector from "../components/time-range-selector";
 import ProductivityChart from "../components/productivity-chart";
 
 const Productivity = () => {
+  const navigate = useNavigate();
   const [selectedActivity, setSelectedActivity] = useState();
   const [selectedClient, setSelectedClient] = useState();
   const [dropDownFilter, setDropDownFilter] = useState("productivity");
@@ -48,6 +50,10 @@ const Productivity = () => {
     <div className="p-4 bg-blue-900">
       <div className="flex justify-content-between mb-3">
         <div className="flex align-items-center gap-2">
+          <i
+            className="pi pi-home text-xl text-gray-200 cursor-pointer"
+            onClick={() => navigate(`/`)}
+          />
           <Dropdown
             value={dropDownFilter}
             onChange={(e) => setDropDownFilter(e.value)}
