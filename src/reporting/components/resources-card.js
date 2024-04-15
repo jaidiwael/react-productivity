@@ -106,17 +106,27 @@ const ResourcesCard = () => {
   }, []);
   return (
     <div className="bg-card border-round-2xl p-3">
-      <div className="flex gap-3 mb-5">
+      <div className="flex gap-3 mb-5 justify-content-center">
         <ResourcesPercentage
           value={110}
           label={`Taux d'utilisation de la capacité`}
+          className="w-8rem	"
         />
         <ResourcesPercentage
           value={89}
           label={`Efficacité plannification charge/capa`}
+          className="w-8rem	"
         />
-        <ResourcesPercentage value={2} label={`Taux d'absenteisme`} />
-        <ResourcesPercentage value={50} label={`Taux multi-tâches`} />
+        <ResourcesPercentage
+          value={2}
+          label={`Taux d'absenteisme`}
+          className="w-8rem	"
+        />
+        <ResourcesPercentage
+          value={50}
+          label={`Taux multi-tâches`}
+          className="w-8rem	"
+        />
       </div>
       <Chart
         type="bar"

@@ -6,9 +6,11 @@ const ObjectiveCard = ({ onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="border-round-2xl p-3 bg-card h-full flex flex-column justify-content-between cursor-pointer"
+      className="border-round-2xl py-3 px-4 bg-card h-full flex flex-column justify-content-between cursor-pointer"
     >
-      <div className="text-l text-white text-center">Objectif Global</div>
+      <div className="text-white text-center font-semibold border-bottom-1 border-white-alpha-30 pb-2">
+        Objectif Global
+      </div>
       <Chart
         type="doughnut"
         data={{

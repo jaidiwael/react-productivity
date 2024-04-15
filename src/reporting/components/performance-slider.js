@@ -60,6 +60,9 @@ const PerformanceSlider = ({ onClickCard }) => {
 
   return (
     <div className="bg-blue-800 border-round-2xl p-3 ">
+      <div className="text-white text-center font-semibold ">
+        Productivité par domaine d'activité
+      </div>
       <Carousel
         value={products}
         numVisible={4}

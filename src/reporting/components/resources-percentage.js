@@ -14,9 +14,9 @@ const ResourcesPercentage = ({ value, label, className }) => {
   };
   return (
     <div
-      className={`text-center text-color bg-white blue-shadow p-2 border-round-xl cursor-pointer ${className}`}
+      className={`flex flex-column justify-content-between	 text-center text-color bg-white blue-shadow p-2 border-round-xl cursor-pointer ${className}`}
     >
-      <div className="font-medium">{label}</div>
+      <div className="font-medium text-xs text-color">{label}</div>
       <Knob
         value={value > 100 ? 100 : value}
         valueColor={renderColor()}

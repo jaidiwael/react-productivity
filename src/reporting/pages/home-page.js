@@ -12,12 +12,14 @@ const HomePage = () => {
     <div className="bg-blue-900 h-screen overflow-auto p-4">
       <div className="flex justify-content-between align-items-center text-white mb-4">
         <div>
-          <div className="text-xl font-bold">Bonjour, Jean</div>
-          <div className="text-sm">Voici les chiffres des 7 derniers jours</div>
+          <div className="text-4xl font-bold">Bonjour, Jean</div>
+          <div className="text-base">
+            Voici les chiffres des 7 derniers jours
+          </div>
         </div>
       </div>
       <div>
-        <div className="text-base text-white">Productivité</div>
+        <div className="text-xl text-white font-semibold">Productivité</div>
         <div className="grid my-2">
           <div className="col-2">
             <ObjectiveCard onClick={() => navigate("/objective")} />
@@ -36,10 +38,10 @@ const HomePage = () => {
       </div>
       <div className="grid">
         <div className="col-6">
-          <div className="text-base text-white mb-2">Charge</div>
+          <div className="text-xl text-white font-semibold mb-2">Charge</div>
         </div>
         <div className="col-6">
-          <div className="text-base text-white mb-2">Resources</div>
+          <div className="text-xl text-white font-semibold mb-2">Resources</div>
         </div>
       </div>
       <div className="grid">
