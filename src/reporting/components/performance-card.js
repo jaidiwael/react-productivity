@@ -1,11 +1,11 @@
-import img1 from "../../assets/images/bg1.png";
-import img2 from "../../assets/images/bg2.png";
+import img1 from "../../assets/images/bg1.svg";
+import img2 from "../../assets/images/bg2.svg";
 
 const PerformanceCard = ({ data, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="bg-white border-round-2xl px-3 min-h-full flex flex-column blue-shadow cursor-pointer"
+      className="bg-white border-round-2xl px-3 min-h-full flex flex-column blue-shadow cursor-pointer relative"
       style={{
         backgroundImage: `url(${data?.award === "best" ? img1 : img2})`,
         backgroundPosition: "bottom center",
@@ -49,6 +49,12 @@ const PerformanceCard = ({ data, onClick }) => {
         {data?.amount}
         <br />
         {data?.amountUnit + " " + "traitées"}
+      </div>
+      <div
+        className="text-4xl text-white text-center font-semibold absolute bottom-0 left-50"
+        style={{ transform: "translateX(-25%)" }}
+      >
+        {data?.percentage}
       </div>
     </div>
   );

@@ -49,15 +49,19 @@ const MeterGroup = ({
       transform: "translateX(-50%) translateY(100%)",
       position: "absolute",
       width: "max-content",
+      fontSize: "14px",
+      fontWeight: "500",
     };
   };
 
   const labelStyleVertical = () => {
     return {
       top: "50%",
-      right: "-45px",
-      transform: "translateY(-50%)",
+      right: "-10px",
+      transform: "translateY(-50%) translateX(100%)",
       position: "absolute",
+      fontSize: "14px",
+      fontWeight: "500",
     };
   };
 

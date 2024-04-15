@@ -8011,7 +8011,7 @@ s .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
 }
 
 .bg-card:hover{
-  background-color: var(--blue-700);
+  background-color: rgb(3, 109, 220, .25);
 }
 
 .blue-shadow{

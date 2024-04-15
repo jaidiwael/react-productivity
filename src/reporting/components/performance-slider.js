@@ -12,6 +12,7 @@ const PerformanceSlider = ({ onClickCard }) => {
       performance: "+8%",
       amount: 950,
       amountUnit: "commandes",
+      percentage: "100%",
     },
     {
       id: 2,
@@ -22,6 +23,7 @@ const PerformanceSlider = ({ onClickCard }) => {
       performance: "-6%",
       amount: 950,
       amountUnit: "colis",
+      percentage: "90%",
     },
     {
       id: 3,
@@ -30,6 +32,7 @@ const PerformanceSlider = ({ onClickCard }) => {
       performance: "+2%",
       amount: 950,
       amountUnit: "colis",
+      percentage: "90%",
     },
     {
       id: 4,
@@ -38,6 +41,7 @@ const PerformanceSlider = ({ onClickCard }) => {
       performance: "-2%",
       amount: 950,
       amountUnit: "colis",
+      percentage: "90%",
     },
     {
       id: 5,
@@ -46,6 +50,7 @@ const PerformanceSlider = ({ onClickCard }) => {
       performance: "-2%",
       amount: 950,
       amountUnit: "colis",
+      percentage: "90%",
     },
   ];
 
