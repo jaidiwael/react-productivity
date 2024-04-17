@@ -8,7 +8,7 @@ import PerformanceSlider from "../components/performance-slider";
 import ResourcesCard from "../components/resources-card";
 import TempsCard from "../components/temps-card";
 
-import { getProductivityTimes } from "../api";
+import { getProductivityTimes, getProductivityRealForecast } from "../api";
 import { arrayColors } from "../helpers";
 
 const HomePage = () => {
@@ -16,6 +16,11 @@ const HomePage = () => {
   const { data: productivityTimes } = useQuery({
     queryKey: ["getProductivityTimes"],
     queryFn: getProductivityTimes,
+  });
+
+  const { data: productivityRealForecast } = useQuery({
+    queryKey: ["getProductivityRealForecast"],
+    queryFn: getProductivityRealForecast,
   });
 
   const renderProductivityTimes = useMemo(() => {
@@ -43,6 +48,26 @@ const HomePage = () => {
         )
     );
   }, [productivityTimes]);
+
+  const renderRealForecast = useMemo(() => {
+    let values = null;
+    if (productivityRealForecast) {
+      let labels = [];
+      let forecastValues = [];
+      let realValues = [];
+      productivityRealForecast.forEach(({ date, forecastValue, realValue }) => {
+        labels = [...labels, date];
+        forecastValues = [...forecastValues, forecastValue];
+        realValues = [...realValues, realValue];
+      });
+      values = {
+        labels,
+        forecastValues,
+        realValues,
+      };
+    }
+    return values;
+  }, [productivityRealForecast]);
 
   return (
     <div className="bg-blue-900 h-screen overflow-auto p-4">
@@ -85,7 +110,7 @@ const HomePage = () => {
       </div>
       <div className="grid">
         <div className="col-6">
-          <ChargeCard />
+          <ChargeCard values={renderRealForecast} />
         </div>
         <div className="col-6">
           <ResourcesCard />

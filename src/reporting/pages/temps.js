@@ -154,7 +154,7 @@ const Temps = () => {
       <div className="text-center text-sm">
         <span>{item?.percentage + "%"}</span>
         <br />
-        {renderMinutes(item?.value)}mn
+        {renderMinutes(item?.value)} mn
         <br />
         {item?.label}
       </div>

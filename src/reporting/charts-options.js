@@ -17,6 +17,26 @@ export const plugin = {
   },
 };
 
+export const pluginImageCenter = (img) => {
+  const image = new Image();
+  image.src = img;
+  const imageSize = 60;
+  return {
+    id: "customCanvasBackgroundImage",
+    beforeDraw: (chart) => {
+      if (image.complete) {
+        const ctx = chart.ctx;
+        const { top, left, width, height } = chart.chartArea;
+        const x = left + width / 2 - imageSize / 2;
+        const y = top + height / 2 - imageSize / 2;
+        ctx.drawImage(image, x, y, imageSize, imageSize);
+      } else {
+        image.onload = () => chart.draw();
+      }
+    },
+  };
+};
+
 export const doughnutOptions = {
   // responsive: true,
   cutout: "80%",

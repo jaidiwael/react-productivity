@@ -76,7 +76,7 @@ const MeterGroup = ({
             borderRadius: "5px",
           }}
         />
-        <span>{`${renderMinutes(item.value)}mn ${item.label}`}</span>
+        <span>{`${renderMinutes(item.value)} mn ${item.label}`}</span>
       </div>
     );
   };

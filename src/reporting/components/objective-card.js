@@ -1,6 +1,7 @@
 import { Chart } from "primereact/chart";
 
-import { doughnutOptions, plugin } from "../charts-options";
+import { doughnutOptions, pluginImageCenter } from "../charts-options";
+import Logo from "../../assets/images/alki-logo.svg";
 
 const ObjectiveCard = ({ onClick }) => {
   return (
@@ -17,24 +18,24 @@ const ObjectiveCard = ({ onClick }) => {
           datasets: [
             {
               id: "d1",
-              data: [10, 90],
-              backgroundColor: ["#2151D2", "#fff"],
-              borderColor: ["#2151D2", "#fff"],
-              spacing: 3,
+              data: ["100"],
+              backgroundColor: ["#35FBD0"],
+              // borderColor: ["#2151D2", "#fff"],
+              // spacing: 3,
               borderJoinStyle: "bevel",
-              borderRadius: [50, 0],
-              hoverBackgroundColor: ["red", "#fff"],
-              borderDash: [10, 0],
+              // borderRadius: [50, 0],
+              hoverBackgroundColor: ["#35FBD0"],
+              // borderDash: [10, 0],
               weight: 1,
               borderWidth: 0,
             },
           ],
         }}
         options={doughnutOptions}
-        plugins={[plugin]}
+        plugins={[pluginImageCenter(Logo)]}
         className="w-full"
       />
-      <div className="text-3xl text-white text-center font-bold">110%</div>
+      <div className="text-3xl text-white text-center font-bold">100%</div>
     </div>
   );
 };

@@ -133,6 +133,7 @@ const ResourcesCard = () => {
         data={chartData}
         options={chartOptions}
         plugins={[ChartDataLabels]}
+        style={{ height: "295px" }}
       />
     </div>
   );

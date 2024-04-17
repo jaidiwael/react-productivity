@@ -8021,3 +8021,6 @@ s .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
 .blue-shadow:hover{
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.6);
 }
+
+.scale-animation { transition: all .2s ease-in-out; }
+.scale-animation:hover { transform: scale(.95); }

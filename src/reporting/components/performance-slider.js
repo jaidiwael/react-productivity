@@ -1,5 +1,9 @@
 import { Carousel } from "primereact/carousel";
+
 import PerformanceCard from "./performance-card";
+
+import NextIcon from "../../assets/images/next-arrow.svg";
+import PrevIcon from "../../assets/images/pervious-arrow.svg";
 
 const PerformanceSlider = ({ onClickCard }) => {
   const products = [
@@ -77,6 +81,8 @@ const PerformanceSlider = ({ onClickCard }) => {
         numScroll={1}
         itemTemplate={productTemplate}
         // circular
+        nextIcon={<img alt="" src={NextIcon} />}
+        prevIcon={<img alt="" src={PrevIcon} />}
         showIndicators={false}
         pt={{
           item: {
