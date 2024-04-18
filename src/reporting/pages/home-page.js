@@ -83,7 +83,7 @@ const HomePage = () => {
         <div className="text-xl text-white font-semibold">Productivité</div>
         <div className="grid my-2">
           <div className="col-2">
-            <ObjectiveCard onClick={() => navigate("/objective")} />
+            <ObjectiveCard onClick={() => navigate("/objective")} value={5} />
           </div>
           <div className="col-2">
             <TempsCard
