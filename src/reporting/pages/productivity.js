@@ -7,9 +7,11 @@ import ProductivityDataTable from "../components/productivity-data-table";
 import TimeRangeSelector from "../components/time-range-selector";
 import ProductivityChart from "../components/productivity-chart";
 
+import { activities } from "../helpers";
+
 const Productivity = () => {
   const navigate = useNavigate();
-  const [selectedActivity, setSelectedActivity] = useState();
+  const [selectedActivity, setSelectedActivity] = useState(1);
   const [selectedClient, setSelectedClient] = useState();
   const [dropDownFilter, setDropDownFilter] = useState("productivity");
 
@@ -94,56 +96,8 @@ const Productivity = () => {
               setSelectedActivity(activityId);
               setSelectedClient(null);
             }}
-            products={[
-              {
-                id: 1,
-                activity: "Pinking",
-                productivity: "120",
-                performance: "+8%",
-                volumes: "199 000",
-                objective: "100%",
-              },
-              {
-                id: 2,
-                activity: "Packing",
-                productivity: "98",
-                performance: "+2%",
-                volumes: "199 000",
-                objective: "99%",
-              },
-              {
-                id: 3,
-                activity: "Emballage",
-                productivity: "110",
-                performance: "-2%",
-                volumes: "199 000",
-                objective: "98%",
-              },
-              {
-                id: 4,
-                activity: "Reception",
-                productivity: "80",
-                performance: "-2%",
-                volumes: "199 000",
-                objective: "90%",
-              },
-              {
-                id: 5,
-                activity: "Pinking",
-                productivity: "120",
-                performance: "+8%",
-                volumes: "199 000",
-                objective: "100%",
-              },
-              {
-                id: 6,
-                activity: "Packing 1",
-                productivity: "98",
-                performance: "+2%",
-                volumes: "199 000",
-                objective: "99%",
-              },
-            ]}
+            products={activities}
+            blueTheme
           />
           <div className="mt-3">
             <ProductivityDataTable
@@ -205,7 +159,10 @@ const Productivity = () => {
           </div>
         </div>
         <div className="col-8">
-          <ProductivityChart breadCrumb={renderBreadCrumb} />
+          <ProductivityChart
+            breadCrumb={renderBreadCrumb}
+            activity={activities?.find((act) => act?.id === selectedActivity)}
+          />
         </div>
       </div>
     </div>

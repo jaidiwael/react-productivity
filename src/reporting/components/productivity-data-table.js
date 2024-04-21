@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Carousel } from "primereact/carousel";
+import { Style } from "react-style-tag";
 
 const ProductivityDataTable = ({
   firstColumn,
@@ -7,24 +9,45 @@ const ProductivityDataTable = ({
   onRowSelection,
   blueTheme,
 }) => {
+  const [order, setOrder] = useState(0);
+
   const itemTemplate = (item) => {
     return (
       <div
-        className={`grid cursor-pointer border-bottom-1 h-full m-auto align-items-center ${
-          item?.id === selectedRow ? "selectedTableRow text-color" : ""
+        className={`grid cursor-pointer  h-full m-auto align-items-center ${
+          item?.id === selectedRow ? "selectedTableRow border-round-left" : ""
         } ${
           blueTheme
             ? "text-white border-white-alpha-10"
             : "border-black-alpha-10 text-color"
-        }`}
+        } ${item.activity}`}
         onClick={() => onRowSelection(item?.id)}
+        style={{
+          backgroundColor: item?.id === selectedRow ? item.color : "",
+        }}
       >
-        <div className="col-3">{item[firstColumn?.field]}</div>
+        <Style>{`
+          .${item.activity}.selectedTableRow::after { border-left-color: ${item.color} }
+        `}</Style>
+        <div className="col-3 flex">
+          <div
+            className="border-round-xl text-white pl-3 pr-3"
+            style={{
+              backgroundColor: item?.id === selectedRow ? "unset" : item?.color,
+            }}
+          >
+            {item[firstColumn?.field]}
+          </div>
+        </div>
         <div className="flex align-items-center gap-3 col-3">
           <span>{item.productivity}/h</span>
           <div
             className={`text-sm text-center ${
               item?.performance[0] === "-" ? "text-red-400" : "text-teal-400"
+            } ${
+              item?.id === selectedRow
+                ? "border-round-xl bg-white pl-1 pr-1"
+                : ""
             }`}
           >
             {item?.performance[0] === "-" ? (
@@ -37,7 +60,6 @@ const ProductivityDataTable = ({
         </div>
         <div className={`col-3`}>
           <span className="font-bold">{item?.volumes} </span>
-          <span className="font-light">lignes</span>
         </div>
         <div className={`col-3`}>
           <span>{item?.objective}</span>
@@ -52,21 +74,53 @@ const ProductivityDataTable = ({
       }`}
     >
       <div
-        className={`header grid m-auto border-round-top-2xl p-2 ${
-          blueTheme ? "bg-black-alpha-10 text-white" : "text-color surface-50"
+        className={`header grid border-round-top-2xl border-bottom-1 border-opacity-white ml-3 mr-3 mb-3 mt-0 ${
+          blueTheme ? " text-light-blue" : "text-color surface-50"
         }`}
+        style={{
+          marginTop: "0px !important",
+        }}
       >
-        <div className="col-3">{firstColumn.header}</div>
-        <div className="col-3">Productivités</div>
-        <div className="col-3">Volumes</div>
-        <div className="col-3">Objectif</div>
+        <div
+          onClick={() => setOrder(0)}
+          className={`cursor-pointer col-3 flex align-items-center ${
+            order === 0 ? "text-white" : ""
+          }`}
+        >
+          {firstColumn.header}
+          <span className="pi pi-chevron-down ml-1 "></span>
+        </div>
+        <div
+          onClick={() => setOrder(1)}
+          className={`cursor-pointer col-3 flex align-items-center ${
+            order === 1 ? "text-white" : ""
+          }`}
+        >
+          Productivités<span className="pi pi-chevron-down ml-1 "></span>
+        </div>
+        <div
+          onClick={() => setOrder(2)}
+          className={`cursor-pointer col-3 flex align-items-center ${
+            order === 2 ? "text-white" : ""
+          }`}
+        >
+          Volumes<span className="pi pi-chevron-down ml-1 "></span>
+        </div>
+        <div
+          onClick={() => setOrder(3)}
+          className={`cursor-pointer col-3 flex align-items-center ${
+            order === 3 ? "text-white" : ""
+          }`}
+        >
+          Objectif<span className="pi pi-chevron-down ml-1 "></span>
+        </div>
       </div>
       <Carousel
         value={products}
         numVisible={5}
         numScroll={1}
         orientation="vertical"
-        verticalViewPortHeight="200px"
+        verticalViewPortHeight="210px"
         itemTemplate={itemTemplate}
         showIndicators={false}
         pt={{

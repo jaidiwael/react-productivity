@@ -3,9 +3,10 @@ import BreadCrumb from "./breadCrumb";
 import { SelectButton } from "primereact/selectbutton";
 import { Chart } from "primereact/chart";
 
-const ProductivityChart = ({ award, breadCrumb }) => {
+const ProductivityChart = ({ award, breadCrumb, activity }) => {
   const [view, setView] = useState("chart");
   const [timeRange, setTimeRange] = useState("Jour");
+  const [lineChartOptions, setLineChartOptions] = useState();
 
   const documentStyle = getComputedStyle(document.documentElement);
   const textColor = "rgba(255,255,255,1";
@@ -102,58 +103,63 @@ const ProductivityChart = ({ award, breadCrumb }) => {
           color: surfaceBorder,
         },
         grid: {
-          color: "white",
           color: surfaceBorder,
           drawBorder: true,
         },
       },
     },
   };
-  const lineChartOptions = {
-    maintainAspectRatio: false,
-    aspectRatio: 1,
-    plugins: {
-      legend: {
-        position: "bottom",
-        align: "end",
-        labels: {
-          color: textColor,
-          usePointStyle: true,
-          pointStyle: "line",
+
+  useEffect(() => {
+    setLineChartOptions({
+      maintainAspectRatio: false,
+      aspectRatio: 1,
+      plugins: {
+        tooltip: {
+          backgroundColor: activity.color || "#fff",
         },
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: textColorSecondary,
-          font: {
-            weight: 500,
+        legend: {
+          position: "bottom",
+          align: "end",
+          labels: {
+            color: textColor,
+            usePointStyle: true,
+            pointStyle: "line",
           },
         },
-        border: {
-          color: surfaceBorder,
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary,
+            font: {
+              weight: 500,
+            },
+          },
+          border: {
+            color: surfaceBorder,
+          },
+          grid: {
+            //color: surfaceBorder,
+            drawBorder: false,
+            display: false,
+          },
         },
-        grid: {
-          //color: surfaceBorder,
-          drawBorder: false,
-          display: false,
+        y: {
+          ticks: {
+            color: textColorSecondary,
+          },
+          border: {
+            color: surfaceBorder,
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false,
+          },
         },
       },
-      y: {
-        ticks: {
-          color: textColorSecondary,
-        },
-        border: {
-          color: surfaceBorder,
-        },
-        grid: {
-          color: surfaceBorder,
-          drawBorder: false,
-        },
-      },
-    },
-  };
+    });
+  }, [activity]);
 
   const views = [
     {
@@ -185,56 +191,66 @@ const ProductivityChart = ({ award, breadCrumb }) => {
   };
 
   return (
-    <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1 h-full flex flex-column">
-      {award === "best" && (
-        <div className="best-performance-bg text-white text-center -mx-3 p-2 border-round-top-2xl">
-          Meilleure performance
-        </div>
-      )}
-      {award === "worst" && (
-        <div className="worst-performance-bg text-white text-center -mx-3 p-2 border-round-top-2xl">
-          Moins bonnes performances
-        </div>
-      )}
-      <div className="text-center text-xl	my-2">
-        <BreadCrumb items={breadCrumb} />
-      </div>
-      <div className="flex justify-content-between align-items-center">
-        <SelectButton
-          value={view}
-          onChange={(e) => setView(e.value)}
-          itemTemplate={viewsTemplate}
-          options={views}
-          pt={{
-            button: ({ context }) => ({
-              className: context.selected
-                ? "p-2 text-blue-500 border-none bg-none"
-                : "p-2 bg-none border-none text-white",
-            }),
+    <div className=" h-full flex flex-column">
+      <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1">
+        <div
+          className=" text-white text-center -mx-3 p-2 border-round-top-2xl mb-3"
+          style={{
+            backgroundColor: activity?.color,
           }}
-        />
-        <SelectButton
-          value={timeRange}
-          onChange={(e) => setTimeRange(e.value)}
-          options={timeOptions}
-          itemTemplate={timeTemplate}
-          pt={{
-            button: ({ context }) => ({
-              className: context.selected
-                ? "py-1 px-3 bg-blue-700 border-none text-white"
-                : "py-1 px-3 bg-blue-900 border-none text-white",
-            }),
-          }}
-        />
+        >
+          {activity?.activity}
+        </div>
+
+        {/* {award === "worst" && (
+          <div className="worst-performance-bg text-white text-center -mx-3 p-2 border-round-top-2xl">
+            Moins bonnes performances
+          </div>
+        )} */}
+        {/* <div className="text-center text-xl	my-2">
+          <BreadCrumb items={breadCrumb} />
+        </div> */}
+        <div className="flex justify-content-between align-items-center">
+          <SelectButton
+            value={view}
+            onChange={(e) => setView(e.value)}
+            itemTemplate={viewsTemplate}
+            options={views}
+            pt={{
+              button: ({ context }) => ({
+                className: context.selected
+                  ? "p-2 text-blue-500 border-none bg-none"
+                  : "p-2 bg-none border-none text-white",
+              }),
+            }}
+          />
+          <SelectButton
+            value={timeRange}
+            onChange={(e) => setTimeRange(e.value)}
+            options={timeOptions}
+            itemTemplate={timeTemplate}
+            pt={{
+              button: ({ context }) => ({
+                className: context.selected
+                  ? "py-1 px-3 bg-blue-700 border-none text-white"
+                  : "py-1 px-3 bg-blue-900 border-none text-white",
+              }),
+            }}
+          />
+        </div>
+        <div className="my-3">
+          <Chart type="line" data={lineChartData} options={lineChartOptions} />
+        </div>
       </div>
-      <div className="my-3">
-        <Chart type="line" data={lineChartData} options={lineChartOptions} />
-        <Chart
-          type="bar"
-          data={pieChartData}
-          options={pieChartOptions}
-          //className="w-30rem"
-        />
+      <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1 mt-3">
+        <div className="my-3">
+          <Chart
+            type="bar"
+            data={pieChartData}
+            options={pieChartOptions}
+            className="mt-3"
+          />
+        </div>
       </div>
     </div>
   );

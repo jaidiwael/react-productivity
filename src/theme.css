@@ -52,7 +52,7 @@
   --gray-900: #212121;
   --content-padding: 1.25rem;
   --inline-spacing: 0.5rem;
-  --border-radius: 6px;
+  --border-radius: 25px;
   --surface-ground: #eff3f8;
   --surface-section: #fff;
   --surface-card: #fff;
@@ -63,6 +63,7 @@
   --maskbg: rgba(0, 0, 0, 0.4);
   --highlight-bg: #f6f5f8;
   --highlight-text-color: #0C69D5;
+  --light-blue: #1B4EAB;
 
   color-scheme: light;
 }
@@ -227,7 +228,7 @@ h3 {
   --cyan-400: #35c4dc;
   --cyan-500: #06b6d4;
   --cyan-600: #059bb4;
-  --cyan-700: #047f94;
+  --cyan-700: #4EC6E2;
   --cyan-800: #036475;
   --cyan-900: #024955;
   --pink-50: #fef6fa;
@@ -8025,3 +8026,6 @@ s .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
 
 .scale-animation { transition: all .2s ease-in-out; }
 .scale-animation:hover { transform: scale(.95); }
+.border-opacity-white{
+  border-color: rgba(255,255,255,.1)!important;
+}
