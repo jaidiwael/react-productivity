@@ -46,13 +46,13 @@ const ChargeCard = ({ values }) => {
               color: textColor,
               // pointStyle: "circle",
               padding: 30,
-              pointStyle: ({ chart }) => {
-                const image = new Image();
-                image.src = Logo;
-                image.width = 10;
-                image.height = 10;
-                return image;
-              },
+              // pointStyle: ({ chart }) => {
+              //   const image = new Image();
+              //   image.src = Logo;
+              //   image.width = 10;
+              //   image.height = 10;
+              //   return image;
+              // },
             },
           },
         },

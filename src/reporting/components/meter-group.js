@@ -1,4 +1,5 @@
 import React from "react";
+import { Tooltip } from "primereact/tooltip";
 
 import { renderMinutes } from "../helpers";
 
@@ -76,7 +77,7 @@ const MeterGroup = ({
             borderRadius: "5px",
           }}
         />
-        <span>{`${renderMinutes(item.value)} mn ${item.label}`}</span>
+        <span>{`${item.label}`}</span>
       </div>
     );
   };
@@ -95,33 +96,40 @@ const MeterGroup = ({
       >
         {data.map((item, index) => {
           return (
-            <div
-              key={index}
-              className="relative"
-              style={
-                orientation === "horizontal"
-                  ? itemStyleHorizontal(item, index)
-                  : itemStyleVertical(item, index)
-              }
-            >
-              <span
+            <>
+              <Tooltip
+                target={`.tooltip${index}`}
+                content={`${renderMinutes(item.value)} mn`}
+                position="left"
+              />
+              <div
+                key={index}
+                className={`relative tooltip${index}`}
                 style={
                   orientation === "horizontal"
-                    ? labelStyleHorizontal()
-                    : labelStyleVertical()
+                    ? itemStyleHorizontal(item, index)
+                    : itemStyleVertical(item, index)
                 }
               >
-                {!!labelTemplate
-                  ? labelTemplate({
-                      ...item,
-                      percentage:
-                        item?.percentage || calculatePercentage(item.value),
-                    })
-                  : (item?.percentage
-                      ? item?.percentage
-                      : calculatePercentage(item.value)) + "%"}
-              </span>
-            </div>
+                <span
+                  style={
+                    orientation === "horizontal"
+                      ? labelStyleHorizontal()
+                      : labelStyleVertical()
+                  }
+                >
+                  {!!labelTemplate
+                    ? labelTemplate({
+                        ...item,
+                        percentage:
+                          item?.percentage || calculatePercentage(item.value),
+                      })
+                    : (item?.percentage
+                        ? item?.percentage
+                        : calculatePercentage(item.value)) + "%"}
+                </span>
+              </div>
+            </>
           );
         })}
       </div>

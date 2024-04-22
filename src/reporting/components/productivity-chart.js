@@ -199,7 +199,8 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
             backgroundColor: activity?.color,
           }}
         >
-          {activity?.activity}
+          {/* {activity?.activity} */}
+          <BreadCrumb items={breadCrumb} />
         </div>
 
         {/* {award === "worst" && (
@@ -210,8 +211,8 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
         {/* <div className="text-center text-xl	my-2">
           <BreadCrumb items={breadCrumb} />
         </div> */}
-        <div className="flex justify-content-between align-items-center">
-          <SelectButton
+        <div className="flex justify-content-end align-items-center">
+          {/* <SelectButton
             value={view}
             onChange={(e) => setView(e.value)}
             itemTemplate={viewsTemplate}
@@ -223,7 +224,7 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
                   : "p-2 bg-none border-none text-white",
               }),
             }}
-          />
+          /> */}
           <SelectButton
             value={timeRange}
             onChange={(e) => setTimeRange(e.value)}

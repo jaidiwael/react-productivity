@@ -8,7 +8,11 @@ import PerformanceSlider from "../components/performance-slider";
 import ResourcesCard from "../components/resources-card";
 import TempsCard from "../components/temps-card";
 
-import { getProductivityTimes, getProductivityRealForecast } from "../api";
+import {
+  getProductivityTimes,
+  getProductivityRealForecast,
+  getProductivityHomeResources,
+} from "../api";
 import { arrayColors } from "../helpers";
 
 const HomePage = () => {
@@ -21,6 +25,11 @@ const HomePage = () => {
   const { data: productivityRealForecast } = useQuery({
     queryKey: ["getProductivityRealForecast"],
     queryFn: getProductivityRealForecast,
+  });
+
+  const { data: productivityHomeResources } = useQuery({
+    queryKey: ["getProductivityHomeResources"],
+    queryFn: getProductivityHomeResources,
   });
 
   const renderProductivityTimes = useMemo(() => {
@@ -69,6 +78,29 @@ const HomePage = () => {
     return values;
   }, [productivityRealForecast]);
 
+  const renderHomeResources = useMemo(() => {
+    let values = null;
+    if (productivityHomeResources) {
+      let labels = [];
+      let capaETPs = [];
+      let realEtps = [];
+      productivityHomeResources?.etp_list?.forEach(
+        ({ dateCreation, capaETP, realEtp }) => {
+          labels = [...labels, dateCreation];
+          capaETPs = [...capaETPs, capaETP];
+          realEtps = [...realEtps, realEtp];
+        }
+      );
+      values = {
+        labels,
+        capaETPs,
+        realEtps,
+        ratiosList: productivityHomeResources?.ratios_list?.[0],
+      };
+    }
+    return values;
+  }, [productivityHomeResources]);
+
   return (
     <div className="bg-blue-900 h-screen overflow-auto p-4">
       <div className="flex justify-content-between align-items-center text-white mb-4">
@@ -83,7 +115,7 @@ const HomePage = () => {
         <div className="text-xl text-white font-semibold">Productivité</div>
         <div className="grid my-2">
           <div className="col-2">
-            <ObjectiveCard onClick={() => navigate("/objective")} value={30} />
+            <ObjectiveCard onClick={() => navigate("/objective")} value={110} />
           </div>
           <div className="col-2">
             <TempsCard
@@ -113,7 +145,7 @@ const HomePage = () => {
           <ChargeCard values={renderRealForecast} />
         </div>
         <div className="col-6">
-          <ResourcesCard />
+          <ResourcesCard values={renderHomeResources} />
         </div>
       </div>
     </div>

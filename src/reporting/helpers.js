@@ -62,3 +62,115 @@ export const activities = [
     color: "#63A0F9",
   },
 ];
+
+export const clients = [
+  {
+    id: 1,
+    client: "BIC",
+    productivity: "120",
+    performance: "+8%",
+    volumes: "199 000",
+    objective: "100%",
+  },
+  {
+    id: 2,
+    client: "TIBET",
+    productivity: "98",
+    performance: "+2%",
+    volumes: "199 000",
+    objective: "99%",
+  },
+  {
+    id: 3,
+    client: "TIFED",
+    productivity: "110",
+    performance: "-2%",
+    volumes: "199 000",
+    objective: "98%",
+  },
+  {
+    id: 4,
+    client: "RENAULT",
+    productivity: "80",
+    performance: "-2%",
+    volumes: "199 000",
+    objective: "90%",
+  },
+  {
+    id: 5,
+    client: "PEUGEOT",
+    productivity: "120",
+    performance: "+8%",
+    volumes: "199 000",
+    objective: "100%",
+  },
+  {
+    id: 6,
+    client: "GLASSES",
+    productivity: "98",
+    performance: "+2%",
+    volumes: "199 000",
+    objective: "99%",
+  },
+];
+
+export const operators = [
+  {
+    id: 1,
+    operator: "Jean Paul",
+    productivity: "120",
+    performance: "+8%",
+    volumes: "199 000",
+    objective: "100%",
+  },
+  {
+    id: 2,
+    operator: "Mina Cloudia",
+    productivity: "98",
+    performance: "+2%",
+    volumes: "199 000",
+    objective: "99%",
+  },
+  {
+    id: 3,
+    operator: "Arther Guidon",
+    productivity: "110",
+    performance: "-2%",
+    volumes: "199 000",
+    objective: "98%",
+  },
+  {
+    id: 4,
+    operator: "Jupiter Ledon",
+    productivity: "80",
+    performance: "-2%",
+    volumes: "199 000",
+    objective: "90%",
+  },
+  {
+    id: 5,
+    operator: "Rosaline trase",
+    productivity: "120",
+    performance: "+8%",
+    volumes: "199 000",
+    objective: "100%",
+  },
+  {
+    id: 6,
+    operator: "Teressa boutwen",
+    productivity: "98",
+    performance: "+2%",
+    volumes: "199 000",
+    objective: "99%",
+  },
+];
+
+export const customOrder = (field) => (a, b) => {
+  if (a[field] < b[field]) {
+    return -1;
+  }
+  if (a[field] > b[field]) {
+    return 1;
+  }
+  return 0;
+};

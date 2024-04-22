@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Carousel } from "primereact/carousel";
 import { Style } from "react-style-tag";
+
+import { customOrder } from "../helpers";
 
 const ProductivityDataTable = ({
   firstColumn,
@@ -8,8 +10,23 @@ const ProductivityDataTable = ({
   selectedRow,
   onRowSelection,
   blueTheme,
+  selectedColor,
 }) => {
   const [order, setOrder] = useState(0);
+
+  const renderProductByOrder = useMemo(() => {
+    switch (order) {
+      case 0:
+      default:
+        return products.sort(customOrder(firstColumn?.field));
+      case 1:
+        return products.sort(customOrder("productivity"));
+      case 2:
+        return products.sort(customOrder("volumes"));
+      case 3:
+        return products.sort(customOrder("objective"));
+    }
+  }, [order, products, firstColumn]);
 
   const itemTemplate = (item) => {
     return (
@@ -20,16 +37,30 @@ const ProductivityDataTable = ({
           blueTheme
             ? "text-white border-white-alpha-10"
             : "border-black-alpha-10 text-color"
-        } ${item.activity}`}
+        } ${selectedColor ? firstColumn?.field : item[firstColumn?.field]}`}
         onClick={() => onRowSelection(item?.id)}
         style={{
-          backgroundColor: item?.id === selectedRow ? item.color : "",
+          backgroundColor:
+            item?.id === selectedRow
+              ? selectedColor
+                ? selectedColor
+                : item.color
+              : "",
         }}
       >
-        <Style>{`
-          .${item.activity}.selectedTableRow::after { border-left-color: ${item.color} }
+        {selectedColor ? (
+          <Style>{`
+          .${firstColumn?.field}.selectedTableRow::after { border-left-color: ${selectedColor} }
         `}</Style>
-        <div className="col-3 flex">
+        ) : (
+          <Style>{`
+          .${
+            item[firstColumn?.field]
+          }.selectedTableRow::after { border-left-color: ${item.color} }
+        `}</Style>
+        )}
+
+        <div className="col-4 flex">
           <div
             className="border-round-xl text-white pl-3 pr-3"
             style={{
@@ -61,7 +92,7 @@ const ProductivityDataTable = ({
         <div className={`col-3`}>
           <span className="font-bold">{item?.volumes} </span>
         </div>
-        <div className={`col-3`}>
+        <div className={`col-2`}>
           <span>{item?.objective}</span>
         </div>
       </div>
@@ -83,7 +114,7 @@ const ProductivityDataTable = ({
       >
         <div
           onClick={() => setOrder(0)}
-          className={`cursor-pointer col-3 flex align-items-center ${
+          className={`cursor-pointer col-4 flex align-items-center ${
             order === 0 ? "text-white" : ""
           }`}
         >
@@ -108,7 +139,7 @@ const ProductivityDataTable = ({
         </div>
         <div
           onClick={() => setOrder(3)}
-          className={`cursor-pointer col-3 flex align-items-center ${
+          className={`cursor-pointer col-2 flex align-items-center ${
             order === 3 ? "text-white" : ""
           }`}
         >
@@ -116,7 +147,7 @@ const ProductivityDataTable = ({
         </div>
       </div>
       <Carousel
-        value={products}
+        value={renderProductByOrder}
         numVisible={5}
         numScroll={1}
         orientation="vertical"

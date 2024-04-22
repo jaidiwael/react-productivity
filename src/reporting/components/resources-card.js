@@ -4,7 +4,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import ResourcesPercentage from "./resources-percentage";
 
-const ResourcesCard = () => {
+const ResourcesCard = ({ values }) => {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
   useEffect(() => {
@@ -13,13 +13,13 @@ const ResourcesCard = () => {
     const textColorSecondary = documentStyle.getPropertyValue("--gray-100");
     const surfaceBorder = "rgba(255,255,255,0.4)";
     const data = {
-      labels: ["v", "S", "D", "L", "M", "Me", "J"],
+      labels: values?.labels,
       datasets: [
         {
           label: "Etp plannifié",
           backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
           borderColor: documentStyle.getPropertyValue("--cyan-300"),
-          data: [65, 59, 40, 81, 56, 55, 110],
+          data: values?.capaETPs,
           barThickness: 20,
           borderRadius: {
             topLeft: 20,
@@ -32,7 +32,7 @@ const ResourcesCard = () => {
           label: "Etp Réel",
           backgroundColor: documentStyle.getPropertyValue("--gray-100"),
           borderColor: documentStyle.getPropertyValue("--gray-100"),
-          data: [28, 48, 140, 40, 86, 60, 100],
+          data: values?.realEtps,
           barThickness: 20,
           borderRadius: {
             topLeft: 20,
@@ -103,27 +103,27 @@ const ResourcesCard = () => {
 
     setChartData(data);
     setChartOptions(options);
-  }, []);
+  }, [values]);
   return (
     <div className="bg-card border-round-2xl p-3">
       <div className="flex gap-3 mb-5 justify-content-center">
         <ResourcesPercentage
-          value={110}
+          value={values?.ratiosList?.capaUsage * 100}
           label={`Taux d'utilisation de la capacité`}
           className="w-8rem	"
         />
         <ResourcesPercentage
-          value={89}
+          value={values?.ratiosList?.tension * 100}
           label={`Efficacité plannification charge/capa`}
           className="w-8rem	"
         />
         <ResourcesPercentage
-          value={2}
+          value={values?.ratiosList?.absenteeism * 100}
           label={`Taux d'absenteisme`}
           className="w-8rem	"
         />
         <ResourcesPercentage
-          value={50}
+          value={values?.ratiosList?.multiTask * 100}
           label={`Taux multi-tâches`}
           className="w-8rem	"
         />

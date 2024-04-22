@@ -7,17 +7,16 @@ import ProductivityDataTable from "../components/productivity-data-table";
 import TimeRangeSelector from "../components/time-range-selector";
 import ProductivityChart from "../components/productivity-chart";
 
-import { activities } from "../helpers";
+import { activities, clients, operators } from "../helpers";
 
 const Productivity = () => {
   const navigate = useNavigate();
   const [selectedActivity, setSelectedActivity] = useState(1);
   const [selectedClient, setSelectedClient] = useState();
+  const [selectedOperator, setSelectedOperator] = useState();
   const [dropDownFilter, setDropDownFilter] = useState("productivity");
 
   const { activityId } = useParams();
-
-  console.log("ActivityId", activityId);
 
   useEffect(() => {
     setSelectedActivity(parseInt(activityId));
@@ -26,7 +25,8 @@ const Productivity = () => {
   const renderBreadCrumb = useMemo(() => {
     let breadCrumbArray = [
       {
-        label: "Activity",
+        label: activities?.find((act) => act?.id === selectedActivity)
+          ?.activity,
         id: selectedActivity,
         action: (id) => {
           setSelectedActivity(id);
@@ -38,16 +38,29 @@ const Productivity = () => {
       breadCrumbArray = [
         ...breadCrumbArray,
         {
-          label: "Client",
+          label: clients?.find((act) => act?.id === selectedClient)?.client,
           id: selectedClient,
           action: (id) => {
             setSelectedClient(id);
+            setSelectedOperator(null);
+          },
+        },
+      ];
+    }
+    if (selectedOperator) {
+      breadCrumbArray = [
+        ...breadCrumbArray,
+        {
+          label: operators?.find((act) => act?.id === selectedClient)?.operator,
+          id: selectedClient,
+          action: (id) => {
+            // setSelectedClient(id);
           },
         },
       ];
     }
     return breadCrumbArray;
-  }, [selectedActivity, selectedClient]);
+  }, [selectedActivity, selectedClient, selectedOperator]);
   return (
     <div className="p-4 bg-blue-900">
       <div className="flex justify-content-between mb-3">
@@ -95,6 +108,7 @@ const Productivity = () => {
             onRowSelection={(activityId) => {
               setSelectedActivity(activityId);
               setSelectedClient(null);
+              setSelectedOperator(null);
             }}
             products={activities}
             blueTheme
@@ -103,58 +117,27 @@ const Productivity = () => {
             <ProductivityDataTable
               firstColumn={{ field: "client", header: "Client" }}
               selectedRow={selectedClient}
-              onRowSelection={setSelectedClient}
-              products={[
-                {
-                  id: 1,
-                  client: "name name",
-                  productivity: "120",
-                  performance: "+8%",
-                  volumes: "199 000",
-                  objective: "100%",
-                },
-                {
-                  id: 2,
-                  client: "name name",
-                  productivity: "98",
-                  performance: "+2%",
-                  volumes: "199 000",
-                  objective: "99%",
-                },
-                {
-                  id: 3,
-                  client: "name name",
-                  productivity: "110",
-                  performance: "-2%",
-                  volumes: "199 000",
-                  objective: "98%",
-                },
-                {
-                  id: 4,
-                  client: "name name",
-                  productivity: "80",
-                  performance: "-2%",
-                  volumes: "199 000",
-                  objective: "90%",
-                },
-                {
-                  id: 5,
-                  client: "name name",
-                  productivity: "120",
-                  performance: "+8%",
-                  volumes: "199 000",
-                  objective: "100%",
-                },
-                {
-                  id: 6,
-                  client: "name name",
-                  productivity: "98",
-                  performance: "+2%",
-                  volumes: "199 000",
-                  objective: "99%",
-                },
-              ]}
+              onRowSelection={(clientId) => {
+                setSelectedClient(clientId);
+                setSelectedOperator(null);
+              }}
+              products={clients}
               blueTheme
+              selectedColor={
+                activities?.find((act) => act?.id === selectedActivity)?.color
+              }
+            />
+          </div>
+          <div className="mt-3">
+            <ProductivityDataTable
+              firstColumn={{ field: "operator", header: "Operator" }}
+              selectedRow={selectedOperator}
+              onRowSelection={setSelectedOperator}
+              products={operators}
+              blueTheme
+              selectedColor={
+                activities?.find((act) => act?.id === selectedActivity)?.color
+              }
             />
           </div>
         </div>
