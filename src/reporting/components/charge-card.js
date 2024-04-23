@@ -20,8 +20,8 @@ const ChargeCard = ({ values }) => {
             data: values?.forecastValues,
             fill: false,
             tension: 0.4,
-            borderColor: documentStyle.getPropertyValue("--teal-300"),
-            backgroundColor: documentStyle.getPropertyValue("--teal-300"),
+            borderColor: documentStyle.getPropertyValue("--cyan-300"),
+            backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
           },
           {
             label: "Realisé",
@@ -41,11 +41,13 @@ const ChargeCard = ({ values }) => {
             position: "bottom",
             align: "end",
             labels: {
-              //pointStyleWidth: 5,
+              //pointStyleWidth: 1,
               usePointStyle: true,
               color: textColor,
-              // pointStyle: "circle",
+              boxHeight: 5,
+              boxWidth: 5,
               padding: 30,
+              // boxPadding: 100,
               // pointStyle: ({ chart }) => {
               //   const image = new Image();
               //   image.src = Logo;

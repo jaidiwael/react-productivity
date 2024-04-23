@@ -12,6 +12,7 @@ import {
   getProductivityTimes,
   getProductivityRealForecast,
   getProductivityHomeResources,
+  getProductivityHomeGoal,
 } from "../api";
 import { arrayColors } from "../helpers";
 
@@ -30,6 +31,11 @@ const HomePage = () => {
   const { data: productivityHomeResources } = useQuery({
     queryKey: ["getProductivityHomeResources"],
     queryFn: getProductivityHomeResources,
+  });
+
+  const { data: productivityHomeGoal } = useQuery({
+    queryKey: ["getProductivityHomeGoal"],
+    queryFn: getProductivityHomeGoal,
   });
 
   const renderProductivityTimes = useMemo(() => {
@@ -115,7 +121,10 @@ const HomePage = () => {
         <div className="text-xl text-white font-semibold">Productivité</div>
         <div className="grid my-2">
           <div className="col-2">
-            <ObjectiveCard onClick={() => navigate("/objective")} value={110} />
+            <ObjectiveCard
+              onClick={() => navigate("/objective")}
+              value={productivityHomeGoal?.goal}
+            />
           </div>
           <div className="col-2">
             <TempsCard

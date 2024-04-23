@@ -121,25 +121,32 @@ const Productivity = () => {
                 setSelectedClient(clientId);
                 setSelectedOperator(null);
               }}
-              products={clients}
+              products={clients?.filter(
+                (client) => client.actId === selectedActivity
+              )}
               blueTheme
               selectedColor={
                 activities?.find((act) => act?.id === selectedActivity)?.color
               }
             />
           </div>
-          <div className="mt-3">
-            <ProductivityDataTable
-              firstColumn={{ field: "operator", header: "Operator" }}
-              selectedRow={selectedOperator}
-              onRowSelection={setSelectedOperator}
-              products={operators}
-              blueTheme
-              selectedColor={
-                activities?.find((act) => act?.id === selectedActivity)?.color
-              }
-            />
-          </div>
+          {selectedClient && (
+            <div className="mt-3">
+              <ProductivityDataTable
+                firstColumn={{ field: "operator", header: "Operator" }}
+                selectedRow={selectedOperator}
+                onRowSelection={setSelectedOperator}
+                products={operators?.filter(
+                  (operator) => operator?.clientId === selectedClient
+                )}
+                blueTheme
+                selectedColor={
+                  activities?.find((act) => act?.clientId === selectedClient)
+                    ?.color
+                }
+              />
+            </div>
+          )}
         </div>
         <div className="col-8">
           <ProductivityChart

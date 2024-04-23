@@ -36,7 +36,7 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
     labels: ["v", "S", "D", "L", "M", "Me", "J"],
     datasets: [
       {
-        label: "Etp plannifié",
+        label: "ETP plannifié",
         backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
         borderColor: documentStyle.getPropertyValue("--cyan-300"),
         data: [65, 59, 80, 81, 56, 55, 40],
@@ -49,7 +49,7 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
         },
       },
       {
-        label: "Etp Réel",
+        label: "ETP réel",
         backgroundColor: documentStyle.getPropertyValue("--gray-100"),
         borderColor: documentStyle.getPropertyValue("--gray-100"),
         data: [28, 48, 40, 40, 86, 60, 90],

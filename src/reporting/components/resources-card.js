@@ -16,7 +16,7 @@ const ResourcesCard = ({ values }) => {
       labels: values?.labels,
       datasets: [
         {
-          label: "Etp plannifié",
+          label: "ETP plannifié",
           backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
           borderColor: documentStyle.getPropertyValue("--cyan-300"),
           data: values?.capaETPs,
@@ -29,7 +29,7 @@ const ResourcesCard = ({ values }) => {
           },
         },
         {
-          label: "Etp Réel",
+          label: "ETP réel",
           backgroundColor: documentStyle.getPropertyValue("--gray-100"),
           borderColor: documentStyle.getPropertyValue("--gray-100"),
           data: values?.realEtps,
@@ -53,8 +53,10 @@ const ResourcesCard = ({ values }) => {
           labels: {
             usePointStyle: true,
             color: textColor,
-            pointStyle: "circle",
+            // pointStyle: "circle",
             padding: 30,
+            boxHeight: 5,
+            boxWidth: 5,
           },
         },
         datalabels: {
@@ -91,7 +93,10 @@ const ResourcesCard = ({ values }) => {
         y: {
           ticks: {
             color: textColorSecondary,
+            stepSize: 20,
           },
+          min: 0,
+          max: 100,
           grid: {
             color: "white",
             display: false,
@@ -108,23 +113,29 @@ const ResourcesCard = ({ values }) => {
     <div className="bg-card border-round-2xl p-3">
       <div className="flex gap-3 mb-5 justify-content-center">
         <ResourcesPercentage
-          value={values?.ratiosList?.capaUsage * 100}
+          value={+values?.ratiosList?.capaUsage}
           label={`Taux d'utilisation de la capacité`}
           className="w-8rem	"
         />
         <ResourcesPercentage
-          value={values?.ratiosList?.tension * 100}
+          value={+values?.ratiosList?.tension}
           label={`Efficacité plannification charge/capa`}
           className="w-8rem	"
         />
         <ResourcesPercentage
-          value={values?.ratiosList?.absenteeism * 100}
+          value={+values?.ratiosList?.absenteeism}
           label={`Taux d'absenteisme`}
           className="w-8rem	"
         />
         <ResourcesPercentage
-          value={values?.ratiosList?.multiTask * 100}
-          label={`Taux multi-tâches`}
+          value={+values?.ratiosList?.multiTask}
+          label={
+            <div>
+              Taux
+              <br />
+              multi-tâches
+            </div>
+          }
           className="w-8rem	"
         />
       </div>

@@ -99,9 +99,14 @@ const MeterGroup = ({
             <>
               <Tooltip
                 target={`.tooltip${index}`}
-                content={`${renderMinutes(item.value)} mn`}
+                // content={`${renderMinutes(item.value)} mn`}
                 position="left"
-              />
+              >
+                <div>
+                  <div>{renderMinutes(item.value)} mn</div>
+                  {legendItem(item)}
+                </div>
+              </Tooltip>
               <div
                 key={index}
                 className={`relative tooltip${index}`}

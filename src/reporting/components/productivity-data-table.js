@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Carousel } from "primereact/carousel";
 import { Style } from "react-style-tag";
 
@@ -12,26 +12,26 @@ const ProductivityDataTable = ({
   blueTheme,
   selectedColor,
 }) => {
-  const [order, setOrder] = useState(0);
+  const [order, setOrder] = useState({ column: 0, direction: "asc" });
 
   const renderProductByOrder = useMemo(() => {
-    switch (order) {
+    switch (order.column) {
       case 0:
       default:
-        return products.sort(customOrder(firstColumn?.field));
+        return products.sort(customOrder(firstColumn?.field, order.direction));
       case 1:
-        return products.sort(customOrder("productivity"));
+        return products.sort(customOrder("productivity", order.direction));
       case 2:
-        return products.sort(customOrder("volumes"));
+        return products.sort(customOrder("volumes", order.direction));
       case 3:
-        return products.sort(customOrder("objective"));
+        return products.sort(customOrder("objective", order.direction));
     }
   }, [order, products, firstColumn]);
 
   const itemTemplate = (item) => {
     return (
       <div
-        className={`grid cursor-pointer  h-full m-auto align-items-center ${
+        className={`grid cursor-pointer  m-auto align-items-center ${
           item?.id === selectedRow ? "selectedTableRow border-round-left" : ""
         } ${
           blueTheme
@@ -98,6 +98,23 @@ const ProductivityDataTable = ({
       </div>
     );
   };
+
+  const updateOrder = (columnId) => {
+    setOrder((od) => {
+      if (od.column === columnId) {
+        return {
+          column: columnId,
+          direction: od.direction === "asc" ? "desc" : "asc",
+        };
+      } else {
+        return {
+          column: columnId,
+          direction: "asc",
+        };
+      }
+    });
+  };
+
   return (
     <div
       className={`border-round-2xl shadow-2 ${
@@ -113,37 +130,64 @@ const ProductivityDataTable = ({
         }}
       >
         <div
-          onClick={() => setOrder(0)}
+          onClick={() => updateOrder(0)}
           className={`cursor-pointer col-4 flex align-items-center ${
-            order === 0 ? "text-white" : ""
+            order.column === 0 ? "text-white" : ""
           }`}
         >
           {firstColumn.header}
-          <span className="pi pi-chevron-down ml-1 "></span>
+          <span
+            className={`pi ${
+              order.column === 0 && order.direction === "asc"
+                ? "pi-chevron-down"
+                : "pi-chevron-up"
+            } ml-1`}
+          ></span>
         </div>
         <div
-          onClick={() => setOrder(1)}
+          onClick={() => updateOrder(1)}
           className={`cursor-pointer col-3 flex align-items-center ${
-            order === 1 ? "text-white" : ""
+            order.column === 1 ? "text-white" : ""
           }`}
         >
-          Productivités<span className="pi pi-chevron-down ml-1 "></span>
+          Productivités
+          <span
+            className={`pi ${
+              order.column === 1 && order.direction === "asc"
+                ? "pi-chevron-down"
+                : "pi-chevron-up"
+            } ml-1`}
+          ></span>
         </div>
         <div
-          onClick={() => setOrder(2)}
+          onClick={() => updateOrder(2)}
           className={`cursor-pointer col-3 flex align-items-center ${
-            order === 2 ? "text-white" : ""
+            order.column === 2 ? "text-white" : ""
           }`}
         >
-          Volumes<span className="pi pi-chevron-down ml-1 "></span>
+          Volumes
+          <span
+            className={`pi ${
+              order.column === 2 && order.direction === "asc"
+                ? "pi-chevron-down"
+                : "pi-chevron-up"
+            } ml-1`}
+          ></span>
         </div>
         <div
-          onClick={() => setOrder(3)}
+          onClick={() => updateOrder(3)}
           className={`cursor-pointer col-2 flex align-items-center ${
-            order === 3 ? "text-white" : ""
+            order.column === 3 ? "text-white" : ""
           }`}
         >
-          Objectif<span className="pi pi-chevron-down ml-1 "></span>
+          Objectif
+          <span
+            className={`pi ${
+              order.column === 3 && order.direction === "asc"
+                ? "pi-chevron-down"
+                : "pi-chevron-up"
+            } ml-1`}
+          ></span>
         </div>
       </div>
       <Carousel
@@ -160,6 +204,15 @@ const ProductivityDataTable = ({
           },
           nextbutton: {
             className: blueTheme ? "text-white" : "",
+          },
+          itemscontainer: {
+            className: "align-items-start",
+          },
+          item: {
+            style: {
+              flex: "none",
+              minWidth: "100%",
+            },
           },
         }}
       />
