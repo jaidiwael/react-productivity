@@ -420,6 +420,19 @@ select:-webkit-autofill:focus {
   border-color: #e24c4c;
 }
 
+.p-calendar.p-component > .p-inputtext::placeholder {
+  color: var(--gray-200) !important;
+}
+
+.p-calendar.p-component.p-focus > .p-inputtext::placeholder {
+  color: var(--text-color) !important;
+}
+
+.p-calendar.p-component.p-focus > .p-inputtext {
+  background-color:#fff !important;
+  color: var(--text-color) !important;
+}
+
 .p-datepicker {
   padding: 0.5rem;
   border: 1px solid #e1dfea;
@@ -522,8 +535,8 @@ select:-webkit-autofill:focus {
 }
 
 .p-datepicker table td > span.p-highlight {
-  background: #f6f5f8;
-  color: #0C69D5;
+  background: var(--blue-800) !important;
+  color:  var(--gray-200) !important;
 }
 
 .p-datepicker table td > span:focus {
@@ -534,7 +547,7 @@ select:-webkit-autofill:focus {
 
 .p-datepicker table td.p-datepicker-today > span {
   border-color: rgba(0, 0, 0, 0);
-  background: #e1dfea;
+  /*background: #e1dfea;*/
   color: #404044;
 }
 

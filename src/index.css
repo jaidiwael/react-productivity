@@ -60,3 +60,20 @@ code {
 .text-light-blue{
   color: var(--light-blue)
 }
+
+.p-calendar.p-component > .p-datepicker-trigger {
+  position: absolute;
+  padding: 0;
+  background:none;
+  border: none;
+  right: 0;
+  top: 5px
+}
+
+.p-calendar.p-component > .p-datepicker-trigger:hover {
+  background:none;
+}
+
+.p-calendar.p-component.p-focus > .p-datepicker-trigger {
+  color: var(--text-color) !important;
+}

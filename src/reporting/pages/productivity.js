@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { useParams } from "react-router-dom";
+import { Calendar } from "primereact/calendar";
 
 import ProductivityDataTable from "../components/productivity-data-table";
 import TimeRangeSelector from "../components/time-range-selector";
@@ -15,6 +16,8 @@ const Productivity = () => {
   const [selectedClient, setSelectedClient] = useState();
   const [selectedOperator, setSelectedOperator] = useState();
   const [dropDownFilter, setDropDownFilter] = useState("productivity");
+  const [timeSelector, setTimeSelector] = useState(-1);
+  const [calendarPicker, setCalendarPicker] = useState(null);
 
   const { activityId } = useParams();
 
@@ -92,12 +95,49 @@ const Productivity = () => {
         </div>
         <div className="flex align-items-center gap-2">
           <TimeRangeSelector
-            options={["Hier", "7 derniers jours", "comule du mois", "3 mois"]}
-            selected={"7 derniers jours"}
+            options={[
+              { label: "Hier", value: -1 },
+              { label: "7 derniers jours", value: 7 },
+              { label: "comule du mois", value: 30 },
+              { label: "3 mois", value: 90 },
+            ]}
+            selected={timeSelector}
+            setSelected={(v) => {
+              setTimeSelector(v);
+              setCalendarPicker(null);
+            }}
           />
-          <div className="text-sm flex align-items-center gap-2 py-1 px-3 border-round-3xl bg-white-alpha-10 text-gray-200">
+          {/* <div className="text-sm flex align-items-center gap-2 py-1 px-3 border-round-3xl bg-white-alpha-10 text-gray-200">
             2 mars <span className="pi pi-angle-right" />8 mars
-          </div>
+          </div> */}
+          <Calendar
+            value={calendarPicker}
+            onChange={(e) => {
+              setCalendarPicker(e.value);
+              setTimeSelector(null);
+            }}
+            selectionMode="range"
+            readOnlyInput
+            hideOnRangeSelection
+            placeholder="Selectionner une date"
+            icon="pi pi-calendar"
+            showIcon={true}
+            locale="fr"
+            pt={{
+              input: {
+                root: {
+                  className:
+                    "border-round-3xl bg-blue-800 text-gray-200 p-button-label",
+                  style: {
+                    height: "35.5px",
+                    border: "none",
+                    fontSize: "0.875rem",
+                    width: "230px",
+                  },
+                },
+              },
+            }}
+          />
         </div>
       </div>
       <div className="grid">
