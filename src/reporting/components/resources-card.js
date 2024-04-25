@@ -28,9 +28,7 @@ const ResourcesCard = ({ values }) => {
             bottomRight: 20,
           },
           datalabels: {
-            padding: {
-              bottom: 0,
-            },
+            align: "left",
           },
         },
         {
@@ -46,9 +44,7 @@ const ResourcesCard = ({ values }) => {
             bottomRight: 20,
           },
           datalabels: {
-            padding: {
-              bottom: 25,
-            },
+            align: "right",
           },
         },
       ],
@@ -70,8 +66,12 @@ const ResourcesCard = ({ values }) => {
           },
         },
         datalabels: {
+          //clamp: true,
           anchor: "end", // Position of the labels (start, end, center, etc.)
-          align: "end", // Alignment of the labels (start, end, center, etc.)
+          // align: "end", // Alignment of the labels (start, end, center, etc.)
+          padding: {
+            bottom: 30,
+          },
           color: function (context) {
             return context.dataset.backgroundColor;
           },
@@ -80,7 +80,7 @@ const ResourcesCard = ({ values }) => {
             size: "10px",
           },
           formatter: function (value) {
-            return value; // Display the actual data value
+            return value === 0 ? "" : value; // Display the actual data value
           },
         },
       },

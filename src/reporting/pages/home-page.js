@@ -12,7 +12,6 @@ import {
   getProductivityTimes,
   getProductivityRealForecast,
   getProductivityHomeResources,
-  getProductivityHomeGoal,
   getProductivityHomeProdvalues,
 } from "../api";
 import { arrayColors } from "../helpers";
@@ -32,11 +31,6 @@ const HomePage = () => {
   const { data: productivityHomeResources } = useQuery({
     queryKey: ["getProductivityHomeResources"],
     queryFn: getProductivityHomeResources,
-  });
-
-  const { data: productivityHomeGoal } = useQuery({
-    queryKey: ["getProductivityHomeGoal"],
-    queryFn: getProductivityHomeGoal,
   });
 
   const { data: productivityHomeProdvalues } = useQuery({
@@ -154,7 +148,7 @@ const HomePage = () => {
           <div className="col-2">
             <ObjectiveCard
               onClick={() => navigate("/objective")}
-              value={productivityHomeGoal?.goal}
+              value={productivityHomeProdvalues?.goal}
             />
           </div>
           <div className="col-2">

@@ -107,18 +107,15 @@ const MeterGroup = ({
                   },
                 }}
               >
-                <div
-                  className="text-xs max-w-5rem "
-                  style={{ backgroundColor: "" }}
-                >
+                <div className="text-xs max-w-6rem" style={{}}>
                   <div>{renderMinutes(item.value)} mn</div>
                   <div className="flex align-items-center gap-1 text-xs">
                     <div
                       style={{
                         background: item.color,
-                        width: "6px",
-                        height: "6px",
-                        borderRadius: "5px",
+                        width: "10px",
+                        height: "10px",
+                        borderRadius: "50%",
                       }}
                     />
                     <span

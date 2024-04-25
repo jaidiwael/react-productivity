@@ -1,5 +1,6 @@
-import img1 from "../../assets/images/bg1.svg";
-import img2 from "../../assets/images/bg2.svg";
+import green from "../../assets/images/green.svg";
+import blue from "../../assets/images/blue.svg";
+import logo from "../../assets/images/alki-logo.svg";
 
 const PerformanceCard = ({ data, onClick, isMaximum, isMinimum }) => {
   return (
@@ -7,7 +8,7 @@ const PerformanceCard = ({ data, onClick, isMaximum, isMinimum }) => {
       onClick={onClick}
       className="bg-white border-round-2xl min-h-full flex flex-column blue-shadow cursor-pointer relative overflow-hidden scale-animation"
       style={{
-        backgroundImage: `url(${data?.award === "best" ? img1 : img2})`,
+        backgroundImage: `url(${data?.percentage >= 100 ? green : blue})`,
         backgroundPosition: "bottom center",
         backgroundRepeat: "no-repeat",
         paddingBottom: "70px",
@@ -55,10 +56,11 @@ const PerformanceCard = ({ data, onClick, isMaximum, isMinimum }) => {
           {data?.amountUnit + " " + "traitées"}
         </div>
         <div
-          className="text-3xl text-white text-center font-semibold absolute bottom-0 left-50"
-          style={{ transform: "translateX(-25%)" }}
+          className="text-3xl text-white text-center font-semibold absolute bottom-0 left-50 flex align-items-center justify-content-space-between gap-2"
+          style={{ transform: "translateX(-50%)" }}
         >
-          {data?.percentage}
+          <img alt="" src={logo} width="25" height="25" />
+          <div>{data?.percentage}</div>
         </div>
       </div>
     </div>
