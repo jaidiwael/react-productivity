@@ -27,6 +27,11 @@ const ResourcesCard = ({ values }) => {
             bottomLeft: 20,
             bottomRight: 20,
           },
+          datalabels: {
+            padding: {
+              bottom: 0,
+            },
+          },
         },
         {
           label: "ETP réel",
@@ -39,6 +44,11 @@ const ResourcesCard = ({ values }) => {
             topRight: 20,
             bottomLeft: 20,
             bottomRight: 20,
+          },
+          datalabels: {
+            padding: {
+              bottom: 25,
+            },
           },
         },
       ],
