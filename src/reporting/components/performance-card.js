@@ -60,7 +60,7 @@ const PerformanceCard = ({ data, onClick, isMaximum, isMinimum }) => {
           style={{ transform: "translateX(-50%)" }}
         >
           <img alt="" src={logo} width="25" height="25" />
-          <div>{data?.percentage}</div>
+          <div>{data?.percentage}% </div>
         </div>
       </div>
     </div>
