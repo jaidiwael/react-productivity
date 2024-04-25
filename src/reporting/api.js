@@ -45,3 +45,15 @@ export const getProductivityHomeGoal = async () => {
   }
   return res;
 };
+
+export const getProductivityHomeProdvalues = async () => {
+  let res;
+  try {
+    res = await fetch(
+      `https://l1efaqhstd.execute-api.eu-west-3.amazonaws.com/preprod/productivity-home-prodvalues`
+    ).then((res) => res.json());
+  } catch (e) {
+    throw e;
+  }
+  return res;
+};

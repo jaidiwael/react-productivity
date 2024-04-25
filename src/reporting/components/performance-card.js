@@ -1,7 +1,7 @@
 import img1 from "../../assets/images/bg1.svg";
 import img2 from "../../assets/images/bg2.svg";
 
-const PerformanceCard = ({ data, onClick }) => {
+const PerformanceCard = ({ data, onClick, isMaximum, isMinimum }) => {
   return (
     <div
       onClick={onClick}
@@ -13,17 +13,19 @@ const PerformanceCard = ({ data, onClick }) => {
         paddingBottom: "70px",
       }}
     >
-      {data?.award === "best" ? (
+      {isMaximum && (
         <div className="bg-blue-600 text-white text-center p-2 text-xs">
           Meilleure performance
         </div>
-      ) : data?.award === "worst" ? (
+      )}
+      {isMinimum && (
         <div className="bg-red-500 text-white text-center p-2  text-xs">
           Moins bonnes performances
         </div>
-      ) : (
-        <div className="bg-white-500 text-white text-center p-2 text-xs">x</div>
       )}
+      {/* // ) : (
+      //   <div className="bg-white-500 text-white text-center p-2 text-xs">x</div>
+      // )} */}
       <div className="px-4">
         <div className="font-bold text-color text-center border-bottom-1 border-200 pb-2 my-3">
           {data.equipe}
@@ -53,7 +55,7 @@ const PerformanceCard = ({ data, onClick }) => {
           {data?.amountUnit + " " + "traitées"}
         </div>
         <div
-          className="text-4xl text-white text-center font-semibold absolute bottom-0 left-50"
+          className="text-3xl text-white text-center font-semibold absolute bottom-0 left-50"
           style={{ transform: "translateX(-25%)" }}
         >
           {data?.percentage}

@@ -13,6 +13,7 @@ import {
   getProductivityRealForecast,
   getProductivityHomeResources,
   getProductivityHomeGoal,
+  getProductivityHomeProdvalues,
 } from "../api";
 import { arrayColors } from "../helpers";
 
@@ -36,6 +37,11 @@ const HomePage = () => {
   const { data: productivityHomeGoal } = useQuery({
     queryKey: ["getProductivityHomeGoal"],
     queryFn: getProductivityHomeGoal,
+  });
+
+  const { data: productivityHomeProdvalues } = useQuery({
+    queryKey: ["getProductivityDomain"],
+    queryFn: getProductivityHomeProdvalues,
   });
 
   const renderProductivityTimes = useMemo(() => {
@@ -107,6 +113,31 @@ const HomePage = () => {
     return values;
   }, [productivityHomeResources]);
 
+  const renderProdData = useMemo(() => {
+    if (productivityHomeProdvalues) {
+      return productivityHomeProdvalues?.prodData?.map(
+        ({
+          domainName,
+          realProductivity,
+          productivityRatioPcent,
+          totalQuantity,
+        }) => {
+          return {
+            id: 5,
+            equipe: domainName,
+            average: realProductivity,
+            averageUnit: "lignes/h",
+            performance: "-2%",
+            amount: totalQuantity,
+            amountUnit: "colis",
+            percentage: productivityRatioPcent,
+          };
+        }
+      );
+    }
+    return [];
+  }, [productivityHomeProdvalues]);
+
   return (
     <div className="bg-blue-900 h-screen overflow-auto p-4">
       <div className="flex justify-content-between align-items-center text-white mb-4">
@@ -137,6 +168,7 @@ const HomePage = () => {
               onClickCard={(activityId) =>
                 navigate(`/productivity/${activityId}`)
               }
+              products={renderProdData}
             />
           </div>
         </div>

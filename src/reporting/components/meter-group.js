@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Tooltip } from "primereact/tooltip";
 
 import { renderMinutes } from "../helpers";
@@ -101,10 +101,32 @@ const MeterGroup = ({
                 target={`.tooltip${index}`}
                 // content={`${renderMinutes(item.value)} mn`}
                 position="left"
+                pt={{
+                  text: {
+                    className: "p-2",
+                  },
+                }}
               >
-                <div>
+                <div
+                  className="text-xs max-w-5rem "
+                  style={{ backgroundColor: "" }}
+                >
                   <div>{renderMinutes(item.value)} mn</div>
-                  {legendItem(item)}
+                  <div className="flex align-items-center gap-1 text-xs">
+                    <div
+                      style={{
+                        background: item.color,
+                        width: "6px",
+                        height: "6px",
+                        borderRadius: "5px",
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontSize: "0.6rem",
+                      }}
+                    >{`${item.label}`}</span>
+                  </div>
                 </div>
               </Tooltip>
               <div

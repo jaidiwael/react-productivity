@@ -22,6 +22,11 @@ const ResourcesPercentage = ({ value, label, className }) => {
         valueColor={renderColor()}
         rangeColor="#dcdfe2"
         valueTemplate={`${value}%`}
+        pt={{
+          label: {
+            className: "text-sm",
+          },
+        }}
       />
     </div>
   );

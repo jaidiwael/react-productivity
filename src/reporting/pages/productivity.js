@@ -181,8 +181,7 @@ const Productivity = () => {
                 )}
                 blueTheme
                 selectedColor={
-                  activities?.find((act) => act?.clientId === selectedClient)
-                    ?.color
+                  activities?.find((act) => act?.id === selectedActivity)?.color
                 }
               />
             </div>
