@@ -3,6 +3,7 @@ import { Chart } from "primereact/chart";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import ResourcesPercentage from "./resources-percentage";
+import { Title } from "chart.js";
 
 const ResourcesCard = ({ values }) => {
   const [chartData, setChartData] = useState({});

@@ -1,20 +1,32 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Chart } from "primereact/chart";
-import { Button } from "primereact/button";
 import { useQuery } from "@tanstack/react-query";
+import { RadioButton } from "primereact/radiobutton";
 
 import MeterGroup from "../components/meter-group";
-import DaySelector from "../components/day-selector";
 import OperatorList from "../components/operator-list";
-import OperatorRepetition from "../components/operator-repetition";
 
 import { getProductivityTimes } from "../api";
-import { arrayColors, renderMinutes } from "../helpers";
+import { arrayColors } from "../helpers";
+import InternHeader from "../components/intern-header";
+
+const dataSetConfig = {
+  type: "bar",
+  barThickness: 20,
+  borderRadius: {
+    topLeft: 20,
+    topRight: 20,
+    bottomLeft: 20,
+    bottomRight: 20,
+  },
+};
 
 const Temps = () => {
-  const [selectedDays, setSelectedDays] = useState("7");
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
+  const [activeItem, setActiveItem] = useState(null);
+  const [type, setType] = useState("percent");
+  const [selectedOperator, setSelectedOperator] = useState(null);
 
   const { data: productivityTimes } = useQuery({
     queryKey: ["getProductivityTimes"],
@@ -28,44 +40,106 @@ const Temps = () => {
       "--text-color-secondary"
     );
     const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
+    let datasets = [];
+
+    switch (activeItem?.label) {
+      case "SUPPORT":
+        datasets = [
+          {
+            ...dataSetConfig,
+            label: activeItem.label,
+            backgroundColor: arrayColors[0],
+            data:
+              type === "percent"
+                ? [50, 25, 12, 48, 90, 76, 42]
+                : [10, 25, 30, 48, 69, 76, 115],
+          },
+        ];
+        break;
+      case "TEMPS MANQUANT":
+        datasets = [
+          {
+            ...dataSetConfig,
+            label: activeItem.label,
+            backgroundColor: arrayColors[1],
+            data:
+              type === "percent"
+                ? [21, 84, 24, 75, 37, 65, 34]
+                : [21, 84, 24, 75, 37, 65, 34],
+          },
+        ];
+        break;
+      case "PICK":
+        datasets = [
+          {
+            ...dataSetConfig,
+            label: activeItem.label,
+            backgroundColor: arrayColors[2],
+            data:
+              type === "percent"
+                ? [41, 52, 24, 74, 23, 21, 32]
+                : [41, 52, 24, 74, 23, 21, 32],
+          },
+        ];
+        break;
+      case "PACK":
+        datasets = [
+          {
+            ...dataSetConfig,
+            label: activeItem.label,
+            backgroundColor: arrayColors[3],
+            data:
+              type === "percent"
+                ? [41, 52, 24, 74, 23, 21, 32]
+                : [41, 52, 24, 74, 23, 21, 32],
+          },
+        ];
+        break;
+      default:
+        datasets = [
+          {
+            ...dataSetConfig,
+            label: "SUPPORT",
+            backgroundColor: arrayColors[0],
+            data:
+              type === "percent"
+                ? [50, 25, 12, 48, 90, 76, 42]
+                : [10, 25, 30, 48, 69, 76, 115],
+          },
+          {
+            ...dataSetConfig,
+            label: "TEMPS MANQUANT",
+            backgroundColor: arrayColors[1],
+            data:
+              type === "percent"
+                ? [21, 84, 24, 75, 37, 65, 34]
+                : [21, 84, 24, 75, 37, 65, 34],
+          },
+          {
+            ...dataSetConfig,
+            label: "PICK",
+            backgroundColor: arrayColors[2],
+            data:
+              type === "percent"
+                ? [41, 52, 24, 74, 23, 21, 32]
+                : [41, 52, 24, 74, 23, 21, 32],
+          },
+          {
+            ...dataSetConfig,
+            label: "PACK",
+            backgroundColor: arrayColors[3],
+            data:
+              type === "percent"
+                ? [41, 52, 24, 74, 23, 21, 32]
+                : [41, 52, 24, 74, 23, 21, 32],
+          },
+        ];
+        break;
+    }
+
     const data = {
       labels: ["v", "S", "D", "L", "M", "Me", "J"],
-      datasets: [
-        {
-          type: "bar",
-          label: "pick",
-          barThickness: 20,
-          backgroundColor: "#00308F",
-          data: [50, 25, 12, 48, 90, 76, 42],
-        },
-        {
-          type: "bar",
-          label: "pack",
-          barThickness: 20,
-          backgroundColor: "turquoise",
-          data: [21, 84, 24, 75, 37, 65, 34],
-        },
-        {
-          type: "bar",
-          label: "Support",
-          barThickness: 20,
-          backgroundColor: "#6CB4EE",
-          data: [41, 52, 24, 74, 23, 21, 32],
-        },
-        {
-          type: "bar",
-          label: "Temps manquant",
-          barThickness: 20,
-          backgroundColor: "#EA3C53",
-          data: [41, 52, 24, 74, 23, 21, 32],
-          borderRadius: {
-            topLeft: 20,
-            topRight: 20,
-            bottomLeft: 20,
-            bottomRight: 20,
-          },
-        },
-      ],
+      datasets,
     };
     const options = {
       maintainAspectRatio: false,
@@ -84,7 +158,7 @@ const Temps = () => {
       },
       scales: {
         x: {
-          stacked: true,
+          //  stacked: true,
           ticks: {
             color: textColorSecondary,
           },
@@ -93,10 +167,16 @@ const Temps = () => {
           },
         },
         y: {
-          stacked: true,
+          //  stacked: true,
           ticks: {
             color: textColorSecondary,
+            stepSize: type === "percent" ? 10 : 20,
+            callback: function (value, index, ticks) {
+              return value + `${type === "percent" ? "%" : ""}`;
+            },
           },
+          min: 0,
+          max: type === "percent" ? 100 : null,
           grid: {
             color: surfaceBorder,
           },
@@ -106,7 +186,7 @@ const Temps = () => {
 
     setChartData(data);
     setChartOptions(options);
-  }, []);
+  }, [activeItem, type]);
 
   const renderProductivityTimes = useMemo(() => {
     return (
@@ -134,70 +214,85 @@ const Temps = () => {
     );
   }, [productivityTimes]);
 
-  const days = [
-    {
-      label: "7 dernier jours",
-      value: "7",
-    },
-    {
-      label: "14 dernier jours",
-      value: "14",
-    },
-    {
-      label: "30 dernier jours",
-      value: "30",
-    },
-  ];
-
   const labelTemplate = (item) => {
     return (
-      <div className="text-center text-sm">
-        <span>{item?.percentage + "%"}</span>
-        <br />
-        {renderMinutes(item?.value)} mn
-        <br />
-        {item?.label}
+      <div
+        className="text-white text-center "
+        style={{
+          fontSize: "0.65rem",
+        }}
+      >
+        <span>
+          {item?.percentage + "%"} {item?.label}
+        </span>
       </div>
     );
   };
   return (
-    <div className="p-4">
-      <div className="flex justify-content-between align-items-center">
-        <DaySelector
-          items={days}
-          selected={selectedDays}
-          setSelected={setSelectedDays}
-        />
-        <div className="text-xl font-bold">Temps</div>
-        <Button
-          icon="pi pi-times"
-          rounded
-          aria-label="Cancel"
-          className="w-1rem h-1rem p-1"
-          pt={{
-            icon: {
-              className: "text-xs",
-            },
-          }}
-        />
-      </div>
-      <div className="py-6 px-4">
-        <MeterGroup
-          data={renderProductivityTimes}
-          orientation="horizontal"
-          legend={false}
-          labelTemplate={labelTemplate}
-        />
-      </div>
-      <div className="py-6 ">
-        <Chart type="bar" data={chartData} options={chartOptions} />
-      </div>
-      <div className="px-4 grid">
+    <div className="p-4 bg-blue-900 h-screen flex flex-column">
+      <InternHeader defaultPage="Temps" />
+
+      <div className="px-4 grid flex-grow-1">
         <div className="col-3">
-          <OperatorList />
+          <OperatorList
+            onOperatorClick={(item) => {
+              setSelectedOperator(item);
+              setActiveItem(null);
+            }}
+            selectedOperator={selectedOperator}
+          />
         </div>
-        <div className="col-9">
-          <OperatorRepetition />
+        <div className="col-9 h-full">
+          <div className="flex flex-column h-full">
+            <div className="py-3 px-4 bg-blue-800 border-round-2xl shadow-1 h-full flex flex-column">
+              <div className="text-white">Répartition du temps</div>
+              <div className="flex-grow-1 align-items-center justify-content-center flex">
+                <MeterGroup
+                  data={renderProductivityTimes}
+                  orientation="horizontal"
+                  legend={false}
+                  labelTemplate={labelTemplate}
+                  onItemClick={setActiveItem}
+                  activeItem={activeItem}
+                />
+              </div>
+            </div>
+            <div className="py-3 px-4 bg-blue-800 border-round-2xl shadow-1 flex-grow-1 mt-3">
+              <div className="text-white mb-7">Evolution des temps</div>
+              <Chart type="bar" data={chartData} options={chartOptions} />
+              <div className="flex flex-column gap-2">
+                <div className="flex align-items-center">
+                  <RadioButton
+                    inputId={"percent"}
+                    name="type"
+                    value={"percent"}
+                    onChange={(e) => setType(e.value)}
+                    checked={type === "percent"}
+                  />
+                  <label
+                    htmlFor={"percent"}
+                    className="ml-2 text-white text-sm"
+                  >
+                    Pourcentage
+                  </label>
+                </div>
+                <div className="flex align-items-center">
+                  <RadioButton
+                    inputId={"temps"}
+                    name="type"
+                    value={"temps"}
+                    onChange={(e) => setType(e.value)}
+                    checked={type === "temps"}
+                  />
+                  <label htmlFor={"temps"} className="ml-2 text-white text-sm">
+                    Temps
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <OperatorRepetition /> */}
         </div>
       </div>
     </div>

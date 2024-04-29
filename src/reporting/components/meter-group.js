@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Tooltip } from "primereact/tooltip";
 
 import { renderMinutes } from "../helpers";
@@ -9,6 +9,8 @@ const MeterGroup = ({
   legend = true,
   labelTemplate = null,
   legendTemplate = null,
+  onItemClick,
+  activeItem,
 }) => {
   const total = data?.reduce((acc, val) => acc + +val.value, 0);
 
@@ -43,15 +45,23 @@ const MeterGroup = ({
     };
   };
 
-  const labelStyleHorizontal = () => {
+  const labelStyleHorizontal = (ort) => {
+    let style = {};
+    if (ort === "top") {
+      style = {
+        bottom: "60px",
+      };
+    } else {
+    }
     return {
       left: "50%",
       bottom: "-10px",
       transform: "translateX(-50%) translateY(100%)",
       position: "absolute",
       width: "max-content",
-      fontSize: "14px",
+      fontSize: "12px",
       fontWeight: "500",
+      ...style,
     };
   };
 
@@ -95,19 +105,26 @@ const MeterGroup = ({
         }`}
       >
         {data.map((item, index) => {
+          const ort = index % 2 === 0 ? "top" : "bottom";
           return (
             <>
               <Tooltip
                 target={`.tooltip${index}`}
                 // content={`${renderMinutes(item.value)} mn`}
-                position="left"
+                position={
+                  orientation === "horizontal"
+                    ? ort === "top"
+                      ? "bottom"
+                      : "top"
+                    : "left"
+                }
                 pt={{
                   text: {
                     className: "p-2",
                   },
                 }}
               >
-                <div className="text-xs max-w-6rem" style={{}}>
+                <div className="text-xs max-w-6rem ">
                   <div>{renderMinutes(item.value)} mn</div>
                   <div className="flex align-items-center gap-1 text-xs">
                     <div
@@ -126,9 +143,19 @@ const MeterGroup = ({
                   </div>
                 </div>
               </Tooltip>
+
               <div
+                onClick={() => {
+                  if (onItemClick) {
+                    onItemClick(item);
+                  }
+                }}
                 key={index}
-                className={`relative tooltip${index}`}
+                className={`relative tooltip${index} cursor-pointer ${
+                  activeItem?.label === item?.label
+                    ? "custom-selected-shadow"
+                    : ""
+                }`}
                 style={
                   orientation === "horizontal"
                     ? itemStyleHorizontal(item, index)
@@ -138,8 +165,8 @@ const MeterGroup = ({
                 <span
                   style={
                     orientation === "horizontal"
-                      ? labelStyleHorizontal()
-                      : labelStyleVertical()
+                      ? labelStyleHorizontal(ort)
+                      : labelStyleVertical(ort)
                   }
                 >
                   {!!labelTemplate
