@@ -103,10 +103,7 @@ const ResourcesCard = ({ values }) => {
         y: {
           ticks: {
             color: textColorSecondary,
-            stepSize: 20,
           },
-          min: 0,
-          max: 100,
           grid: {
             color: "white",
             display: false,

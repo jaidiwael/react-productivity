@@ -199,8 +199,8 @@ h3 {
   --blue-500: #3b82f6;
   --blue-600: #326fd1;
   --blue-700: #036DDC;
-  --blue-800: #141E55;
-  --blue-900: #07023C;
+  --blue-800: #141E55 !important;
+  --blue-900: #07023C !important;
   --green-50: #f4fcf7;
   --green-100: #eef4eb;
   --green-200: #a0e6ba;
