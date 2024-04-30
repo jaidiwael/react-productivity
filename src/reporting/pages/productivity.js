@@ -59,9 +59,6 @@ const Productivity = () => {
   }, [selectedActivity, selectedClient, selectedOperator]);
   return (
     <div className="p-4 bg-blue-900">
-<<<<<<< HEAD
-      <InternHeader />
-=======
       <div className="flex justify-content-between mb-3">
         <div className="flex align-items-center gap-2">
           <i
@@ -136,7 +133,6 @@ const Productivity = () => {
           />
         </div>
       </div>
->>>>>>> fbd47f0 ( fix style css)
       <div className="grid">
         <div className="col-4">
           <ProductivityDataTable
