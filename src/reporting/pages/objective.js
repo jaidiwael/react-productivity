@@ -15,7 +15,7 @@ const dataSetConfig = {
   },
 };
 
-const arrayColors = ["#54e392", " #64a0f8", "#8782dc", "#276ddb"];
+const arrayColors = ["#54e392", " #64a0f8", "#8782dc", "#4ec6e2"];
 
 const Objective = () => {
   const [chartData, setChartData] = useState({});
