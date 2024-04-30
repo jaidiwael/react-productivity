@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Chart } from "primereact/chart";
 import { useQuery } from "@tanstack/react-query";
 import { RadioButton } from "primereact/radiobutton";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import MeterGroup from "../components/meter-group";
 import OperatorList from "../components/operator-list";
@@ -53,6 +54,9 @@ const Temps = () => {
               type === "percent"
                 ? [50, 25, 12, 48, 90, 76, 42]
                 : [10, 25, 30, 48, 69, 76, 115],
+            datalabels: {
+              align: "end",
+            },
           },
         ];
         break;
@@ -66,6 +70,9 @@ const Temps = () => {
               type === "percent"
                 ? [21, 84, 24, 75, 37, 65, 34]
                 : [21, 84, 24, 75, 37, 65, 34],
+            datalabels: {
+              align: "end",
+            },
           },
         ];
         break;
@@ -79,6 +86,9 @@ const Temps = () => {
               type === "percent"
                 ? [41, 52, 24, 74, 23, 21, 32]
                 : [41, 52, 24, 74, 23, 21, 32],
+            datalabels: {
+              align: "end",
+            },
           },
         ];
         break;
@@ -92,6 +102,9 @@ const Temps = () => {
               type === "percent"
                 ? [41, 52, 24, 74, 23, 21, 32]
                 : [41, 52, 24, 74, 23, 21, 32],
+            datalabels: {
+              align: "end",
+            },
           },
         ];
         break;
@@ -105,6 +118,9 @@ const Temps = () => {
               type === "percent"
                 ? [50, 25, 12, 48, 90, 76, 42]
                 : [10, 25, 30, 48, 69, 76, 115],
+            datalabels: {
+              display: false,
+            },
           },
           {
             ...dataSetConfig,
@@ -114,6 +130,9 @@ const Temps = () => {
               type === "percent"
                 ? [21, 84, 24, 75, 37, 65, 34]
                 : [21, 84, 24, 75, 37, 65, 34],
+            datalabels: {
+              display: false,
+            },
           },
           {
             ...dataSetConfig,
@@ -123,6 +142,9 @@ const Temps = () => {
               type === "percent"
                 ? [41, 52, 24, 74, 23, 21, 32]
                 : [41, 52, 24, 74, 23, 21, 32],
+            datalabels: {
+              display: false,
+            },
           },
           {
             ...dataSetConfig,
@@ -132,6 +154,9 @@ const Temps = () => {
               type === "percent"
                 ? [41, 52, 24, 74, 23, 21, 32]
                 : [41, 52, 24, 74, 23, 21, 32],
+            datalabels: {
+              display: false,
+            },
           },
         ];
         break;
@@ -155,6 +180,22 @@ const Temps = () => {
             color: textColor,
           },
         },
+        datalabels: {
+          //clamp: true,
+          anchor: "end", // Position of the labels (start, end, center, etc.)
+          // align: "end", // Alignment of the labels (start, end, center, etc.)
+          padding: {
+            bottom: 30,
+          },
+          color: "#fff",
+          font: {
+            weight: "bold",
+            size: "10px",
+          },
+          formatter: function (value) {
+            return value === 0 ? "" : value; // Display the actual data value
+          },
+        },
       },
       scales: {
         x: {
@@ -162,14 +203,18 @@ const Temps = () => {
           ticks: {
             color: textColorSecondary,
           },
-          grid: {
-            color: surfaceBorder,
-          },
+          // grid: {
+          //   color: surfaceBorder,
+          // },
         },
         y: {
+          border: {
+            color: "#fff",
+            dash: [1],
+          },
           //  stacked: true,
           ticks: {
-            color: textColorSecondary,
+            color: "#fff",
             stepSize: type === "percent" ? 10 : 20,
             callback: function (value, index, ticks) {
               return value + `${type === "percent" ? "%" : ""}`;
@@ -178,7 +223,13 @@ const Temps = () => {
           min: 0,
           max: type === "percent" ? 100 : null,
           grid: {
-            color: surfaceBorder,
+            color: "#fff",
+            tickBorderDash: [1],
+            //tickBorderDashOffset: 100,
+            // tickColor: "red",
+
+            // z: 1,
+            //offset: true,
           },
         },
       },
@@ -259,7 +310,12 @@ const Temps = () => {
             </div>
             <div className="py-3 px-4 bg-blue-800 border-round-2xl shadow-1 flex-grow-1 mt-3">
               <div className="text-white mb-7">Evolution des temps</div>
-              <Chart type="bar" data={chartData} options={chartOptions} />
+              <Chart
+                type="bar"
+                data={chartData}
+                options={chartOptions}
+                plugins={[ChartDataLabels]}
+              />
               <div className="flex flex-column gap-2">
                 <div className="flex align-items-center">
                   <RadioButton
