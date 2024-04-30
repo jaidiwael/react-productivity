@@ -13,7 +13,7 @@ const InternHeader = ({ defaultPage }) => {
   const [calendarPicker, setCalendarPicker] = useState(null);
   const navigate = useNavigate();
   return (
-    <div className="flex justify-content-between mb-3">
+    <div className="flex justify-content-between mb-3 px-4 ">
       <div className="flex align-items-center gap-2">
         <i
           className="pi pi-home text-xl text-gray-200 cursor-pointer"
@@ -34,6 +34,10 @@ const InternHeader = ({ defaultPage }) => {
             {
               label: "Temps",
               value: "Temps",
+            },
+            {
+              label: "Objectif global",
+              value: "Objective",
             },
           ]}
           className="w-14rem surface-100 border-round-3xl text-primary"

@@ -149,6 +149,7 @@ const HomePage = () => {
             <ObjectiveCard
               onClick={() => navigate("/objective")}
               value={productivityHomeProdvalues?.goal}
+              title={"Objectif Global"}
             />
           </div>
           <div className="col-2">

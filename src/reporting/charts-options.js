@@ -41,6 +41,38 @@ export const pluginImageCenter = (img) => {
   };
 };
 
+export const pluginImageTopCenter = (img) => {
+  const image = new Image();
+  image.src = img;
+
+  return {
+    id: "customCanvasBackgroundImage",
+    beforeDraw: (chart) => {
+      console.log("CHART", chart.getDatasetMeta(0)._parsed);
+      if (image.complete) {
+        const ctx = chart.ctx;
+        const { top, left, width, height } = chart.chartArea;
+        const imageSize = width / 4;
+        const x = left + width / 2 - imageSize / 2;
+        const y = top + height / 4 - imageSize / 4;
+        ctx.drawImage(image, x, y, imageSize, imageSize);
+        const value = chart.getDatasetMeta(0)._parsed[0];
+        ctx.font = imageSize / 2 + "px Arial Bold";
+        if (value >= 100) {
+          ctx.fillStyle = "#50F58F";
+        } else {
+          ctx.fillStyle = "#ffffff";
+        }
+
+        ctx.textAlign = "left";
+        ctx.fillText(value + "%", x, y * 3);
+      } else {
+        image.onload = () => chart.draw();
+      }
+    },
+  };
+};
+
 export const elementArcGradient = {
   elements: {
     arc: {

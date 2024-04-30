@@ -2,21 +2,20 @@ import { Chart } from "primereact/chart";
 
 import {
   doughnutOptions,
-  pluginImageCenter,
+  pluginImageTopCenter,
   customCanvasBackgroundColor,
   elementArcGradient,
 } from "../charts-options";
 import Logo from "../../assets/images/alki-logo.svg";
 import { useMemo } from "react";
 
-const ObjectiveCard = ({
+const ObjectiveCardActivity = ({
   title,
   onClick,
   value,
-  displayLabel = true,
   className,
   headerClassName,
-  containerClassName,
+  activeItem,
 }) => {
   const renderChartDonuts = useMemo(() => {
     let plugins = [];
@@ -42,7 +41,7 @@ const ObjectiveCard = ({
     } else if (value === 100) {
       datasets = [
         {
-          data: [100],
+          data: [value],
           backgroundColor: ["#54FCCF"],
           borderWidth: 0,
         },
@@ -51,7 +50,7 @@ const ObjectiveCard = ({
       extraOptions = elementArcGradient;
       datasets = [
         {
-          data: [100],
+          data: [value],
           borderWidth: 0,
         },
       ];
@@ -61,30 +60,27 @@ const ObjectiveCard = ({
 
   return (
     <div
-      onClick={onClick}
-      className={`border-round-2xl py-3 px-4 bg-card h-full flex flex-column justify-content-between cursor-pointer 
-        ${className}`}
+      onClick={() => onClick(title)}
+      className={`border-round-2xl  bg-card  flex flex-column justify-content-between cursor-pointer overflow-hidden
+        ${className} ${activeItem === title ? "bg-active-card" : ""}`}
     >
       <div
-        className={`text-white text-center font-semibold border-bottom-1 border-white-alpha-30 pb-2 ${headerClassName}`}
+        className={`py-2 text-white text-center font-semibold  pb-2 ${headerClassName}`}
       >
         {title}
       </div>
-      <Chart
-        type="doughnut"
-        data={{
-          datasets: renderChartDonuts.datasets,
-        }}
-        options={{ ...doughnutOptions, ...renderChartDonuts.extraOptions }}
-        plugins={[pluginImageCenter(Logo), ...renderChartDonuts.plugins]}
-        className="flex w-full flex-grow-1 align-items-center"
-      />
-      {displayLabel && (
-        <div className="text-3xl text-white text-center font-bold">
-          {value}%
-        </div>
-      )}
+      <div className={`py-3 px-4 flex justify-content-center`}>
+        <Chart
+          type="doughnut"
+          data={{
+            datasets: renderChartDonuts.datasets,
+          }}
+          options={{ ...doughnutOptions, ...renderChartDonuts.extraOptions }}
+          plugins={[pluginImageTopCenter(Logo), ...renderChartDonuts.plugins]}
+          className="flex w-full flex-grow-1 align-items-center justify-content-center"
+        />
+      </div>
     </div>
   );
 };
-export default ObjectiveCard;
+export default ObjectiveCardActivity;
