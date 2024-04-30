@@ -83,7 +83,12 @@ code {
 
 .custom-bg-selected,
 .custom-bg-selected:hover {
-  background-color: blue;
+  background: linear-gradient(
+    90deg,
+    rgba(14, 24, 217, 1) 0%,
+    rgba(38, 105, 217, 1) 75%,
+    rgba(38, 105, 217, 1) 100%
+  );
   position: relative;
 }
 
@@ -93,7 +98,7 @@ code {
   height: 100%;
   border: 24px solid #141e55;
   border-left-width: 30px;
-  border-left-color: blue;
+  border-left-color: rgba(38, 105, 217, 1);
   content: "";
   top: 0;
   right: -26px;

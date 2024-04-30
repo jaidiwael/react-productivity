@@ -51,9 +51,8 @@ const InternHeader = ({ defaultPage }) => {
       <div className="flex align-items-center gap-2">
         <TimeRangeSelector
           options={[
-            { label: "Hier", value: -1 },
             { label: "7 derniers jours", value: 7 },
-            { label: "comule du mois", value: 30 },
+            { label: "cumule du mois", value: 30 },
             { label: "3 mois", value: 90 },
           ]}
           selected={timeSelector}

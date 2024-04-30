@@ -28,7 +28,7 @@ export const pluginImageCenter = (img) => {
     id: "customCanvasBackgroundImage",
     beforeDraw: (chart) => {
       if (image.complete) {
-        const ctx = chart.ctx;
+        const ctx = chart?.ctx;
         const { top, left, width, height } = chart.chartArea;
         const imageSize = width / 4;
         const x = left + width / 2 - imageSize / 2;

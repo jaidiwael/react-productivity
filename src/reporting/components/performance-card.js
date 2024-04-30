@@ -28,8 +28,16 @@ const PerformanceCard = ({ data, onClick, isMaximum, isMinimum }) => {
       //   <div className="bg-white-500 text-white text-center p-2 text-xs">x</div>
       // )} */}
       <div className="px-4">
-        <div className="font-bold text-color text-center border-bottom-1 border-200 pb-2 my-3">
-          {data.equipe}
+        <div className="font-bold text-color text-center border-bottom-1 border-200 pb-2 my-3 flex justify-content-center align-items-center gap-2">
+          <div
+            style={{
+              width: "10px",
+              height: "10px",
+              borderRadius: "50%",
+              backgroundColor: data?.domainColor,
+            }}
+          />
+          <div>{data.equipe}</div>
         </div>
         <div className="text-4xl text-color text-center font-semibold line-height-1">
           {data?.average}

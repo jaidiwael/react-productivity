@@ -65,17 +65,18 @@ const Objective = () => {
       },
     ];
 
-    datasets = datasets.map((ds, index) => {
-      if (ds.label === activity) {
-        return {
-          ...ds,
-          borderColor: arrayColors[index],
-          backgroundColor: arrayColors[index],
-          borderWidth: 4,
-        };
-      }
-      return ds;
-    });
+    if (activity) {
+      datasets = datasets
+        .filter((ds) => ds.label === activity)
+        .map((ds, index) => {
+          return {
+            ...ds,
+            borderColor: arrayColors[index],
+            backgroundColor: arrayColors[index],
+            borderWidth: 4,
+          };
+        });
+    }
 
     const data = {
       labels: ["v", "S", "D", "L", "M", "Me", "J"],

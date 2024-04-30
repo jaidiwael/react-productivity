@@ -115,6 +115,8 @@ const HomePage = () => {
           realProductivity,
           productivityRatioPcent,
           totalQuantity,
+          domainColor,
+          unitName,
         }) => {
           return {
             id: 5,
@@ -123,8 +125,9 @@ const HomePage = () => {
             averageUnit: "lignes/h",
             performance: "-2%",
             amount: totalQuantity,
-            amountUnit: "colis",
+            amountUnit: unitName,
             percentage: productivityRatioPcent,
+            domainColor,
           };
         }
       );
@@ -143,7 +146,9 @@ const HomePage = () => {
         </div>
       </div>
       <div>
-        <div className="text-left text-xl text-white font-semibold">Productivité</div>
+        <div className="text-left text-xl text-white font-semibold">
+          Productivité
+        </div>
         <div className="grid my-2">
           <div className="col-2">
             <ObjectiveCard
@@ -170,10 +175,14 @@ const HomePage = () => {
       </div>
       <div className="grid">
         <div className="col-6">
-          <div className="text-left text-xl text-white font-semibold mb-2">Charge</div>
+          <div className="text-left text-xl text-white font-semibold mb-2">
+            Charge
+          </div>
         </div>
         <div className="col-6">
-          <div className="text-left text-xl text-white font-semibold mb-2">Resources</div>
+          <div className="text-left text-xl text-white font-semibold mb-2">
+            Resources
+          </div>
         </div>
       </div>
       <div className="grid">

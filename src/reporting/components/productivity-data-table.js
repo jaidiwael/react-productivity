@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { Carousel } from "primereact/carousel";
 import { Style } from "react-style-tag";
+import Logo from "../../assets/images/alki-logo.svg";
 
 import { customOrder } from "../helpers";
 
@@ -60,7 +61,7 @@ const ProductivityDataTable = ({
         `}</Style>
         )}
 
-        <div className="col-4 flex">
+        <div className="col-4 md:col-3 lg:col-4 flex">
           <div
             className="border-round-xl text-white pl-3 pr-3"
             style={{
@@ -70,7 +71,7 @@ const ProductivityDataTable = ({
             {item[firstColumn?.field]}
           </div>
         </div>
-        <div className="flex align-items-center gap-3 col-3">
+        <div className="flex align-items-center gap-3 col-3 md:col-5 lg:col-3">
           <span>{item.productivity}/h</span>
           <div
             className={`text-sm text-center ${
@@ -89,11 +90,12 @@ const ProductivityDataTable = ({
             {item?.performance}
           </div>
         </div>
-        <div className={`col-3`}>
-          <span className="font-bold">{item?.volumes} </span>
+        <div className={`col-3 md:col-2 lg:col-3`}>
+          <span className="font-bold">{item?.volumes}</span>
         </div>
         <div className={`col-2`}>
-          <span>{item?.objective}</span>
+          <span className="mr-1">{item?.objective}</span>
+          <img alt="" src={Logo} width="15" height="15" />
         </div>
       </div>
     );
@@ -131,7 +133,7 @@ const ProductivityDataTable = ({
       >
         <div
           onClick={() => updateOrder(0)}
-          className={`cursor-pointer col-4 flex align-items-center ${
+          className={`cursor-pointer col-4 md:col-3 lg:col-4 flex align-items-center ${
             order.column === 0 ? "text-white" : ""
           }`}
         >
@@ -146,7 +148,7 @@ const ProductivityDataTable = ({
         </div>
         <div
           onClick={() => updateOrder(1)}
-          className={`cursor-pointer col-3 flex align-items-center ${
+          className={`cursor-pointer col-3 md:col-5 lg:col-3 flex align-items-center ${
             order.column === 1 ? "text-white" : ""
           }`}
         >
@@ -161,7 +163,7 @@ const ProductivityDataTable = ({
         </div>
         <div
           onClick={() => updateOrder(2)}
-          className={`cursor-pointer col-3 flex align-items-center ${
+          className={`cursor-pointer col-3 md:col-2 lg:col-3 flex align-items-center ${
             order.column === 2 ? "text-white" : ""
           }`}
         >
