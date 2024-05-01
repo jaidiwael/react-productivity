@@ -70,15 +70,18 @@ const ObjectiveCard = ({
       >
         {title}
       </div>
-      <Chart
-        type="doughnut"
-        data={{
-          datasets: renderChartDonuts.datasets,
-        }}
-        options={{ ...doughnutOptions, ...renderChartDonuts.extraOptions }}
-        plugins={[pluginImageCenter(Logo), ...renderChartDonuts.plugins]}
-        className="flex w-full flex-grow-1 align-items-center"
-      />
+      <div className={`px-5`}>
+        <Chart
+          type="doughnut"
+          data={{
+            datasets: renderChartDonuts.datasets,
+          }}
+          options={{ ...doughnutOptions, ...renderChartDonuts.extraOptions }}
+          plugins={[pluginImageCenter(Logo), ...renderChartDonuts.plugins]}
+          className="flex w-full flex-grow-1 align-items-center"
+        />
+      </div>
+
       {displayLabel && (
         <div className="text-3xl text-white text-center font-bold">
           {value}%
