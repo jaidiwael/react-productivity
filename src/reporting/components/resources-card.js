@@ -60,9 +60,12 @@ const ResourcesCard = ({ values }) => {
             usePointStyle: true,
             color: textColor,
             // pointStyle: "circle",
-            padding: 30,
+            padding: 10,
             boxHeight: 5,
             boxWidth: 5,
+            font: {
+              size: 10,
+            },
           },
         },
         datalabels: {
@@ -117,8 +120,8 @@ const ResourcesCard = ({ values }) => {
     setChartOptions(options);
   }, [values]);
   return (
-    <div className="bg-card border-round-2xl p-3">
-      <div className="flex gap-3 mb-5 justify-content-center">
+    <div className="bg-card border-round-2xl px-3 py-2">
+      <div className="flex gap-3 mb-2 justify-content-center">
         <ResourcesPercentage
           value={+values?.ratiosList?.capaUsage}
           label={`Taux d'utilisation de la capacité`}

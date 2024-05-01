@@ -136,20 +136,18 @@ const HomePage = () => {
   }, [productivityHomeProdvalues]);
 
   return (
-    <div className="bg-blue-900 h-screen overflow-auto p-4">
-      <div className="flex justify-content-between align-items-center text-white mb-4">
+    <div className="bg-blue-900 h-screen overflow-auto px-4 py-2">
+      <div className="flex justify-content-between align-items-center text-white mb-2">
         <div>
-          <div className="text-left text-4xl font-bold">Bonjour, Jean</div>
-          <div className="text-base">
-            Voici les chiffres des 7 derniers jours
-          </div>
+          <div className="text-left text-3xl font-bold">Bonjour, Jean</div>
+          <div className="text-xs">Voici les chiffres des 7 derniers jours</div>
         </div>
       </div>
-      <div>
-        <div className="text-left text-xl text-white font-semibold">
+      <div className="flex-shrink-1">
+        <div className="text-left text-base text-white font-semibold">
           Productivité
         </div>
-        <div className="grid my-2">
+        <div className="grid my-1">
           <div className="col-2">
             <ObjectiveCard
               onClick={() => navigate("/objective")}
@@ -173,24 +171,26 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="grid">
-        <div className="col-6">
-          <div className="text-left text-xl text-white font-semibold mb-2">
-            Charge
+      <div className="flex-shrink-1">
+        <div className="grid">
+          <div className="col-6">
+            <div className="text-left text-base text-white font-semibold mb-1">
+              Charge
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="text-left text-base text-white font-semibold mb-1">
+              Resources
+            </div>
           </div>
         </div>
-        <div className="col-6">
-          <div className="text-left text-xl text-white font-semibold mb-2">
-            Resources
+        <div className="grid">
+          <div className="col-6">
+            <ChargeCard values={renderRealForecast} />
           </div>
-        </div>
-      </div>
-      <div className="grid">
-        <div className="col-6">
-          <ChargeCard values={renderRealForecast} />
-        </div>
-        <div className="col-6">
-          <ResourcesCard values={renderHomeResources} />
+          <div className="col-6">
+            <ResourcesCard values={renderHomeResources} />
+          </div>
         </div>
       </div>
     </div>

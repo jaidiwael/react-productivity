@@ -24,13 +24,13 @@ const PerformanceSlider = ({ onClickCard, products }) => {
   };
 
   return (
-    <div className="bg-blue-800 border-round-2xl p-3 ">
+    <div className="bg-blue-800 border-round-2xl px-3 py-2 ">
       <div className="text-white text-center font-semibold ">
         Productivité par domaine d'activité
       </div>
       <Carousel
         value={products}
-        numVisible={4}
+        numVisible={6}
         numScroll={1}
         itemTemplate={productTemplate}
         // circular
@@ -39,7 +39,7 @@ const PerformanceSlider = ({ onClickCard, products }) => {
         showIndicators={false}
         pt={{
           item: {
-            className: "p-3 max-w-18rem",
+            className: "px-3 py-2 max-w-14rem",
           },
           previousbutton: {
             className: "text-white",

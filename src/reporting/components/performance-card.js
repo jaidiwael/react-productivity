@@ -1,3 +1,5 @@
+import humanize from "humanize-number";
+
 import green from "../../assets/images/green.svg";
 import blue from "../../assets/images/blue.svg";
 import logo from "../../assets/images/alki-logo.svg";
@@ -39,13 +41,13 @@ const PerformanceCard = ({ data, onClick, isMaximum, isMinimum }) => {
           />
           <div>{data.equipe}</div>
         </div>
-        <div className="text-4xl text-color text-center font-semibold line-height-1">
+        <div className="text-3xl text-color text-center font-semibold line-height-1">
           {data?.average}
         </div>
         <div className="text-sm text-color-secondary text-center">
           {data?.averageUnit}
         </div>
-        <div
+        {/* <div
           className={`text-sm text-center mt-2 ${
             data?.performance[0] === "-" ? "text-red-400" : "text-teal-400"
           }`}
@@ -56,15 +58,15 @@ const PerformanceCard = ({ data, onClick, isMaximum, isMinimum }) => {
             <i className="pi pi-sort-up-fill text-teal-400 text-xs mr-2"></i>
           )}
           {data?.performance}
-        </div>
-        <div className="h-5rem" />
+        </div> */}
+        <div className="h-1rem" />
         <div className="text-sm text-color text-center font-medium border-top-1 border-200 pt-2 mt-auto">
-          {data?.amount}
+          {humanize(data?.amount, { delimiter: " " })}
           <br />
-          {data?.amountUnit + " " + "traitées"}
+          {data?.amountUnit + " traitées"}
         </div>
         <div
-          className="text-3xl text-white text-center font-semibold absolute bottom-0 left-50 flex align-items-center justify-content-space-between gap-2"
+          className="text-2xl text-white text-center font-semibold absolute bottom-0 left-50 flex align-items-center justify-content-space-between gap-2"
           style={{ transform: "translateX(-50%)" }}
         >
           <img alt="" src={logo} width="25" height="25" />

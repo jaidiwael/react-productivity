@@ -93,7 +93,7 @@ const MeterGroup = ({
   };
   return (
     <div
-      className={`flex flex-column align-items-center gap-3 ${
+      className={`flex flex-column align-items-center gap-2 ${
         orientation === "horizontal" ? "w-full" : "h-full"
       }`}
     >

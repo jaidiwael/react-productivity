@@ -40,7 +40,6 @@ const Temps = () => {
     const textColorSecondary = documentStyle.getPropertyValue(
       "--text-color-secondary"
     );
-    const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
     let datasets = [];
 
     switch (activeItem?.label) {

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo } from "react";
 import { Carousel } from "primereact/carousel";
 import { Style } from "react-style-tag";
 import Logo from "../../assets/images/alki-logo.svg";

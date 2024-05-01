@@ -62,7 +62,7 @@ const ObjectiveCard = ({
   return (
     <div
       onClick={onClick}
-      className={`border-round-2xl py-3 px-4 bg-card h-full flex flex-column justify-content-between cursor-pointer 
+      className={`border-round-2xl py-2 px-4 bg-card h-full flex flex-column justify-content-between cursor-pointer 
         ${className}`}
     >
       <div

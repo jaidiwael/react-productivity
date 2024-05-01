@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
 
-import Logo from "../../assets/images/alki-logo.svg";
-
 const ChargeCard = ({ values }) => {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
@@ -46,7 +44,10 @@ const ChargeCard = ({ values }) => {
               color: textColor,
               boxHeight: 5,
               boxWidth: 5,
-              padding: 30,
+              padding: 10,
+              font: {
+                size: 10,
+              },
               // boxPadding: 100,
               // pointStyle: ({ chart }) => {
               //   const image = new Image();
@@ -92,8 +93,13 @@ const ChargeCard = ({ values }) => {
     }
   }, [values]);
   return (
-    <div className="bg-card border-round-2xl p-3 h-full cursor-pointer">
-      <Chart type="line" data={chartData} options={chartOptions} />
+    <div className="bg-card border-round-2xl px-3 py-2 h-full cursor-pointer">
+      <Chart
+        type="line"
+        data={chartData}
+        options={chartOptions}
+        style={{ height: "450px" }}
+      />
     </div>
   );
 };
