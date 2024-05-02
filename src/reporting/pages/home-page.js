@@ -70,15 +70,20 @@ const HomePage = () => {
       let labels = [];
       let forecastValues = [];
       let realValues = [];
-      productivityRealForecast.forEach(({ date, forecastValue, realValue }) => {
-        labels = [...labels, date];
-        forecastValues = [...forecastValues, forecastValue];
-        realValues = [...realValues, realValue];
-      });
+      let alkiValues = [];
+      productivityRealForecast.forEach(
+        ({ date, forecastValue, realValue, alkiValue }) => {
+          labels = [...labels, date];
+          forecastValues = [...forecastValues, forecastValue];
+          realValues = [...realValues, realValue];
+          alkiValues = [...alkiValues, alkiValue];
+        }
+      );
       values = {
         labels,
         forecastValues,
         realValues,
+        alkiValues,
       };
     }
     return values;

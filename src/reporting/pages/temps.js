@@ -64,7 +64,7 @@ const Temps = () => {
           {
             ...dataSetConfig,
             label: activeItem.label,
-            backgroundColor: arrayColors[1],
+            backgroundColor: arrayColors[3],
             data:
               type === "percent"
                 ? [21, 84, 24, 75, 37, 65, 34]
@@ -80,7 +80,7 @@ const Temps = () => {
           {
             ...dataSetConfig,
             label: activeItem.label,
-            backgroundColor: arrayColors[2],
+            backgroundColor: arrayColors[1],
             data:
               type === "percent"
                 ? [41, 52, 24, 74, 23, 21, 32]
@@ -96,7 +96,7 @@ const Temps = () => {
           {
             ...dataSetConfig,
             label: activeItem.label,
-            backgroundColor: arrayColors[3],
+            backgroundColor: arrayColors[2],
             data:
               type === "percent"
                 ? [41, 52, 24, 74, 23, 21, 32]

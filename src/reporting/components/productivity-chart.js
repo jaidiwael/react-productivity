@@ -4,8 +4,7 @@ import { SelectButton } from "primereact/selectbutton";
 import { Chart } from "primereact/chart";
 
 const ProductivityChart = ({ award, breadCrumb, activity }) => {
-  const [view, setView] = useState("chart");
-  const [timeRange, setTimeRange] = useState("Jour");
+  const [timeRange, setTimeRange] = useState(1);
   const [lineChartOptions, setLineChartOptions] = useState();
 
   const documentStyle = getComputedStyle(document.documentElement);
@@ -173,22 +172,6 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
       className: "border-noround-left",
     },
   ];
-  const timeOptions = [
-    { value: "Jour", className: "border-noround-right border-round-left-3xl" },
-    {
-      value: "Semaine",
-      className: "border-noround-left border-noround-right",
-    },
-    { value: "Mois", className: "border-noround-left border-round-right-3xl" },
-  ];
-
-  const viewsTemplate = (item) => {
-    return <i className={item.icon}></i>;
-  };
-
-  const timeTemplate = (item) => {
-    return <span>{item.value}</span>;
-  };
 
   return (
     <div className=" h-full flex flex-column">
@@ -211,31 +194,21 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
         {/* <div className="text-center text-xl	my-2">
           <BreadCrumb items={breadCrumb} />
         </div> */}
-        <div className="flex justify-content-end align-items-center">
-          {/* <SelectButton
-            value={view}
-            onChange={(e) => setView(e.value)}
-            itemTemplate={viewsTemplate}
-            options={views}
-            pt={{
-              button: ({ context }) => ({
-                className: context.selected
-                  ? "p-2 text-blue-500 border-none bg-none"
-                  : "p-2 bg-none border-none text-white",
-              }),
-            }}
-          /> */}
+
+        <div className="text-white  flex justify-content-end">
           <SelectButton
+            allowEmpty={false}
             value={timeRange}
             onChange={(e) => setTimeRange(e.value)}
-            options={timeOptions}
-            itemTemplate={timeTemplate}
+            optionLabel="name"
+            options={[
+              { name: "Jour", value: 1 },
+              { name: "Semaine", value: 2 },
+              { name: "Mois", value: 3 },
+            ]}
             pt={{
-              button: ({ context }) => ({
-                className: context.selected
-                  ? "py-1 px-3 bg-blue-700 border-none text-white"
-                  : "py-1 px-3 bg-blue-900 border-none text-white",
-              }),
+              root: "border-round-2xl overflow-hidden",
+              button: "py-1 border-noround",
             }}
           />
         </div>
