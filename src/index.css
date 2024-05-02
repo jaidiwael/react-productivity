@@ -127,3 +127,13 @@ code {
 .bg-active-card {
   background-color: #276ddb !important;
 }
+
+.productivity__left-col{
+  width: 25%;
+  min-width: 550px;
+}
+
+.productivity__right-col{
+  flex: 0 1 75%;
+  max-width: calc(100% - 550px);
+}

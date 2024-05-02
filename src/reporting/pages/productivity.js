@@ -58,10 +58,10 @@ const Productivity = () => {
     return breadCrumbArray;
   }, [selectedActivity, selectedClient, selectedOperator]);
   return (
-    <div className="p-4 bg-blue-900">
+    <div className="p-4 bg-blue-900 h-screen">
       <InternHeader />
-      <div className="grid">
-        <div className="col-4 md:col-5 lg:col-4">
+      <div className="flex">
+        <div className="productivity__left-col p-1">
           <ProductivityDataTable
             firstColumn={{ field: "activity", header: "Activités" }}
             selectedRow={selectedActivity}
@@ -107,7 +107,7 @@ const Productivity = () => {
             </div>
           )}
         </div>
-        <div className="col-8 md:col-7 lg:col-8">
+        <div className="productivity__right-col p-1">
           <ProductivityChart
             breadCrumb={renderBreadCrumb}
             activity={activities?.find((act) => act?.id === selectedActivity)}

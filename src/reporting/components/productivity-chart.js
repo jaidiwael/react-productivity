@@ -63,6 +63,7 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
     ],
   };
   const pieChartOptions = {
+    responsive: true,
     maintainAspectRatio: false,
     aspectRatio: 1,
     plugins: {
@@ -111,6 +112,7 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
 
   useEffect(() => {
     setLineChartOptions({
+      responsive: true,
       maintainAspectRatio: false,
       aspectRatio: 1,
       plugins: {
