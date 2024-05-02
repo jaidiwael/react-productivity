@@ -64,7 +64,7 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
   };
   const pieChartOptions = {
     maintainAspectRatio: false,
-    aspectRatio: 0.8,
+    aspectRatio: 1,
     plugins: {
       legend: {
         position: "bottom",

@@ -194,10 +194,10 @@ const ProductivityDataTable = ({
       </div>
       <Carousel
         value={renderProductByOrder}
-        numVisible={5}
+        numVisible={2}
         numScroll={1}
         orientation="vertical"
-        verticalViewPortHeight="210px"
+        verticalViewPortHeight="90px"
         itemTemplate={itemTemplate}
         showIndicators={false}
         pt={{
