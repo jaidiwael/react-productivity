@@ -90,17 +90,18 @@ code {
     rgba(38, 105, 217, 1) 100%
   );
   position: relative;
+  overflow: hidden;
 }
 
 .custom-bg-selected::after {
   width: 50px;
   max-height: 3rem;
   height: 100%;
-  border: 24px solid #141e55;
+  border: 26px solid #141e55;
   border-left-width: 30px;
   border-left-color: rgba(38, 105, 217, 1);
   content: "";
-  top: 0;
+  top: -2px;
   right: -26px;
   position: absolute;
   box-sizing: border-box;
@@ -136,4 +137,24 @@ code {
 .productivity__right-col{
   flex: 0 1 75%;
   max-width: calc(100% - 550px);
+}
+
+.temps-page__left-col{
+  width: 25%;
+  min-width: 300px;
+}
+
+.temps-page__right-col{
+  flex: 0 1 80%;
+  max-width: calc(100% - 300px);
+}
+
+.objective-page__left-col{
+  width: 20%;
+  min-width: 260px;
+}
+
+.objective-page__right-col{
+  flex: 0 1 80%;
+  max-width: calc(100% - 260px);
 }

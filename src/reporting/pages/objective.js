@@ -131,15 +131,15 @@ const Objective = () => {
     <div className="p-4 bg-blue-900 h-screen flex flex-column">
       <InternHeader defaultPage="Objective" />
 
-      <div className="px-4 grid " style={{ height: "calc(100% - 39px)" }}>
-        <div className="col-3 h-full">
+      <div className="px-4 flex gap-3" style={{ height: "calc(100% - 39px)" }}>
+        <div className="objective-page__left-col h-full">
           <div className="h-full overflow-scroll">
             <ObjectiveCardActivity
               title="Packing"
               value={110}
               displayLabel={false}
               headerClassName="bg-color-green"
-              className={"mb-2"}
+              className={"mb-3"}
               onClick={setActivity}
               activeItem={activity}
             />
@@ -149,7 +149,7 @@ const Objective = () => {
               value={100}
               displayLabel={false}
               headerClassName="bg-color-purple"
-              className={"mb-2"}
+              className={"mb-3"}
               onClick={setActivity}
               activeItem={activity}
             />
@@ -158,7 +158,7 @@ const Objective = () => {
               value={95}
               displayLabel={false}
               headerClassName="bg-color-purple-light"
-              className={"mb-2"}
+              className={"mb-3"}
               onClick={setActivity}
               activeItem={activity}
             />
@@ -173,7 +173,7 @@ const Objective = () => {
             />
           </div>
         </div>
-        <div className="col-9 h-full">
+        <div className="objective-page__right-col h-full">
           <div className="pt-6  pb-3 px-3 flex flex-column h-full bg-blue-800 border-round-2xl shadow-1 flex-grow-1">
             <div className="text-white  flex justify-content-end">
               <SelectButton

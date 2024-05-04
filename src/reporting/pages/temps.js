@@ -282,8 +282,8 @@ const Temps = () => {
     <div className="p-4 bg-blue-900 h-screen flex flex-column">
       <InternHeader defaultPage="Temps" />
 
-      <div className="px-4 grid flex-grow-1">
-        <div className="col-3">
+      <div className="px-4 flex gap-3 flex-grow-1">
+        <div className="temps-page__left-col">
           <OperatorList
             onOperatorClick={(item) => {
               setSelectedOperator(item);
@@ -292,7 +292,7 @@ const Temps = () => {
             selectedOperator={selectedOperator}
           />
         </div>
-        <div className="col-9 h-full">
+        <div className="temps-page__right-col h-full">
           <div className="flex flex-column h-full">
             <div className="py-3 px-4 bg-blue-800 border-round-2xl shadow-1 h-full flex flex-column">
               <div className="text-white">Répartition du temps</div>
