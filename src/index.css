@@ -24,18 +24,23 @@ code {
   background-image: linear-gradient(0deg, #ff4e3b 0, #fd8b89 100%);
 }
 
+
+.tableRow{
+  height: 50px;
+}
 .selectedTableRow {
-  background-color: var(--cyan-700);
+  background-color: var(--color);
   color: var(--surface-a);
   position: relative;
+  
 }
 
 .selectedTableRow::after {
-  width: 50px;
+  width: 55px;
   height: 100%;
-  border: 20px solid white;
+  border: 25px solid white;
   border-left-width: 26px;
-  border-left-color: var(--cyan-700);
+  border-left-color: var(--color);
   content: "";
   top: 0;
   right: -24px;
@@ -45,7 +50,7 @@ code {
 
 .bg-blue-800 .selectedTableRow::after {
   border-color: var(--blue-800);
-  border-left-color: var(--cyan-700);
+  border-left-color: var(--color);
 }
 
 .objective-bg1 {

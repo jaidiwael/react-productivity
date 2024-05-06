@@ -32,7 +32,7 @@ const ProductivityDataTable = ({
   const itemTemplate = (item) => {
     return (
       <div
-        className={`grid cursor-pointer  m-auto align-items-center ${
+        className={`grid cursor-pointer m-auto align-items-center text-xs tableRow ${
           item?.id === selectedRow ? "selectedTableRow border-round-left" : ""
         } ${
           blueTheme
@@ -41,15 +41,16 @@ const ProductivityDataTable = ({
         } ${selectedColor ? firstColumn?.field : item[firstColumn?.field]}`}
         onClick={() => onRowSelection(item?.id)}
         style={{
-          backgroundColor:
+          /* backgroundColor:
             item?.id === selectedRow
               ? selectedColor
                 ? selectedColor
                 : item.color
-              : "",
+              : "", */
+          "--color": selectedColor || item.color,
         }}
       >
-        {selectedColor ? (
+        {/* {selectedColor ? (
           <Style>{`
           .${firstColumn?.field}.selectedTableRow::after { border-left-color: ${selectedColor} }
         `}</Style>
@@ -59,11 +60,11 @@ const ProductivityDataTable = ({
             item[firstColumn?.field]
           }.selectedTableRow::after { border-left-color: ${item.color} }
         `}</Style>
-        )}
+        )} */}
 
         <div className="col-4 md:col-3 lg:col-4 flex">
           <div
-            className="border-round-xl text-white pl-3 pr-3"
+            className="border-round-xl text-white px-3 py-1"
             style={{
               backgroundColor: item?.id === selectedRow ? "unset" : item?.color,
             }}
@@ -71,7 +72,7 @@ const ProductivityDataTable = ({
             {item[firstColumn?.field]}
           </div>
         </div>
-        <div className="flex align-items-center gap-3 col-3 md:col-5 lg:col-3">
+        <div className="flex align-items-center gap-3 col-4 md:col-4 lg:col-4">
           <span>{item.productivity}/h</span>
           <div
             className={`text-sm text-center ${
@@ -90,7 +91,7 @@ const ProductivityDataTable = ({
             {item?.performance}
           </div>
         </div>
-        <div className={`col-3 md:col-2 lg:col-3`}>
+        <div className={`col-2 md:col-2 lg:col-2`}>
           <span className="font-bold">{item?.volumes}</span>
         </div>
         <div className={`col-2`}>
@@ -197,15 +198,15 @@ const ProductivityDataTable = ({
         numVisible={2}
         numScroll={1}
         orientation="vertical"
-        verticalViewPortHeight="90px"
+        verticalViewPortHeight="120px"
         itemTemplate={itemTemplate}
         showIndicators={false}
         pt={{
           previousbutton: {
-            className: blueTheme ? "text-white" : "",
+            className: `${blueTheme ? "text-white" : ""}  w-1rem h-1rem`,
           },
           nextbutton: {
-            className: blueTheme ? "text-white" : "",
+            className: `${blueTheme ? "text-white" : ""} w-1rem h-1rem`,
           },
           itemscontainer: {
             className: "align-items-start",
