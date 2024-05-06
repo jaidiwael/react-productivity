@@ -122,9 +122,10 @@ const HomePage = () => {
           totalQuantity,
           domainColor,
           unitName,
+          domainId,
         }) => {
           return {
-            id: 5,
+            id: domainId,
             equipe: domainName,
             average: realProductivity,
             averageUnit: "lignes/h",

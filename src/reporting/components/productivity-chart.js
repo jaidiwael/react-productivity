@@ -3,7 +3,16 @@ import BreadCrumb from "./breadCrumb";
 import { SelectButton } from "primereact/selectbutton";
 import { Chart } from "primereact/chart";
 
-const ProductivityChart = ({ award, breadCrumb, activity }) => {
+const ProductivityChart = ({
+  award,
+  breadCrumb,
+  activity,
+  labels,
+  cibleData,
+  realData,
+  realEtp,
+  plannedEtp,
+}) => {
   const [timeRange, setTimeRange] = useState(1);
   const [lineChartOptions, setLineChartOptions] = useState();
 
@@ -11,19 +20,47 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
   const textColor = "rgba(255,255,255,1";
   const textColorSecondary = documentStyle.getPropertyValue("--gray-100");
   const surfaceBorder = "rgba(255,255,255,0.4)";
+  // const renderOptionsChart = () => {
+  //   let newLabels = [];
+  //   let newCibleData = [];
+  //   let newRealData = [];
+  //   let newPlannedEtp = [];
+  //   let newRealEtp = [];
+  //   switch (timeRange) {
+  //     case 2:
+
+  //     break
+  //     case 1:
+  //     default:
+  //       newLabels = labels;
+  //       newCibleData = cibleData;
+  //       newRealData = realData;
+  //       newPlannedEtp = plannedEtp;
+  //       newRealEtp = realEtp;
+  //       break
+  //   }
+  //   return {
+  //     labels: newLabels,
+  //     cibleData: newCibleData,
+  //     realData: newRealData,
+  //     plannedEtp: newPlannedEtp,
+  //     realEtp: newRealEtp,
+  //   };
+  // };
+  //
   const lineChartData = {
-    labels: ["v", "S", "D", "L", "M", "Me", "J"],
+    labels,
     datasets: [
       {
         label: "Cible",
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: cibleData,
         fill: false,
         tension: 0.4,
         borderColor: documentStyle.getPropertyValue("--teal-300"),
       },
       {
         label: "Realisé",
-        data: [12, 51, 62, 33, 21, 62, 45],
+        data: realData,
         fill: false,
         borderColor: documentStyle.getPropertyValue("--blue-500"),
         tension: 0.4,
@@ -32,13 +69,13 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
     ],
   };
   const pieChartData = {
-    labels: ["v", "S", "D", "L", "M", "Me", "J"],
+    labels,
     datasets: [
       {
         label: "ETP plannifié",
         backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
         borderColor: documentStyle.getPropertyValue("--cyan-300"),
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: plannedEtp,
         barThickness: 20,
         borderRadius: {
           topLeft: 20,
@@ -51,7 +88,7 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
         label: "ETP réel",
         backgroundColor: documentStyle.getPropertyValue("--gray-100"),
         borderColor: documentStyle.getPropertyValue("--gray-100"),
-        data: [28, 48, 40, 40, 86, 60, 90],
+        data: realEtp,
         barThickness: 20,
         borderRadius: {
           topLeft: 20,
@@ -161,19 +198,6 @@ const ProductivityChart = ({ award, breadCrumb, activity }) => {
       },
     });
   }, [activity]);
-
-  const views = [
-    {
-      icon: "pi pi-list text-xs",
-      value: "list",
-      className: "border-noround-right",
-    },
-    {
-      icon: "pi pi-chart-line text-xs",
-      value: "chart",
-      className: "border-noround-left",
-    },
-  ];
 
   return (
     <div className=" h-full flex flex-column">

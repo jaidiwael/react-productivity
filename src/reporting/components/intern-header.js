@@ -1,17 +1,39 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
+import moment from "moment";
 
 import TimeRangeSelector from "../components/time-range-selector";
 
-const InternHeader = ({ defaultPage }) => {
+const InternHeader = ({ defaultPage, onRangeDate }) => {
   const [dropDownFilter, setDropDownFilter] = useState(
     defaultPage || "productivity"
   );
-  const [timeSelector, setTimeSelector] = useState(-1);
+  const [timeSelector, setTimeSelector] = useState(7);
   const [calendarPicker, setCalendarPicker] = useState(null);
   const navigate = useNavigate();
+
+  const renderRange = useCallback((selector) => {
+    switch (selector) {
+      case 30:
+        return [
+          moment().startOf("month").format("YYYY-MM-DD"),
+          moment().format("YYYY-MM-DD"),
+        ];
+      case 90:
+        return [
+          moment().add(-3, "months").format("YYYY-MM-DD"),
+          moment().format("YYYY-MM-DD"),
+        ];
+      case 7:
+      default:
+        return [
+          moment().add(-7, "days").format("YYYY-MM-DD"),
+          moment().format("YYYY-MM-DD"),
+        ];
+    }
+  }, []);
   return (
     <div className="flex justify-content-between mb-3 px-4 ">
       <div className="flex align-items-center gap-2">
@@ -59,6 +81,7 @@ const InternHeader = ({ defaultPage }) => {
           setSelected={(v) => {
             setTimeSelector(v);
             setCalendarPicker(null);
+            onRangeDate(renderRange(v));
           }}
         />
         {/* <div className="text-sm flex align-items-center gap-2 py-1 px-3 border-round-3xl bg-white-alpha-10 text-gray-200">
@@ -69,6 +92,12 @@ const InternHeader = ({ defaultPage }) => {
           onChange={(e) => {
             setCalendarPicker(e.value);
             setTimeSelector(null);
+            if (e.value[1]) {
+              onRangeDate([
+                moment(e.value[0]).format("YYYY-MM-DD"),
+                moment(e.value[1]).format("YYYY-MM-DD"),
+              ]);
+            }
           }}
           selectionMode="range"
           readOnlyInput
