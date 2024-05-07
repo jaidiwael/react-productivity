@@ -94,7 +94,7 @@ const ProductivityDataTable = ({
         <div className={`col-2 md:col-2 lg:col-2`}>
           <span className="font-bold">{item?.volumes}</span>
         </div>
-        <div className={`col-2`}>
+        <div className={`col-2 z-1`}>
           <span className="mr-1">{item?.objective}</span>
           <img alt="" src={Logo} width="15" height="15" />
         </div>
@@ -198,7 +198,7 @@ const ProductivityDataTable = ({
         numVisible={2}
         numScroll={1}
         orientation="vertical"
-        verticalViewPortHeight="120px"
+        verticalViewPortHeight="135px"
         itemTemplate={itemTemplate}
         showIndicators={false}
         pt={{

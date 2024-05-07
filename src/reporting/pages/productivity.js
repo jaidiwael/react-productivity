@@ -279,7 +279,7 @@ const Productivity = () => {
     return [];
   }, [productivityDetailProd, selectedClient, selectedOperator]);
   return (
-    <div className="p-4 bg-blue-900 h-screen">
+    <div className="p-4 bg-blue-900 h-screen overflow-auto">
       <InternHeader onRangeDate={setRangeDate} />
       <div className="flex">
         <div className="productivity__left-col p-1">

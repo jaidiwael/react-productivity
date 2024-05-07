@@ -102,7 +102,7 @@ const ProductivityChart = ({
   const pieChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    aspectRatio: 1,
+    aspectRatio: 0.9,
     plugins: {
       legend: {
         position: "bottom",
