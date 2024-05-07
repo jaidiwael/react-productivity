@@ -143,15 +143,9 @@ const HomePage = () => {
 
   return (
     <div className="bg-blue-900 h-screen overflow-auto px-4 py-2">
-      <div className="flex justify-content-between align-items-center text-white mb-2">
-        <div>
-          <div className="text-left text-3xl font-bold">Bonjour, Jean</div>
-          <div className="text-xs">Voici les chiffres des 7 derniers jours</div>
-        </div>
-      </div>
       <div className="flex-shrink-1">
         <div className="text-left text-base text-white font-semibold">
-          Productivité
+          Productivité (7 derniers jours)
         </div>
         <div className="grid my-1">
           <div className="col-2">
@@ -181,12 +175,12 @@ const HomePage = () => {
         <div className="grid">
           <div className="col-6">
             <div className="text-left text-base text-white font-semibold mb-1">
-              Charge
+              Charge (7 derniers jours)
             </div>
           </div>
           <div className="col-6">
             <div className="text-left text-base text-white font-semibold mb-1">
-              Resources
+              Resources (7 derniers jours)
             </div>
           </div>
         </div>
