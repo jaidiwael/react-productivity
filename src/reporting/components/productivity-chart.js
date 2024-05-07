@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import BreadCrumb from "./breadCrumb";
 import { SelectButton } from "primereact/selectbutton";
 import { Chart } from "primereact/chart";
+import moment from "moment";
 
 const ProductivityChart = ({
   award,
@@ -20,47 +21,90 @@ const ProductivityChart = ({
   const textColor = "rgba(255,255,255,1";
   const textColorSecondary = documentStyle.getPropertyValue("--gray-100");
   const surfaceBorder = "rgba(255,255,255,0.4)";
-  // const renderOptionsChart = () => {
-  //   let newLabels = [];
-  //   let newCibleData = [];
-  //   let newRealData = [];
-  //   let newPlannedEtp = [];
-  //   let newRealEtp = [];
-  //   switch (timeRange) {
-  //     case 2:
+  const renderOptionsChart = useMemo(() => {
+    let newLabels = [];
+    let newCibleData = [];
+    let newRealData = [];
+    let newPlannedEtp = [];
+    let newRealEtp = [];
+    switch (timeRange) {
+      case 3:
+        labels.forEach((lb, index) => {
+          const month = moment(lb).month();
+          if (newLabels.find((l) => l === month)) {
+            // newLabels[newLabels.length-1] =
+            newCibleData[newCibleData.length - 1] =
+              newCibleData[newCibleData.length - 1] + cibleData[index];
+            newRealData[newRealData.length - 1] =
+              newRealData[newRealData.length - 1] + realData[index];
+            newPlannedEtp[newPlannedEtp.length - 1] =
+              newPlannedEtp[newPlannedEtp.length - 1] + plannedEtp[index];
+            newRealEtp[newRealEtp.length - 1] =
+              newRealEtp[newRealEtp.length - 1] + realEtp[index];
+          } else {
+            newLabels = [...newLabels, month];
+            newCibleData = [...newCibleData, cibleData[index]];
+            newRealData = [...newRealData, realData[index]];
+            newPlannedEtp = [...newPlannedEtp, plannedEtp[index]];
+            newRealEtp = [...newRealEtp, realEtp[index]];
+          }
+        });
+        newLabels = newLabels.map((lb) => `Mois ${lb}`);
+        break;
+      case 2:
+        labels.forEach((lb, index) => {
+          const week = moment(lb).week();
+          if (newLabels.find((l) => l === week)) {
+            // newLabels[newLabels.length-1] =
+            newCibleData[newCibleData.length - 1] =
+              newCibleData[newCibleData.length - 1] + cibleData[index];
+            newRealData[newRealData.length - 1] =
+              newRealData[newRealData.length - 1] + realData[index];
+            newPlannedEtp[newPlannedEtp.length - 1] =
+              newPlannedEtp[newPlannedEtp.length - 1] + plannedEtp[index];
+            newRealEtp[newRealEtp.length - 1] =
+              newRealEtp[newRealEtp.length - 1] + realEtp[index];
+          } else {
+            newLabels = [...newLabels, week];
+            newCibleData = [...newCibleData, cibleData[index]];
+            newRealData = [...newRealData, realData[index]];
+            newPlannedEtp = [...newPlannedEtp, plannedEtp[index]];
+            newRealEtp = [...newRealEtp, realEtp[index]];
+          }
+        });
+        newLabels = newLabels.map((lb) => `Semaine ${lb}`);
+        break;
+      case 1:
+      default:
+        newLabels = labels;
+        newCibleData = cibleData;
+        newRealData = realData;
+        newPlannedEtp = plannedEtp;
+        newRealEtp = realEtp;
+        break;
+    }
+    return {
+      labels: newLabels,
+      cibleData: newCibleData,
+      realData: newRealData,
+      plannedEtp: newPlannedEtp,
+      realEtp: newRealEtp,
+    };
+  }, [cibleData, labels, plannedEtp, realEtp, realData, timeRange]);
 
-  //     break
-  //     case 1:
-  //     default:
-  //       newLabels = labels;
-  //       newCibleData = cibleData;
-  //       newRealData = realData;
-  //       newPlannedEtp = plannedEtp;
-  //       newRealEtp = realEtp;
-  //       break
-  //   }
-  //   return {
-  //     labels: newLabels,
-  //     cibleData: newCibleData,
-  //     realData: newRealData,
-  //     plannedEtp: newPlannedEtp,
-  //     realEtp: newRealEtp,
-  //   };
-  // };
-  //
   const lineChartData = {
-    labels,
+    labels: renderOptionsChart?.labels,
     datasets: [
       {
         label: "Cible",
-        data: cibleData,
+        data: renderOptionsChart?.cibleData,
         fill: false,
         tension: 0.4,
         borderColor: documentStyle.getPropertyValue("--teal-300"),
       },
       {
         label: "Realisé",
-        data: realData,
+        data: renderOptionsChart?.realData,
         fill: false,
         borderColor: documentStyle.getPropertyValue("--blue-500"),
         tension: 0.4,
@@ -69,26 +113,26 @@ const ProductivityChart = ({
     ],
   };
   const pieChartData = {
-    labels,
+    labels: renderOptionsChart?.labels,
     datasets: [
+      // {
+      //   label: "ETP plannifié",
+      //   backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
+      //   borderColor: documentStyle.getPropertyValue("--cyan-300"),
+      //   data: plannedEtp,
+      //   barThickness: 20,
+      //   borderRadius: {
+      //     topLeft: 20,
+      //     topRight: 20,
+      //     bottomLeft: 20,
+      //     bottomRight: 20,
+      //   },
+      // },
       {
-        label: "ETP plannifié",
-        backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
-        borderColor: documentStyle.getPropertyValue("--cyan-300"),
-        data: plannedEtp,
-        barThickness: 20,
-        borderRadius: {
-          topLeft: 20,
-          topRight: 20,
-          bottomLeft: 20,
-          bottomRight: 20,
-        },
-      },
-      {
-        label: "ETP réel",
+        label: "Volume",
         backgroundColor: documentStyle.getPropertyValue("--gray-100"),
         borderColor: documentStyle.getPropertyValue("--gray-100"),
-        data: realEtp,
+        data: renderOptionsChart?.realEtp,
         barThickness: 20,
         borderRadius: {
           topLeft: 20,
@@ -102,7 +146,7 @@ const ProductivityChart = ({
   const pieChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    aspectRatio: 0.9,
+    aspectRatio: 0.92,
     plugins: {
       legend: {
         position: "bottom",
@@ -151,10 +195,10 @@ const ProductivityChart = ({
     setLineChartOptions({
       responsive: true,
       maintainAspectRatio: false,
-      aspectRatio: 1,
+      aspectRatio: 0.85,
       plugins: {
         tooltip: {
-          backgroundColor: activity.color || "#fff",
+          backgroundColor: activity?.color || "#fff",
         },
         legend: {
           position: "bottom",

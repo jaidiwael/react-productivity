@@ -7,7 +7,7 @@ import ProductivityDataTable from "../components/productivity-data-table";
 import ProductivityChart from "../components/productivity-chart";
 import InternHeader from "../components/intern-header";
 
-import { activities, customOrder } from "../helpers";
+import { customOrder } from "../helpers";
 import { getProductivityDetailProd } from "../api";
 
 const Productivity = () => {
@@ -328,7 +328,9 @@ const Productivity = () => {
         <div className="productivity__right-col p-1">
           <ProductivityChart
             breadCrumb={renderBreadCrumb}
-            activity={activities?.find((act) => act?.id === selectedActivity)}
+            activity={renderDomains?.find(
+              (act) => act?.id === +selectedActivity
+            )}
             labels={renderLabels}
             cibleData={renderCibleData}
             realData={renderRealData}
