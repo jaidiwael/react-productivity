@@ -7,6 +7,7 @@ import HomePage from "./pages/home-page";
 import Objective from "./pages/objective";
 import Productivity from "./pages/productivity";
 import Temps from "./pages/temps";
+import Charge from "./pages/charge";
 
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
@@ -76,6 +77,7 @@ function App() {
               path="/productivity/:activityId"
               element={<Productivity />}
             />
+            <Route path="/charge" element={<Charge />} />
           </Routes>
         </div>
       </PrimeReactProvider>

@@ -4,29 +4,20 @@ import Logo from "../../assets/images/alki-logo.svg";
 
 import { customOrder } from "../helpers";
 
-const ProductivityDataTable = ({
+const CustomDataTable = ({
   firstColumn,
   products,
   selectedRow,
   onRowSelection,
   blueTheme,
   selectedColor,
+  columnConfig,
 }) => {
   const [order, setOrder] = useState({ column: 0, direction: "asc" });
 
   const renderProductByOrder = useMemo(() => {
-    switch (order.column) {
-      case 0:
-      default:
-        return products.sort(customOrder(firstColumn?.field, order.direction));
-      case 1:
-        return products.sort(customOrder("productivity", order.direction));
-      case 2:
-        return products.sort(customOrder("volumes", order.direction));
-      case 3:
-        return products.sort(customOrder("objective", order.direction));
-    }
-  }, [order, products, firstColumn]);
+    return products.sort(customOrder(order?.column, order?.direction));
+  }, [order, products]);
 
   const itemTemplate = (item) => {
     return (
@@ -49,54 +40,21 @@ const ProductivityDataTable = ({
           "--color": selectedColor || item.color,
         }}
       >
-        {/* {selectedColor ? (
-          <Style>{`
-          .${firstColumn?.field}.selectedTableRow::after { border-left-color: ${selectedColor} }
-        `}</Style>
-        ) : (
-          <Style>{`
-          .${
-            item[firstColumn?.field]
-          }.selectedTableRow::after { border-left-color: ${item.color} }
-        `}</Style>
-        )} */}
-
-        <div className="col-4 md:col-3 lg:col-4 flex">
-          <div
-            className="border-round-xl text-white px-3 py-1"
-            style={{
-              backgroundColor: item?.id === selectedRow ? "unset" : item?.color,
-            }}
-          >
-            {item[firstColumn?.field]}
-          </div>
-        </div>
-        <div className="flex align-items-center gap-3 col-4 md:col-4 lg:col-4">
-          <span>{item.productivity}/h</span>
-          <div
-            className={`text-sm text-center ${
-              item?.performance[0] === "-" ? "text-red-400" : "text-teal-400"
-            } ${
-              item?.id === selectedRow
-                ? "border-round-xl bg-white pl-1 pr-1"
-                : ""
-            }`}
-          >
-            {item?.performance[0] === "-" ? (
-              <i className="pi pi-sort-down-fill text-red-400 text-xs mr-2"></i>
-            ) : (
-              <i className="pi pi-sort-up-fill text-teal-400 text-xs mr-2"></i>
-            )}
-            {item?.performance}
-          </div>
-        </div>
-        <div className={`col-2 md:col-2 lg:col-2`}>
-          <span className="font-bold">{item?.volumes}</span>
-        </div>
-        <div className={`col-2 z-1`}>
-          <span className="mr-1">{item?.objective}</span>
-          <img alt="" src={Logo} width="15" height="15" />
-        </div>
+        {columnConfig?.map((col) => {
+          return (
+            <div className={`flex ${col?.className}`}>
+              <div
+                className="border-round-xl text-white px-3 py-1"
+                style={{
+                  backgroundColor:
+                    item?.id === selectedRow ? "unset" : item?.color,
+                }}
+              >
+                {item[col?.value]}
+              </div>
+            </div>
+          );
+        })}
       </div>
     );
   };
@@ -117,6 +75,28 @@ const ProductivityDataTable = ({
     });
   };
 
+  const renderHeader = useMemo(() => {
+    return columnConfig?.map((col) => {
+      return (
+        <div
+          onClick={() => updateOrder(col?.value)}
+          className={`cursor-pointer  flex align-items-center ${
+            order.column === col?.value ? "text-white" : ""
+          } ${col?.className}`}
+        >
+          {col?.label}
+          <span
+            className={`pi ${
+              order.column === col?.value && order.direction === "asc"
+                ? "pi-chevron-down"
+                : "pi-chevron-up"
+            } ml-1`}
+          ></span>
+        </div>
+      );
+    });
+  }, [columnConfig, order]);
+
   return (
     <div
       className={`border-round-2xl shadow-2 ${
@@ -131,66 +111,7 @@ const ProductivityDataTable = ({
           marginTop: "0px !important",
         }}
       >
-        <div
-          onClick={() => updateOrder(0)}
-          className={`cursor-pointer col-4 md:col-3 lg:col-4 flex align-items-center ${
-            order.column === 0 ? "text-white" : ""
-          }`}
-        >
-          {firstColumn.header}
-          <span
-            className={`pi ${
-              order.column === 0 && order.direction === "asc"
-                ? "pi-chevron-down"
-                : "pi-chevron-up"
-            } ml-1`}
-          ></span>
-        </div>
-        <div
-          onClick={() => updateOrder(1)}
-          className={`cursor-pointer col-3 md:col-5 lg:col-3 flex align-items-center ${
-            order.column === 1 ? "text-white" : ""
-          }`}
-        >
-          Productivités
-          <span
-            className={`pi ${
-              order.column === 1 && order.direction === "asc"
-                ? "pi-chevron-down"
-                : "pi-chevron-up"
-            } ml-1`}
-          ></span>
-        </div>
-        <div
-          onClick={() => updateOrder(2)}
-          className={`cursor-pointer col-3 md:col-2 lg:col-3 flex align-items-center ${
-            order.column === 2 ? "text-white" : ""
-          }`}
-        >
-          Volumes
-          <span
-            className={`pi ${
-              order.column === 2 && order.direction === "asc"
-                ? "pi-chevron-down"
-                : "pi-chevron-up"
-            } ml-1`}
-          ></span>
-        </div>
-        <div
-          onClick={() => updateOrder(3)}
-          className={`cursor-pointer col-2 flex align-items-center ${
-            order.column === 3 ? "text-white" : ""
-          }`}
-        >
-          Objectif
-          <span
-            className={`pi ${
-              order.column === 3 && order.direction === "asc"
-                ? "pi-chevron-down"
-                : "pi-chevron-up"
-            } ml-1`}
-          ></span>
-        </div>
+        {renderHeader}
       </div>
       <Carousel
         value={renderProductByOrder}
@@ -271,9 +192,9 @@ const ProductivityDataTable = ({
   );
 };
 
-export default ProductivityDataTable;
+export default CustomDataTable;
 
-ProductivityDataTable.defaultProps = {
+CustomDataTable.defaultProps = {
   firstColumn: { field: "activity", header: "Activités" },
   products: [
     {

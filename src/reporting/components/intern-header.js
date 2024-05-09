@@ -61,6 +61,10 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
               label: "Objectif global",
               value: "Objective",
             },
+            {
+              label: "Charge",
+              value: "Charge",
+            },
           ]}
           className="w-14rem surface-100 border-round-3xl text-primary"
           pt={{

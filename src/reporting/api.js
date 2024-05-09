@@ -69,3 +69,15 @@ export const getProductivityDetailProd = async ({ queryKey }) => {
   }
   return res;
 };
+
+export const getProductivityDetailTimes = async ({ queryKey }) => {
+  let res;
+  try {
+    res = await fetch(
+      `https://l1efaqhstd.execute-api.eu-west-3.amazonaws.com/preprod/productivity-detail-times?startDate=${queryKey[1]}&endDate=${queryKey[2]}`
+    ).then((res) => res.json());
+  } catch (e) {
+    throw e;
+  }
+  return res;
+};

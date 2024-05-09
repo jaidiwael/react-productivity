@@ -58,7 +58,8 @@ const HomePage = () => {
             label: trackingTypeName,
             value: TotalTimePassedByTrackingType,
             percentage: percentage?.toFixed(2),
-            color: arrayColors[index],
+            color: arrayColors?.find((c) => c?.label === trackingTypeName)
+              ?.color,
           })
         )
     );

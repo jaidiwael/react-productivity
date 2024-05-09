@@ -3,12 +3,13 @@ import { Chart } from "primereact/chart";
 import { useQuery } from "@tanstack/react-query";
 import { RadioButton } from "primereact/radiobutton";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import moment from "moment";
 
 import MeterGroup from "../components/meter-group";
 import OperatorList from "../components/operator-list";
 
-import { getProductivityTimes } from "../api";
-import { arrayColors } from "../helpers";
+import { getProductivityDetailTimes } from "../api";
+import { arrayColors, customOrder } from "../helpers";
 import InternHeader from "../components/intern-header";
 
 const dataSetConfig = {
@@ -28,11 +29,48 @@ const Temps = () => {
   const [activeItem, setActiveItem] = useState(null);
   const [type, setType] = useState("percent");
   const [selectedOperator, setSelectedOperator] = useState(null);
+  const [rangeDate, setRangeDate] = useState([
+    moment().add(-7, "days").format("YYYY-MM-DD"),
+    moment().format("YYYY-MM-DD"),
+  ]);
 
-  const { data: productivityTimes } = useQuery({
-    queryKey: ["getProductivityTimes"],
-    queryFn: getProductivityTimes,
+  const { data: productivityDetailTimes } = useQuery({
+    queryKey: ["getProductivityDetailTimes", rangeDate[0], rangeDate[1]],
+    queryFn: getProductivityDetailTimes,
+    enabled: !!rangeDate,
   });
+
+  const renderDataLabels = useMemo(() => {
+    const labels = productivityDetailTimes?.TotalTimeDetail?.filter(
+      (pdt) =>
+        pdt?.trackingTypeName ===
+        productivityDetailTimes?.TotalTimeGlobal?.[0]?.trackingTypeName
+    )
+      ?.sort(customOrder("dateCreation", "asc"))
+      .map((pdt) => pdt?.dateCreation);
+
+    let activities = {};
+
+    productivityDetailTimes?.TotalTimeGlobal?.forEach((act) => {
+      const activity = productivityDetailTimes?.TotalTimeDetail?.filter(
+        (pdt) => pdt?.trackingTypeName === act?.trackingTypeName
+      )?.sort(customOrder("dateCreation", "asc"));
+      activities = {
+        ...activities,
+        [`${act?.trackingTypeName}_values`]: activity?.map(
+          (av) => av.TotalTimePassedByTrackingType
+        ),
+        [`${act?.trackingTypeName}_percent`]: activity?.map(
+          (av) => av.percentage
+        ),
+      };
+    });
+
+    return {
+      labels,
+      ...activities,
+    };
+  }, [productivityDetailTimes]);
 
   useEffect(() => {
     const documentStyle = getComputedStyle(document.documentElement);
@@ -41,128 +79,44 @@ const Temps = () => {
       "--text-color-secondary"
     );
     let datasets = [];
-
-    switch (activeItem?.label) {
-      case "SUPPORT":
-        datasets = [
-          {
-            ...dataSetConfig,
-            label: activeItem.label,
-            backgroundColor: arrayColors[0],
-            data:
-              type === "percent"
-                ? [50, 25, 12, 48, 90, 76, 42]
-                : [10, 25, 30, 48, 69, 76, 115],
-            datalabels: {
-              align: "end",
-            },
+    if (activeItem) {
+      datasets = [
+        {
+          ...dataSetConfig,
+          label: activeItem.label,
+          backgroundColor: arrayColors?.find(
+            (c) => c?.label === activeItem?.label
+          )?.color,
+          data:
+            type === "percent"
+              ? renderDataLabels?.[`${activeItem?.label}_percent`]
+              : renderDataLabels?.[`${activeItem?.label}_values`],
+          datalabels: {
+            align: "end",
           },
-        ];
-        break;
-      case "TEMPS MANQUANT":
-        datasets = [
-          {
-            ...dataSetConfig,
-            label: activeItem.label,
-            backgroundColor: arrayColors[3],
-            data:
-              type === "percent"
-                ? [21, 84, 24, 75, 37, 65, 34]
-                : [21, 84, 24, 75, 37, 65, 34],
-            datalabels: {
-              align: "end",
-            },
+        },
+      ];
+    } else {
+      datasets = productivityDetailTimes?.TotalTimeGlobal?.map((pdtttg) => {
+        return {
+          ...dataSetConfig,
+          label: pdtttg?.trackingTypeName,
+          backgroundColor: arrayColors?.find(
+            (c) => c?.label === pdtttg?.trackingTypeName
+          )?.color,
+          data:
+            type === "percent"
+              ? renderDataLabels?.[`${pdtttg?.trackingTypeName}_percent`]
+              : renderDataLabels?.[`${pdtttg?.trackingTypeName}_values`],
+          datalabels: {
+            display: false,
           },
-        ];
-        break;
-      case "PICK":
-        datasets = [
-          {
-            ...dataSetConfig,
-            label: activeItem.label,
-            backgroundColor: arrayColors[1],
-            data:
-              type === "percent"
-                ? [41, 52, 24, 74, 23, 21, 32]
-                : [41, 52, 24, 74, 23, 21, 32],
-            datalabels: {
-              align: "end",
-            },
-          },
-        ];
-        break;
-      case "PACK":
-        datasets = [
-          {
-            ...dataSetConfig,
-            label: activeItem.label,
-            backgroundColor: arrayColors[2],
-            data:
-              type === "percent"
-                ? [41, 52, 24, 74, 23, 21, 32]
-                : [41, 52, 24, 74, 23, 21, 32],
-            datalabels: {
-              align: "end",
-            },
-          },
-        ];
-        break;
-      default:
-        datasets = [
-          {
-            ...dataSetConfig,
-            label: "SUPPORT",
-            backgroundColor: arrayColors[0],
-            data:
-              type === "percent"
-                ? [50, 25, 12, 48, 90, 76, 42]
-                : [10, 25, 30, 48, 69, 76, 115],
-            datalabels: {
-              display: false,
-            },
-          },
-          {
-            ...dataSetConfig,
-            label: "TEMPS MANQUANT",
-            backgroundColor: arrayColors[1],
-            data:
-              type === "percent"
-                ? [21, 84, 24, 75, 37, 65, 34]
-                : [21, 84, 24, 75, 37, 65, 34],
-            datalabels: {
-              display: false,
-            },
-          },
-          {
-            ...dataSetConfig,
-            label: "PICK",
-            backgroundColor: arrayColors[2],
-            data:
-              type === "percent"
-                ? [41, 52, 24, 74, 23, 21, 32]
-                : [41, 52, 24, 74, 23, 21, 32],
-            datalabels: {
-              display: false,
-            },
-          },
-          {
-            ...dataSetConfig,
-            label: "PACK",
-            backgroundColor: arrayColors[3],
-            data:
-              type === "percent"
-                ? [41, 52, 24, 74, 23, 21, 32]
-                : [41, 52, 24, 74, 23, 21, 32],
-            datalabels: {
-              display: false,
-            },
-          },
-        ];
-        break;
+        };
+      });
     }
 
     const data = {
-      labels: ["v", "S", "D", "L", "M", "Me", "J"],
+      labels: renderDataLabels?.labels,
       datasets,
     };
     const options = {
@@ -236,33 +190,21 @@ const Temps = () => {
 
     setChartData(data);
     setChartOptions(options);
-  }, [activeItem, type]);
+  }, [activeItem, type, renderDataLabels]);
 
   const renderProductivityTimes = useMemo(() => {
-    return (
-      productivityTimes
-        // ?.sort(function (a, b) {
-        //   if (a.name < b.name) {
-        //     return -1;
-        //   }
-        //   if (a.name > b.name) {
-        //     return 1;
-        //   }
-        //   return 0;
-        // })
-        ?.map(
-          (
-            { TotalTimePassedByTrackingType, percentage, trackingTypeName },
-            index
-          ) => ({
-            label: trackingTypeName,
-            value: TotalTimePassedByTrackingType,
-            percentage,
-            color: arrayColors[index],
-          })
-        )
+    return productivityDetailTimes?.TotalTimeGlobal?.map(
+      (
+        { TotalTimePassedByTrackingType, percentage, trackingTypeName },
+        index
+      ) => ({
+        label: trackingTypeName,
+        value: TotalTimePassedByTrackingType,
+        percentage,
+        color: arrayColors?.find((c) => c?.label === trackingTypeName)?.color,
+      })
     );
-  }, [productivityTimes]);
+  }, [productivityDetailTimes]);
 
   const labelTemplate = (item) => {
     return (
@@ -280,7 +222,7 @@ const Temps = () => {
   };
   return (
     <div className="p-4 bg-blue-900 h-screen flex flex-column">
-      <InternHeader defaultPage="Temps" />
+      <InternHeader defaultPage="Temps" onRangeDate={setRangeDate} />
 
       <div className="px-4 flex gap-3 flex-grow-1">
         <div className="temps-page__left-col">
@@ -302,7 +244,13 @@ const Temps = () => {
                   orientation="horizontal"
                   legend={false}
                   labelTemplate={labelTemplate}
-                  onItemClick={setActiveItem}
+                  onItemClick={(act) => {
+                    if (act?.label === activeItem?.label) {
+                      setActiveItem(null);
+                    } else {
+                      setActiveItem(act);
+                    }
+                  }}
                   activeItem={activeItem}
                 />
               </div>

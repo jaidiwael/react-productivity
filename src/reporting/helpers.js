@@ -1,4 +1,9 @@
-export const arrayColors = ["blue", "red", "pink", "teal"];
+export const arrayColors = [
+  { color: "blue", label: "SUPPORT" },
+  { color: "red", label: "PICK" },
+  { color: "pink", label: "PACK" },
+  { color: "teal", label: "TEMPS MANQUANT" },
+];
 
 export const renderMinutes = (seconds) => {
   const rest = seconds % 60;
