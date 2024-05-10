@@ -159,11 +159,9 @@ code {
 }
 
 .objective-page__left-col{
-  width: 20%;
-  min-width: 260px;
+  width: 200px;
 }
 
 .objective-page__right-col{
-  flex: 0 1 80%;
-  max-width: calc(100% - 260px);
+  width: calc(100% - 200px);
 }

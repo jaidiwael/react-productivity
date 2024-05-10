@@ -6,10 +6,16 @@ import moment from "moment";
 
 import TimeRangeSelector from "../components/time-range-selector";
 
+import productivityIcon from "../../assets/images/productivite-dark.svg";
+import chargeIcon from "../../assets/images/charge-dark.svg";
+import tempIcon from "../../assets/images/temp.svg";
+import homeIcon from "../../assets/images/home.svg";
+
 const InternHeader = ({ defaultPage, onRangeDate }) => {
-  const [dropDownFilter, setDropDownFilter] = useState(
+  const [selectedPage, setSelectedPage] = useState(
     defaultPage || "productivity"
   );
+  const [filter, setFilter] = useState("lignes");
   const [timeSelector, setTimeSelector] = useState(7);
   const [calendarPicker, setCalendarPicker] = useState(null);
   const navigate = useNavigate();
@@ -34,20 +40,36 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
         ];
     }
   }, []);
+
+  const selectedCountryTemplate = (option) => {
+    return (
+      <div className="flex align-items-center gap-2">
+        <img alt={option.value} src={option.icon} style={{ width: "18px" }} />
+        <div>{option.label}</div>
+      </div>
+    );
+  };
   return (
     <div className="flex justify-content-between mb-3 px-4 ">
-      <div className="flex align-items-center gap-2">
-        <i
+      <div className="flex align-items-center gap-2 text-white">
+        {/* <i
           className="pi pi-home text-xl text-gray-200 cursor-pointer"
           onClick={() => navigate(`/`)}
+        /> */}
+        <img
+          src={homeIcon}
+          onClick={() => navigate(`/`)}
+          className="cursor-pointer text-white"
         />
         <Dropdown
-          value={dropDownFilter}
-          onChange={(e) => setDropDownFilter(e.value)}
+          value={selectedPage}
+          onChange={(e) => setSelectedPage(e.value)}
+          valueTemplate={selectedCountryTemplate}
           options={[
             {
               label: "Productivité",
               value: "productivity",
+              icon: productivityIcon,
             },
             {
               label: "Performance",
@@ -56,6 +78,7 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
             {
               label: "Temps",
               value: "Temps",
+              icon: tempIcon,
             },
             {
               label: "Objectif global",
@@ -63,13 +86,34 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
             },
             {
               label: "Charge",
-              value: "Charge",
+              value: "charge",
+              icon: chargeIcon,
             },
           ]}
           className="w-14rem surface-100 border-round-3xl text-primary"
           pt={{
             input: {
               className: "py-2 text-center",
+            },
+          }}
+        />
+        <Dropdown
+          value={filter}
+          onChange={(e) => setFilter(e.value)}
+          options={[
+            {
+              label: "Lignes/h",
+              value: "lignes",
+            },
+            {
+              label: "Equipe/h",
+              value: "equipe",
+            },
+          ]}
+          className="w-10rem bg-none border-100 border-1 border-solid border-round-3xl"
+          pt={{
+            input: {
+              className: "py-2 text-white",
             },
           }}
         />

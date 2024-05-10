@@ -10,6 +10,7 @@ import Temps from "./pages/temps";
 import Charge from "./pages/charge";
 
 import "primereact/resources/primereact.min.css";
+import "primeflex/primeflex.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "../theme.css";

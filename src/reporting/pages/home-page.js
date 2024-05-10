@@ -14,6 +14,9 @@ import {
   getProductivityHomeResources,
   getProductivityHomeProdvalues,
 } from "../api";
+import productivityIcon from "../../assets/images/productivite.svg";
+import chargeIcon from "../../assets/images/charge.svg";
+import resourcesIcon from "../../assets/images/resource.svg";
 import { arrayColors } from "../helpers";
 
 const HomePage = () => {
@@ -145,7 +148,8 @@ const HomePage = () => {
   return (
     <div className="bg-blue-900 h-screen overflow-auto px-4 py-2">
       <div className="flex-shrink-1">
-        <div className="text-left text-base text-white font-semibold">
+        <div className="text-left text-base text-white font-semibold flex align-items-center gap-2">
+          <img src={productivityIcon} width="20px" />
           Productivité (7 derniers jours)
         </div>
         <div className="grid my-1">
@@ -175,12 +179,14 @@ const HomePage = () => {
       <div className="flex-shrink-1">
         <div className="grid">
           <div className="col-6">
-            <div className="text-left text-base text-white font-semibold mb-1">
+            <div className="text-left text-base text-white font-semibold mb-1 flex align-items-center gap-2">
+              <img src={chargeIcon} width="20px" />
               Charge (7 derniers jours)
             </div>
           </div>
           <div className="col-6">
-            <div className="text-left text-base text-white font-semibold mb-1">
+            <div className="text-left text-base text-white font-semibold mb-1 flex align-items-center gap-2">
+              <img src={resourcesIcon} width="20px" />
               Resources (7 derniers jours)
             </div>
           </div>

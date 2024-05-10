@@ -4,9 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 
 import ProductivityDataTable from "../components/productivity-data-table";
-import ProductivityChart from "../components/productivity-chart";
+import ChargeProductivityChart from "../components/charge-productivity-chart";
 import InternHeader from "../components/intern-header";
-import CustomDataTable from "../components/custom-data-table";
+import ChargeActivityTable from "../components/charge-activity-table";
 
 import { customOrder } from "../helpers";
 import { getProductivityDetailProd } from "../api";
@@ -277,15 +277,14 @@ const Charge = () => {
   }, [productivityDetailProd, selectedClient, selectedOperator]);
   return (
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
-      <InternHeader onRangeDate={setRangeDate} defaultPage={"Charge"} />
+      <InternHeader onRangeDate={setRangeDate} defaultPage={"charge"} />
       <div className="flex">
         <div className="productivity__left-col p-1">
-          <CustomDataTable
+          <ChargeActivityTable
             firstColumn={{ field: "activity", header: "Activités" }}
             selectedRow={+activityId}
             onRowSelection={(activityId) => {
               setSelectedActivity(activityId);
-              //  navigate(`/productivity/${activityId}`);
               setSelectedClient(null);
               setSelectedOperator(null);
             }}
@@ -295,31 +294,31 @@ const Charge = () => {
               {
                 label: "Activité",
                 value: "activity",
-                className: "col-4 md:col-3 lg:col-4",
+                className: "col-4 md:col-3 lg:col-4 ",
                 icon: "",
               },
               {
                 label: "Réel",
                 value: "productivity",
-                className: "col-4 md:col-3 lg:col-4",
+                className: "col-3 md:col-5 lg:col-3",
                 icon: "",
               },
               {
                 label: "Planifié",
                 value: "objective",
-                className: "col-4 md:col-3 lg:col-4",
+                className: "col-3 md:col-2 lg:col-3",
                 icon: "",
               },
               {
                 label: "",
                 value: "icon",
-                className: "col-4 md:col-3 lg:col-4",
+                className: "col-2",
                 icon: "",
               },
             ]}
           />
           <div className="mt-3">
-            <CustomDataTable
+            <ChargeActivityTable
               firstColumn={{ field: "client", header: "Client" }}
               selectedRow={selectedClient}
               onRowSelection={(clientId) => {
@@ -328,6 +327,7 @@ const Charge = () => {
               }}
               products={renderCustomers}
               blueTheme
+              height={"430px"}
               selectedColor={
                 renderDomains?.find((act) => act?.id === +activityId)?.color
               }
@@ -335,47 +335,33 @@ const Charge = () => {
                 {
                   label: "Clients",
                   value: "client",
-                  className: "col-4 md:col-3 lg:col-4",
+                  className: "col-4 md:col-3 lg:col-4 ",
                   icon: "",
                 },
                 {
                   label: "Réel",
                   value: "productivity",
-                  className: "col-4 md:col-3 lg:col-4",
+                  className: "col-3 md:col-5 lg:col-3",
                   icon: "",
                 },
                 {
                   label: "Planifié",
                   value: "objective",
-                  className: "col-4 md:col-3 lg:col-4",
+                  className: "col-3 md:col-2 lg:col-3",
                   icon: "",
                 },
                 {
                   label: "",
                   value: "icon",
-                  className: "col-4 md:col-3 lg:col-4",
+                  className: "col-2",
                   icon: "",
                 },
               ]}
             />
           </div>
-          {selectedClient && (
-            <div className="mt-3">
-              <ProductivityDataTable
-                firstColumn={{ field: "operator", header: "Operator" }}
-                selectedRow={selectedOperator}
-                onRowSelection={setSelectedOperator}
-                products={renderOperators}
-                blueTheme
-                selectedColor={
-                  renderDomains?.find((act) => act?.id === +activityId)?.color
-                }
-              />
-            </div>
-          )}
         </div>
         <div className="productivity__right-col p-1">
-          <ProductivityChart
+          <ChargeProductivityChart
             breadCrumb={renderBreadCrumb}
             activity={renderDomains?.find(
               (act) => act?.id === +selectedActivity
