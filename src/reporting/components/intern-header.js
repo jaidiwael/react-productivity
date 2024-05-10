@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
@@ -7,9 +7,6 @@ import moment from "moment";
 import TimeRangeSelector from "../components/time-range-selector";
 
 const InternHeader = ({ defaultPage, onRangeDate }) => {
-  const [dropDownFilter, setDropDownFilter] = useState(
-    defaultPage || "productivity"
-  );
   const [timeSelector, setTimeSelector] = useState(7);
   const [calendarPicker, setCalendarPicker] = useState(null);
   const navigate = useNavigate();
@@ -42,8 +39,8 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
           onClick={() => navigate(`/`)}
         />
         <Dropdown
-          value={dropDownFilter}
-          onChange={(e) => setDropDownFilter(e.value)}
+          value={defaultPage}
+          onChange={(e) => navigate(`/${e.value}`)}
           options={[
             {
               label: "Productivité",
@@ -55,15 +52,15 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
             },
             {
               label: "Temps",
-              value: "Temps",
+              value: "temps",
             },
             {
               label: "Objectif global",
-              value: "Objective",
+              value: "objective",
             },
             {
               label: "Charge",
-              value: "Charge",
+              value: "charge",
             },
           ]}
           className="w-14rem surface-100 border-round-3xl text-primary"

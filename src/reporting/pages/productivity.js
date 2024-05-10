@@ -30,7 +30,7 @@ const Productivity = () => {
       activityId,
     ],
     queryFn: getProductivityDetailProd,
-    enabled: !!(rangeDate && activityId),
+    enabled: !!rangeDate,
   });
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Productivity = () => {
 
   const renderDomains = useMemo(() => {
     if (productivityDetailProd) {
-      return productivityDetailProd?.domains.map(
+      return productivityDetailProd?.domains?.map(
         ({
           domainId,
           domainName,
@@ -64,7 +64,7 @@ const Productivity = () => {
   }, [productivityDetailProd]);
   const renderCustomers = useMemo(() => {
     if (productivityDetailProd) {
-      return productivityDetailProd?.customers.map(
+      return productivityDetailProd?.customers?.map(
         ({
           customerCode,
           customerName,
@@ -280,7 +280,7 @@ const Productivity = () => {
   }, [productivityDetailProd, selectedClient, selectedOperator]);
   return (
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
-      <InternHeader onRangeDate={setRangeDate} />
+      <InternHeader onRangeDate={setRangeDate} defaultPage={"productivity"} />
       <div className="flex">
         <div className="productivity__left-col p-1">
           <ProductivityDataTable

@@ -13,14 +13,14 @@ const ChargeCard = ({ values }) => {
       const data = {
         labels: values?.labels,
         datasets: [
-          {
-            label: "Alki",
-            data: values?.alkiValues,
-            fill: false,
-            borderColor: documentStyle.getPropertyValue("--yellow-500"),
-            tension: 0.4,
-            backgroundColor: documentStyle.getPropertyValue("--yellow-500"),
-          },
+          // {
+          //   label: "Alki",
+          //   data: values?.alkiValues,
+          //   fill: false,
+          //   borderColor: documentStyle.getPropertyValue("--yellow-500"),
+          //   tension: 0.4,
+          //   backgroundColor: documentStyle.getPropertyValue("--yellow-500"),
+          // },
           {
             label: "Predit",
             data: values?.forecastValues,

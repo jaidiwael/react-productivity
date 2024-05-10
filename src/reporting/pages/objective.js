@@ -129,7 +129,7 @@ const Objective = () => {
 
   return (
     <div className="p-4 bg-blue-900 h-screen flex flex-column">
-      <InternHeader defaultPage="Objective" />
+      <InternHeader defaultPage="objective" />
 
       <div className="px-4 flex gap-3" style={{ height: "calc(100% - 39px)" }}>
         <div className="objective-page__left-col h-full">
