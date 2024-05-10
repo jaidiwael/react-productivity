@@ -30,7 +30,7 @@ const Productivity = () => {
       activityId,
     ],
     queryFn: getProductivityDetailProd,
-    enabled: !!(rangeDate && activityId),
+    enabled: !!rangeDate,
   });
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Productivity = () => {
 
   const renderDomains = useMemo(() => {
     if (productivityDetailProd) {
-      return productivityDetailProd?.domains.map(
+      return productivityDetailProd?.domains?.map(
         ({
           domainId,
           domainName,
@@ -64,7 +64,7 @@ const Productivity = () => {
   }, [productivityDetailProd]);
   const renderCustomers = useMemo(() => {
     if (productivityDetailProd) {
-      return productivityDetailProd?.customers.map(
+      return productivityDetailProd?.customers?.map(
         ({
           customerCode,
           customerName,

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
@@ -12,9 +12,6 @@ import tempIcon from "../../assets/images/temp.svg";
 import homeIcon from "../../assets/images/home.svg";
 
 const InternHeader = ({ defaultPage, onRangeDate }) => {
-  const [selectedPage, setSelectedPage] = useState(
-    defaultPage || "productivity"
-  );
   const [filter, setFilter] = useState("lignes");
   const [timeSelector, setTimeSelector] = useState(7);
   const [calendarPicker, setCalendarPicker] = useState(null);
@@ -62,8 +59,8 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
           className="cursor-pointer text-white"
         />
         <Dropdown
-          value={selectedPage}
-          onChange={(e) => setSelectedPage(e.value)}
+          value={defaultPage}
+          onChange={(e) => navigate(`/${e.value}`)}
           valueTemplate={selectedCountryTemplate}
           options={[
             {
@@ -77,12 +74,12 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
             },
             {
               label: "Temps",
-              value: "Temps",
+              value: "temps",
               icon: tempIcon,
             },
             {
               label: "Objectif global",
-              value: "Objective",
+              value: "objective",
             },
             {
               label: "Charge",
