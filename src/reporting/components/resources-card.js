@@ -132,11 +132,11 @@ const ResourcesCard = ({ values }) => {
           label={`Efficacité plannification charge/capa`}
           className="w-8rem	"
         />
-        <ResourcesPercentage
+        {/* <ResourcesPercentage
           value={+values?.ratiosList?.absenteeism}
           label={`Taux d'absenteisme`}
           className="w-8rem	"
-        />
+        /> */}
         <ResourcesPercentage
           value={+values?.ratiosList?.multiTask}
           label={

@@ -181,7 +181,7 @@ const HomePage = () => {
           <div className="col-6">
             <div className="text-left text-base text-white font-semibold mb-1 flex align-items-center gap-2">
               <img src={chargeIcon} width="20px" />
-              Charge (7 derniers jours)
+              Charge (Outbound) (7 derniers jours)
             </div>
           </div>
           <div className="col-6">
