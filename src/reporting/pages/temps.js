@@ -41,36 +41,64 @@ const Temps = () => {
   });
 
   const renderDataLabels = useMemo(() => {
-    const labels = productivityDetailTimes?.TotalTimeDetail?.filter(
-      (pdt) =>
-        pdt?.trackingTypeName ===
-        productivityDetailTimes?.TotalTimeGlobal?.[0]?.trackingTypeName
-    )
-      ?.sort(customOrder("dateCreation", "asc"))
-      .map((pdt) => pdt?.dateCreation);
-
+    let labels = [];
     let activities = {};
-
-    productivityDetailTimes?.TotalTimeGlobal?.forEach((act) => {
-      const activity = productivityDetailTimes?.TotalTimeDetail?.filter(
-        (pdt) => pdt?.trackingTypeName === act?.trackingTypeName
-      )?.sort(customOrder("dateCreation", "asc"));
-      activities = {
-        ...activities,
-        [`${act?.trackingTypeName}_values`]: activity?.map(
-          (av) => av.TotalTimePassedByTrackingType
+    if (selectedOperator) {
+      const groupedLabels = Object.groupBy(
+        productivityDetailTimes?.TotalTimeDetailByOperators?.filter(
+          (opDate) => opDate?.operatorWmsId === selectedOperator.id
         ),
-        [`${act?.trackingTypeName}_percent`]: activity?.map(
-          (av) => av.percentage
-        ),
-      };
-    });
+        ({ dateCreation }) => dateCreation
+      );
+      labels = Object.keys(groupedLabels)?.sort();
+      productivityDetailTimes?.TotalTimeGlobal?.forEach((act) => {
+        activities = {
+          ...activities,
+          [`${act?.trackingTypeName}_values`]: labels?.map((label) => {
+            const findActivity = groupedLabels?.[label]?.find(
+              (actL) => act?.trackingTypeName === actL?.trackingTypeName
+            );
+            return findActivity
+              ? findActivity?.TotalTimePassedByTrackingType
+              : 0;
+          }),
+          [`${act?.trackingTypeName}_percent`]: labels?.map((label) => {
+            const findActivity = groupedLabels?.[label]?.find(
+              (actL) => act?.trackingTypeName === actL?.trackingTypeName
+            );
+            return findActivity ? findActivity?.percentage : 0;
+          }),
+        };
+      });
+    } else {
+      labels = productivityDetailTimes?.TotalTimeDetail?.filter(
+        (pdt) =>
+          pdt?.trackingTypeName ===
+          productivityDetailTimes?.TotalTimeGlobal?.[0]?.trackingTypeName
+      )
+        ?.sort(customOrder("dateCreation", "asc"))
+        .map((pdt) => pdt?.dateCreation);
+      productivityDetailTimes?.TotalTimeGlobal?.forEach((act) => {
+        const activity = productivityDetailTimes?.TotalTimeDetail?.filter(
+          (pdt) => pdt?.trackingTypeName === act?.trackingTypeName
+        )?.sort(customOrder("dateCreation", "asc"));
+        activities = {
+          ...activities,
+          [`${act?.trackingTypeName}_values`]: activity?.map(
+            (av) => av.TotalTimePassedByTrackingType
+          ),
+          [`${act?.trackingTypeName}_percent`]: activity?.map(
+            (av) => av.percentage
+          ),
+        };
+      });
+    }
 
     return {
       labels,
       ...activities,
     };
-  }, [productivityDetailTimes]);
+  }, [productivityDetailTimes, selectedOperator]);
 
   useEffect(() => {
     const documentStyle = getComputedStyle(document.documentElement);
@@ -220,6 +248,33 @@ const Temps = () => {
       </div>
     );
   };
+
+  const getGroupedOperators = useMemo(() => {
+    return Object.groupBy(
+      productivityDetailTimes?.TotalTimeGlobalByOperators || [],
+      ({ operatorWmsId }) => operatorWmsId
+    );
+  }, [productivityDetailTimes]);
+
+  const renderOperators = useMemo(() => {
+    return Object.keys(getGroupedOperators)?.map((operatorWmsId) => {
+      return {
+        id: operatorWmsId,
+        operator: getGroupedOperators[operatorWmsId][0].operatorName,
+      };
+    });
+  }, [getGroupedOperators]);
+
+  const renderProductivityTimesByOperator = useMemo(() => {
+    return getGroupedOperators?.[selectedOperator?.id]?.map(
+      ({ TotalTimePassedByTrackingType, percentage, trackingTypeName }) => ({
+        label: trackingTypeName,
+        value: TotalTimePassedByTrackingType,
+        percentage,
+        color: arrayColors?.find((c) => c?.label === trackingTypeName)?.color,
+      })
+    );
+  }, [getGroupedOperators, selectedOperator]);
   return (
     <div className="p-4 bg-blue-900 h-screen flex flex-column">
       <InternHeader defaultPage="temps" onRangeDate={setRangeDate} />
@@ -228,10 +283,15 @@ const Temps = () => {
         <div className="temps-page__left-col">
           <OperatorList
             onOperatorClick={(item) => {
-              setSelectedOperator(item);
+              if (selectedOperator?.id === item.id) {
+                setSelectedOperator(null);
+              } else {
+                setSelectedOperator(item);
+              }
               setActiveItem(null);
             }}
             selectedOperator={selectedOperator}
+            operators={renderOperators}
           />
         </div>
         <div className="temps-page__right-col h-full">
@@ -240,7 +300,11 @@ const Temps = () => {
               <div className="text-white">Répartition du temps</div>
               <div className="flex-grow-1 align-items-center justify-content-center flex">
                 <MeterGroup
-                  data={renderProductivityTimes}
+                  data={
+                    selectedOperator
+                      ? renderProductivityTimesByOperator
+                      : renderProductivityTimes
+                  }
                   orientation="horizontal"
                   legend={false}
                   labelTemplate={labelTemplate}

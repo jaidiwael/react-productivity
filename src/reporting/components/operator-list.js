@@ -2,9 +2,9 @@ import { useState, useMemo } from "react";
 import { Carousel } from "primereact/carousel";
 import { InputText } from "primereact/inputtext";
 
-import { operators, customOrder } from "../helpers";
+import { customOrder } from "../helpers";
 
-const OperatorList = ({ selectedOperator, onOperatorClick }) => {
+const OperatorList = ({ selectedOperator, onOperatorClick, operators }) => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("asc");
   const operatorTemplate = (item) => {
@@ -27,7 +27,7 @@ const OperatorList = ({ selectedOperator, onOperatorClick }) => {
       return newOperators?.filter((op) => expr.test(op.operator));
     }
     return newOperators.sort(customOrder("operator", sort));
-  }, [search, sort]);
+  }, [search, sort, operators]);
   return (
     <div className="bg-blue-800 border-round-2xl shadow-1 h-full flex flex-column  text-center px-4">
       <div
