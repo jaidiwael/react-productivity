@@ -193,10 +193,16 @@ const HomePage = () => {
         </div>
         <div className="grid">
           <div className="col-6">
-            <ChargeCard values={renderRealForecast} />
+            <ChargeCard
+              values={renderRealForecast}
+              onClick={() => navigate("/charge")}
+            />
           </div>
           <div className="col-6">
-            <ResourcesCard values={renderHomeResources} />
+            <ResourcesCard
+              values={renderHomeResources}
+              onClick={() => navigate("/resources")}
+            />
           </div>
         </div>
       </div>

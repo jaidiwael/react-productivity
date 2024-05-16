@@ -4,7 +4,7 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import ResourcesPercentage from "./resources-percentage";
 
-const ResourcesCard = ({ values }) => {
+const ResourcesCard = ({ values, onClick }) => {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
   useEffect(() => {
@@ -120,7 +120,7 @@ const ResourcesCard = ({ values }) => {
     setChartOptions(options);
   }, [values]);
   return (
-    <div className="bg-card border-round-2xl px-3 py-2">
+    <div className="bg-card border-round-2xl px-3 py-2" onClick={onClick}>
       <div className="flex gap-3 mb-2 justify-content-center">
         <ResourcesPercentage
           value={+values?.ratiosList?.capaUsage}

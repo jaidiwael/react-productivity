@@ -92,6 +92,10 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
               value: "charge",
               icon: chargeIcon,
             },
+            {
+              label: "Resources",
+              value: "resources",
+            },
           ]}
           className="w-14rem surface-100 border-round-3xl text-primary"
           pt={{

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
 
-const ChargeCard = ({ values }) => {
+const ChargeCard = ({ values, onClick }) => {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
   useEffect(() => {
@@ -101,7 +101,10 @@ const ChargeCard = ({ values }) => {
     }
   }, [values]);
   return (
-    <div className="bg-card border-round-2xl px-3 py-2 h-full cursor-pointer">
+    <div
+      className="bg-card border-round-2xl px-3 py-2 h-full cursor-pointer"
+      onClick={onClick}
+    >
       <Chart
         type="line"
         data={chartData}

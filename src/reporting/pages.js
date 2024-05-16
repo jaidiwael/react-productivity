@@ -7,6 +7,7 @@ import Objective from "./pages/objective";
 import Productivity from "./pages/productivity";
 import Temps from "./pages/temps";
 import Charge from "./pages/charge";
+import Resources from "./pages/resources";
 
 const Pages = () => {
   const isFetching = useIsFetching();
@@ -19,6 +20,7 @@ const Pages = () => {
         <Route path="/temps" element={<Temps />} />
         <Route path="/productivity/:activityId" element={<Productivity />} />
         <Route path="/charge" element={<Charge />} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
       {isFetching > 0 && (
         <div className="absolute top-0 left-0 right-0 bottom-0 z-5 flex justify-content-center p-8">
