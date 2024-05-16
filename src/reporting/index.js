@@ -10,6 +10,7 @@ import "primeflex/primeflex.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "../theme.css";
+import "./index.css";
 
 import "moment/locale/fr";
 
