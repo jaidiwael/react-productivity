@@ -25,18 +25,16 @@ code {
 }
 
 .p-items-hidden .p-carousel-item {
-  visibility: unset; 
+  visibility: unset;
 }
 
-
-.tableRow{
+.tableRow {
   height: 50px;
 }
 .selectedTableRow {
   background-color: var(--color);
   color: var(--surface-a);
   position: relative;
-  
 }
 
 .selectedTableRow::after {
@@ -138,30 +136,35 @@ code {
   background-color: #276ddb !important;
 }
 
-.productivity__left-col{
+.productivity__left-col {
   width: 25%;
   min-width: 550px;
 }
 
-.productivity__right-col{
+.productivity__right-col {
   flex: 0 1 75%;
   max-width: calc(100% - 550px);
 }
 
-.temps-page__left-col{
+.temps-page__left-col {
   width: 25%;
   min-width: 300px;
 }
 
-.temps-page__right-col{
+.temps-page__right-col {
   flex: 0 1 80%;
   max-width: calc(100% - 300px);
 }
 
-.objective-page__left-col{
+.objective-page__left-col {
   width: 200px;
 }
 
-.objective-page__right-col{
+.objective-page__right-col {
   width: calc(100% - 200px);
+}
+
+.custom-remove-icon {
+  color: #afafb9;
+  right: 15px;
 }

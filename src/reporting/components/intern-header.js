@@ -54,19 +54,25 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
           onClick={() => navigate(`/`)}
         /> */}
         <img
+          alt=""
           src={homeIcon}
           onClick={() => navigate(`/`)}
           className="cursor-pointer text-white"
         />
         <Dropdown
           value={defaultPage}
-          onChange={(e) => navigate(`/${e.value}`)}
+          onChange={(e) => {
+            const path =
+              e.value === "productivity" ? "productivity/1" : e.value;
+            navigate(`/${path}`);
+          }}
           valueTemplate={selectedCountryTemplate}
           options={[
             {
               label: "Productivité",
               value: "productivity",
               icon: productivityIcon,
+              path: "productivity/1",
             },
             {
               label: "Performance",

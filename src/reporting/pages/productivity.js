@@ -166,7 +166,11 @@ const Productivity = () => {
     if (productivityDetailProd) {
       if (selectedOperator) {
         return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
+          ?.filter(
+            (op) =>
+              op?.operatorWmsId === selectedOperator &&
+              op?.customerCode === selectedClient
+          )
           ?.sort(customOrder("date", "asc"))
           ?.map((opLabel) => opLabel?.date);
       } else if (selectedClient) {

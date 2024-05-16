@@ -42,10 +42,18 @@ const OperatorList = ({ selectedOperator, onOperatorClick, operators }) => {
         <i className="pi pi-search" />
         <InputText
           placeholder="Search"
-          className="w-full border-round-3xl surface-200 border-none py-2"
+          className="w-full border-round-3xl surface-200 border-none py-2 pr-5"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        {search && (
+          <i
+            className="pi pi-times-circle custom-remove-icon cursor-pointer"
+            onClick={() => {
+              setSearch("");
+            }}
+          />
+        )}
       </span>
       <Carousel
         value={renderSearchedOperator}

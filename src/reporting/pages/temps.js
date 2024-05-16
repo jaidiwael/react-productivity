@@ -47,7 +47,7 @@ const Temps = () => {
       const groupedLabels = Object.groupBy(
         productivityDetailTimes?.TotalTimeDetailByOperators?.filter(
           (opDate) => opDate?.operatorWmsId === selectedOperator.id
-        ),
+        ) || [],
         ({ dateCreation }) => dateCreation
       );
       labels = Object.keys(groupedLabels)?.sort();

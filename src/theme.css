@@ -3904,7 +3904,7 @@ div.p-inputtext:focus,
 .p-carousel .p-carousel-content .p-carousel-next:enabled:hover {
   border-color: rgba(0, 0, 0, 0);
   /*background: #f6f5f8;*/
-  color: #343a40;
+  color: #fff;
   transform: scale(0.9);
 }
 

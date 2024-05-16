@@ -16,6 +16,8 @@ const ObjectiveCardActivity = ({
   className,
   headerClassName,
   activeItem,
+  headerBgColor,
+  id,
 }) => {
   const renderChartDonuts = useMemo(() => {
     let plugins = [];
@@ -60,12 +62,15 @@ const ObjectiveCardActivity = ({
 
   return (
     <div
-      onClick={() => onClick(title)}
+      onClick={() => onClick(id)}
       className={`border-round-2xl  bg-card  flex flex-column justify-content-between cursor-pointer overflow-hidden
-        ${className} ${activeItem === title ? "bg-active-card" : ""}`}
+        ${className} ${activeItem === id ? "bg-active-card" : ""}`}
     >
       <div
-        className={`py-2 text-white text-center font-semibold  pb-2 ${headerClassName}`}
+        className={`py-2 text-white text-center font-semibold  pb-2 `}
+        style={{
+          backgroundColor: headerBgColor,
+        }}
       >
         {title}
       </div>
