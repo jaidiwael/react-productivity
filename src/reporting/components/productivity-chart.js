@@ -265,7 +265,7 @@ const ProductivityChart = ({
           <BreadCrumb items={breadCrumb} />
         </div> */}
 
-        <div className="text-white  flex justify-content-end">
+        {/* <div className="text-white  flex justify-content-end">
           <SelectButton
             allowEmpty={false}
             value={timeRange}
@@ -281,7 +281,7 @@ const ProductivityChart = ({
               button: "py-1 border-noround",
             }}
           />
-        </div>
+        </div> */}
         <div className="my-3">
           <Chart type="line" data={lineChartData} options={lineChartOptions} />
         </div>

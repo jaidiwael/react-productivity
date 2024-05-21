@@ -193,7 +193,7 @@ const Objective = () => {
         }
         return {
           ...dataSetConfig,
-          // id: domainId,
+          id: domainId,
           label: domainName,
           borderColor: "#6185A2",
           backgroundColor: "#6185A2",
@@ -204,18 +204,9 @@ const Objective = () => {
       }
     );
 
-    // if (activity) {
-    //   datasets = datasets
-    //     .filter((ds) => ds.id === activity)
-    //     .map((ds, index) => {
-    //       return {
-    //         ...ds,
-    //         borderColor: arrayColors[index],
-    //         backgroundColor: arrayColors[index],
-    //         borderWidth: 4,
-    //       };
-    //     });
-    // }
+    if (activity) {
+      datasets = datasets?.filter((ds) => ds.id === activity);
+    }
 
     const data = {
       labels: renderDataOptions?.labels,
@@ -300,7 +291,7 @@ const Objective = () => {
         </div>
         <div className="objective-page__right-col h-full">
           <div className="pt-6  pb-3 px-3 flex flex-column h-full bg-blue-800 border-round-2xl shadow-1 flex-grow-1">
-            <div className="text-white  flex justify-content-end">
+            {/* <div className="text-white  flex justify-content-end">
               <SelectButton
                 allowEmpty={false}
                 value={timeRange}
@@ -316,7 +307,7 @@ const Objective = () => {
                   button: "py-1 border-noround",
                 }}
               />
-            </div>
+            </div> */}
 
             <Chart
               type="line"

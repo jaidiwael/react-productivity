@@ -25,6 +25,8 @@ const ProductivityDataTable = ({
         return products.sort(customOrder("volumes", order.direction));
       case 3:
         return products.sort(customOrder("objective", order.direction));
+      case 4:
+        return products.sort(customOrder("objective", order.direction));
     }
   }, [order, products, firstColumn]);
 
@@ -40,27 +42,9 @@ const ProductivityDataTable = ({
         } ${selectedColor ? firstColumn?.field : item[firstColumn?.field]}`}
         onClick={() => onRowSelection(item?.id)}
         style={{
-          /* backgroundColor:
-            item?.id === selectedRow
-              ? selectedColor
-                ? selectedColor
-                : item.color
-              : "", */
           "--color": selectedColor || item.color,
         }}
       >
-        {/* {selectedColor ? (
-          <Style>{`
-          .${firstColumn?.field}.selectedTableRow::after { border-left-color: ${selectedColor} }
-        `}</Style>
-        ) : (
-          <Style>{`
-          .${
-            item[firstColumn?.field]
-          }.selectedTableRow::after { border-left-color: ${item.color} }
-        `}</Style>
-        )} */}
-
         <div className="col-4 md:col-3 lg:col-4 flex">
           <div
             className="border-round-xl text-white px-3 py-1"
@@ -71,8 +55,14 @@ const ProductivityDataTable = ({
             {item[firstColumn?.field]}
           </div>
         </div>
+
+        <div className={`col-2 md:col-2 lg:col-2`}>
+          <span className="font-bold">{item?.productivity}</span>
+        </div>
+        <div className={`col-2 z-1`}>
+          <span className="mr-1">{item?.objective}</span>
+        </div>
         <div className="flex align-items-center gap-3 col-4 md:col-4 lg:col-4">
-          <span>{item.productivity}/h</span>
           <div
             className={`text-sm text-center ${
               item?.performance[0] === "-" ? "text-red-400" : "text-teal-400"
@@ -87,15 +77,11 @@ const ProductivityDataTable = ({
             ) : (
               <i className="pi pi-sort-up-fill text-teal-400 text-xs mr-2"></i>
             )}
-            {item?.performance}
+            {item?.performance}%
           </div>
         </div>
-        <div className={`col-2 md:col-2 lg:col-2`}>
-          <span className="font-bold">{item?.volumes}</span>
-        </div>
         <div className={`col-2 z-1`}>
-          <span className="mr-1">{item?.objective}</span>
-          <img alt="" src={Logo} width="15" height="15" />
+          <span className="mr-1">{item?.volumes}</span>
         </div>
       </div>
     );
@@ -152,7 +138,7 @@ const ProductivityDataTable = ({
             order.column === 1 ? "text-white" : ""
           }`}
         >
-          Productivités
+          Réalisé
           <span
             className={`pi ${
               order.column === 1 && order.direction === "asc"
@@ -167,7 +153,7 @@ const ProductivityDataTable = ({
             order.column === 2 ? "text-white" : ""
           }`}
         >
-          Volumes
+          Cible
           <span
             className={`pi ${
               order.column === 2 && order.direction === "asc"
@@ -182,7 +168,22 @@ const ProductivityDataTable = ({
             order.column === 3 ? "text-white" : ""
           }`}
         >
-          Objectif
+          Variation
+          <span
+            className={`pi ${
+              order.column === 3 && order.direction === "asc"
+                ? "pi-chevron-down"
+                : "pi-chevron-up"
+            } ml-1`}
+          ></span>
+        </div>
+        <div
+          onClick={() => updateOrder(4)}
+          className={`cursor-pointer col-2 flex align-items-center ${
+            order.column === 3 ? "text-white" : ""
+          }`}
+        >
+          Volume
           <span
             className={`pi ${
               order.column === 3 && order.direction === "asc"

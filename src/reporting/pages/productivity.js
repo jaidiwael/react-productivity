@@ -47,12 +47,13 @@ const Productivity = () => {
           productivityTarget,
           realProductivity,
           totalQuantity,
+          productivityRatioPcent,
         }) => {
           return {
             id: domainId,
             activity: domainName,
             productivity: realProductivity,
-            performance: "+8%",
+            performance: productivityRatioPcent,
             volumes: totalQuantity,
             objective: productivityTarget,
             color: domainColor,
@@ -71,12 +72,13 @@ const Productivity = () => {
           productivityTarget,
           realProductivity,
           totalQuantity,
+          productivityRatioPcent,
         }) => {
           return {
             id: customerCode,
             client: customerName,
             productivity: realProductivity,
-            performance: "+8%",
+            performance: productivityRatioPcent,
             volumes: totalQuantity,
             objective: productivityTarget,
             actId: 1,
@@ -98,12 +100,13 @@ const Productivity = () => {
             productivityTarget,
             realProductivity,
             totalQuantity,
+            productivityRatioPcent,
           }) => {
             return {
               id: operatorWmsId,
               operator: operatorName,
               productivity: realProductivity,
-              performance: "+8%",
+              performance: productivityRatioPcent,
               volumes: totalQuantity,
               objective: productivityTarget,
               clientId: selectedClient,
@@ -194,7 +197,11 @@ const Productivity = () => {
     if (productivityDetailProd) {
       if (selectedOperator) {
         return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
+          ?.filter(
+            (op) =>
+              op?.operatorWmsId === selectedOperator &&
+              op?.customerCode === selectedClient
+          )
           ?.sort(customOrder("date", "asc"))
           ?.map((opLabel) => opLabel?.productivityTarget);
       } else if (selectedClient) {
@@ -217,7 +224,11 @@ const Productivity = () => {
     if (productivityDetailProd) {
       if (selectedOperator) {
         return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
+          ?.filter(
+            (op) =>
+              op?.operatorWmsId === selectedOperator &&
+              op?.customerCode === selectedClient
+          )
           ?.sort(customOrder("date", "asc"))
           ?.map((opLabel) => opLabel?.realProductivity);
       } else if (selectedClient) {
@@ -240,7 +251,11 @@ const Productivity = () => {
     if (productivityDetailProd) {
       if (selectedOperator) {
         return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
+          ?.filter(
+            (op) =>
+              op?.operatorWmsId === selectedOperator &&
+              op?.customerCode === selectedClient
+          )
           ?.sort(customOrder("date", "asc"))
           ?.map((opLabel) => opLabel?.totalQuantity);
       } else if (selectedClient) {
@@ -263,7 +278,11 @@ const Productivity = () => {
     if (productivityDetailProd) {
       if (selectedOperator) {
         return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
+          ?.filter(
+            (op) =>
+              op?.operatorWmsId === selectedOperator &&
+              op?.customerCode === selectedClient
+          )
           ?.sort(customOrder("date", "asc"))
           ?.map((opLabel) => opLabel?.productivityRatioPcent);
       } else if (selectedClient) {

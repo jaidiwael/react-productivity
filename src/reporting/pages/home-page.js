@@ -1,6 +1,6 @@
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useIsFetching } from "@tanstack/react-query";
 
 import ChargeCard from "../components/charge-card";
 import ObjectiveCard from "../components/objective-card";
@@ -41,32 +41,21 @@ const HomePage = () => {
     queryFn: getProductivityHomeProdvalues,
   });
 
+  const isFetching = useIsFetching();
+
   const renderProductivityTimes = useMemo(() => {
-    return (
-      productivityTimes
-        // ?.sort(function (a, b) {
-        //   if (a.name < b.name) {
-        //     return -1;
-        //   }
-        //   if (a.name > b.name) {
-        //     return 1;
-        //   }
-        //   return 0;
-        // })
-        ?.map(
-          (
-            { TotalTimePassedByTrackingType, percentage, trackingTypeName },
-            index
-          ) => ({
-            label: trackingTypeName,
-            value: TotalTimePassedByTrackingType,
-            percentage: percentage?.toFixed(2),
-            color: arrayColors?.find((c) => c?.label === trackingTypeName)
-              ?.color,
-          })
-        )
+    return productivityTimes?.map(
+      (
+        { TotalTimePassedByTrackingType, percentage, trackingTypeName },
+        index
+      ) => ({
+        label: trackingTypeName,
+        value: TotalTimePassedByTrackingType,
+        percentage: percentage?.toFixed(2),
+        color: arrayColors?.find((c) => c?.label === trackingTypeName)?.color,
+      })
     );
-  }, [productivityTimes]);
+  }, [productivityTimes, isFetching]);
 
   const renderRealForecast = useMemo(() => {
     let values = null;
@@ -149,14 +138,14 @@ const HomePage = () => {
     <div className="bg-blue-900 h-screen overflow-auto px-4 py-2">
       <div className="flex-shrink-1">
         <div className="text-left text-base text-white font-semibold flex align-items-center gap-2">
-          <img src={productivityIcon} width="20px" />
+          <img src={productivityIcon} width="20px" alt="" />
           Productivité (7 derniers jours)
         </div>
         <div className="grid my-1">
           <div className="col-2">
             <ObjectiveCard
               onClick={() => navigate("/objective")}
-              value={productivityHomeProdvalues?.goal}
+              value={isFetching === 0 && productivityHomeProdvalues?.goal}
               title={"Objectif Global"}
             />
           </div>
@@ -180,13 +169,13 @@ const HomePage = () => {
         <div className="grid">
           <div className="col-6">
             <div className="text-left text-base text-white font-semibold mb-1 flex align-items-center gap-2">
-              <img src={chargeIcon} width="20px" />
+              <img src={chargeIcon} width="20px" alt="" />
               Charge (Outbound) (7 derniers jours)
             </div>
           </div>
           <div className="col-6">
             <div className="text-left text-base text-white font-semibold mb-1 flex align-items-center gap-2">
-              <img src={resourcesIcon} width="20px" />
+              <img src={resourcesIcon} width="20px" alt="" />
               Resources (7 derniers jours)
             </div>
           </div>
@@ -209,4 +198,4 @@ const HomePage = () => {
     </div>
   );
 };
-export default HomePage;
+export default memo(HomePage);

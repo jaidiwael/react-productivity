@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 import { Chart } from "primereact/chart";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { useParams, useNavigate } from "react-router-dom";
 
 // import ChargeProductivityChart from "../components/charge-productivity-chart";
 import InternHeader from "../components/intern-header";
@@ -11,59 +12,64 @@ import ChargeActivityTable from "../components/charge-activity-table";
 import { customOrder } from "../helpers";
 import {
   getProductivityDetailProd,
-  getProductivityHomeResources,
+  getProductivityDetailRessources,
 } from "../api";
 
 const Resources = () => {
-  const [selectedActivity, setSelectedActivity] = useState(1);
   const [selectedClient, setSelectedClient] = useState();
-  const [selectedOperator, setSelectedOperator] = useState();
+  // const [selectedOperator, setSelectedOperator] = useState();
   const [rangeDate, setRangeDate] = useState([
     moment().add(-7, "days").format("YYYY-MM-DD"),
     moment().format("YYYY-MM-DD"),
   ]);
+
+  const navigate = useNavigate();
 
   const documentStyle = getComputedStyle(document.documentElement);
   const textColor = "rgba(255,255,255,1";
   const textColorSecondary = documentStyle.getPropertyValue("--gray-100");
   const surfaceBorder = "rgba(255,255,255,0.4)";
 
-  const { data: productivityHomeResources } = useQuery({
-    queryKey: ["getProductivityHomeResources"],
-    queryFn: getProductivityHomeResources,
+  const { activityId } = useParams();
+
+  const { data: productivityDetailRessources } = useQuery({
+    queryKey: [
+      "getProductivityDetailRessources",
+      rangeDate[0],
+      rangeDate[1],
+      activityId,
+    ],
+    queryFn: getProductivityDetailRessources,
   });
 
-  const renderHomeResources = useMemo(() => {
-    let values = null;
-    if (productivityHomeResources) {
-      let labels = [];
-      let capaETPs = [];
-      let realEtps = [];
-      productivityHomeResources?.etp_list?.forEach(
-        ({ dateCreation, capaETP, realEtp }) => {
-          labels = [...labels, dateCreation];
-          capaETPs = [...capaETPs, capaETP];
-          realEtps = [...realEtps, realEtp];
-        }
+  const renderDataOptions = useMemo(() => {
+    let newLabels = [];
+    let newReel = [];
+    let newPlanifier = [];
+    if (productivityDetailRessources) {
+      const orderList = productivityDetailRessources?.domainStats?.sort(
+        customOrder("date", "asc")
       );
-      values = {
-        labels,
-        capaETPs,
-        realEtps,
-        ratiosList: productivityHomeResources?.ratios_list?.[0],
-      };
+
+      newLabels = orderList?.map(({ date }) => date);
+      newReel = orderList?.map(({ realEtp }) => realEtp);
+      newPlanifier = orderList?.map(({ capaETP }) => capaETP);
     }
-    return values;
-  }, [productivityHomeResources]);
+    return {
+      labels: newLabels,
+      reel: newReel,
+      planifier: newPlanifier,
+    };
+  }, [productivityDetailRessources]);
 
   const chartData = {
-    labels: renderHomeResources?.labels,
+    labels: renderDataOptions?.labels,
     datasets: [
       {
         label: "ETP plannifié",
         backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
         borderColor: documentStyle.getPropertyValue("--cyan-300"),
-        data: renderHomeResources?.capaETPs,
+        data: renderDataOptions?.planifier,
         barThickness: 20,
         borderRadius: {
           topLeft: 20,
@@ -79,7 +85,7 @@ const Resources = () => {
         label: "ETP réel",
         backgroundColor: documentStyle.getPropertyValue("--gray-100"),
         borderColor: documentStyle.getPropertyValue("--gray-100"),
-        data: renderHomeResources?.realEtps,
+        data: renderDataOptions?.reel,
         barThickness: 20,
         borderRadius: {
           topLeft: 20,
@@ -161,42 +167,32 @@ const Resources = () => {
     },
   };
 
-  const activityId = selectedActivity;
-
   const { data: productivityDetailProd } = useQuery({
     queryKey: ["getProductivityDetailProd", "2024-05-01", "2024-05-08", 1],
     queryFn: getProductivityDetailProd,
   });
 
-  useEffect(() => {
-    setSelectedActivity(parseInt(activityId));
-  }, [activityId]);
+  // useEffect(() => {
+  //   setSelectedActivity(parseInt(activityId));
+  // }, [activityId]);
 
   const renderDomains = useMemo(() => {
-    if (productivityDetailProd) {
-      return productivityDetailProd?.domains.map(
-        ({
-          domainId,
-          domainName,
-          domainColor,
-          productivityTarget,
-          realProductivity,
-          totalQuantity,
-        }) => {
+    if (productivityDetailRessources) {
+      return productivityDetailRessources?.domains.map(
+        ({ domainId, domainName, domainColor, totalCapaETP, totalRealEtp }) => {
           return {
             id: domainId,
             activity: domainName,
-            productivity: realProductivity,
+            productivity: totalRealEtp,
             performance: "+8%",
-            volumes: totalQuantity,
-            objective: productivityTarget,
+            objective: totalCapaETP,
             color: domainColor,
           };
         }
       );
     }
     return [];
-  }, [productivityDetailProd]);
+  }, [productivityDetailRessources]);
   const renderCustomers = useMemo(() => {
     if (productivityDetailProd) {
       return productivityDetailProd?.customers.map(
@@ -222,197 +218,6 @@ const Resources = () => {
     return [];
   }, [productivityDetailProd]);
 
-  const renderOperators = useMemo(() => {
-    if (productivityDetailProd) {
-      return productivityDetailProd?.operators
-        ?.filter((op) => op?.customerCode === selectedClient)
-        ?.map(
-          ({
-            operatorWmsId,
-            operatorName,
-            productivityTarget,
-            realProductivity,
-            totalQuantity,
-          }) => {
-            return {
-              id: operatorWmsId,
-              operator: operatorName,
-              productivity: realProductivity,
-              performance: "+8%",
-              volumes: totalQuantity,
-              objective: productivityTarget,
-              clientId: selectedClient,
-            };
-          }
-        );
-    }
-    return [];
-  }, [productivityDetailProd, selectedClient]);
-  const renderBreadCrumb = useMemo(() => {
-    let breadCrumbArray = [
-      {
-        label: renderDomains?.find((act) => act?.id === +selectedActivity)
-          ?.activity,
-        id: selectedActivity,
-        action: (id) => {
-          setSelectedActivity(id);
-          setSelectedClient(null);
-        },
-      },
-    ];
-    if (selectedClient) {
-      breadCrumbArray = [
-        ...breadCrumbArray,
-        {
-          label: renderCustomers?.find((act) => act?.id === selectedClient)
-            ?.client,
-          id: selectedClient,
-          action: (id) => {
-            setSelectedClient(id);
-            setSelectedOperator(null);
-          },
-        },
-      ];
-    }
-    if (selectedOperator) {
-      breadCrumbArray = [
-        ...breadCrumbArray,
-        {
-          label: renderOperators?.find((act) => act?.id === selectedOperator)
-            ?.operator,
-          id: selectedClient,
-          action: (id) => {
-            // setSelectedClient(id);
-          },
-        },
-      ];
-    }
-    return breadCrumbArray;
-  }, [
-    selectedActivity,
-    selectedClient,
-    selectedOperator,
-    renderDomains,
-    renderCustomers,
-    renderOperators,
-  ]);
-
-  const renderLabels = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.date);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((cltLabel) => cltLabel?.date);
-      } else {
-        return (
-          productivityDetailProd?.domainStats
-            // ?.filter((dm) => dm?.customerCode === selectedClient)
-            ?.sort(customOrder("date", "asc"))
-            ?.map((dmLabel) => dmLabel?.date)
-        );
-      }
-    }
-    return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
-
-  const renderCibleData = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.productivityTarget);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((cltLabel) => cltLabel?.productivityTarget);
-      } else {
-        return (
-          productivityDetailProd?.domainStats
-            // ?.filter((dm) => dm?.customerCode === selectedClient)
-            ?.sort(customOrder("date", "asc"))
-            ?.map((cltLabel) => cltLabel?.productivityTarget)
-        );
-      }
-    }
-    return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
-  const renderRealData = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.realProductivity);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((cltLabel) => cltLabel?.realProductivity);
-      } else {
-        return (
-          productivityDetailProd?.domainStats
-            // ?.filter((dm) => dm?.customerCode === selectedClient)
-            ?.sort(customOrder("date", "asc"))
-            ?.map((cltLabel) => cltLabel?.realProductivity)
-        );
-      }
-    }
-    return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
-  const renderRealEtp = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.totalQuantity);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((cltLabel) => cltLabel?.totalQuantity);
-      } else {
-        return (
-          productivityDetailProd?.domainStats
-            // ?.filter((dm) => dm?.customerCode === selectedClient)
-            ?.sort(customOrder("date", "asc"))
-            ?.map((cltLabel) => cltLabel?.totalQuantity)
-        );
-      }
-    }
-    return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
-  const renderPlannedEtp = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.productivityRatioPcent);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((cltLabel) => cltLabel?.productivityRatioPcent);
-      } else {
-        return (
-          productivityDetailProd?.domainStats
-            // ?.filter((dm) => dm?.customerCode === selectedClient)
-            ?.sort(customOrder("date", "asc"))
-            ?.map((dmLabel) => dmLabel?.productivityRatioPcent)
-        );
-      }
-    }
-    return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
   return (
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
       <InternHeader onRangeDate={setRangeDate} defaultPage={"resources"} />
@@ -422,9 +227,9 @@ const Resources = () => {
             firstColumn={{ field: "activity", header: "Activités" }}
             selectedRow={+activityId}
             onRowSelection={(activityId) => {
-              setSelectedActivity(activityId);
+              navigate(`/resources/${activityId}`);
               setSelectedClient(null);
-              setSelectedOperator(null);
+              //setSelectedOperator(null);
             }}
             products={renderDomains}
             blueTheme
@@ -461,7 +266,7 @@ const Resources = () => {
               selectedRow={selectedClient}
               onRowSelection={(clientId) => {
                 setSelectedClient(clientId);
-                setSelectedOperator(null);
+                // setSelectedOperator(null);
               }}
               products={renderCustomers}
               blueTheme

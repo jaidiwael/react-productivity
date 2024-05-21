@@ -193,7 +193,7 @@ const ChargeProductivityChart = ({
             />
             <span>Fiabilité</span>
           </div>
-          <SelectButton
+          {/* <SelectButton
             allowEmpty={false}
             value={timeRange}
             onChange={(e) => setTimeRange(e.value)}
@@ -207,7 +207,7 @@ const ChargeProductivityChart = ({
               root: "border-round-2xl overflow-hidden",
               button: "py-1 border-noround",
             }}
-          />
+          /> */}
         </div>
         <div className="my-3">
           <Chart type="line" data={lineChartData} options={lineChartOptions} />
