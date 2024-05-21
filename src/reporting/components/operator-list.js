@@ -7,11 +7,12 @@ import { customOrder } from "../helpers";
 const OperatorList = ({ selectedOperator, onOperatorClick, operators }) => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("asc");
+
   const operatorTemplate = (item) => {
     return (
       <div
         onClick={() => onOperatorClick(item)}
-        className={`text-white flex align-items-center justify-content-center	cursor-pointer py-3 px-6 min-w-full custom-bg-hover ${
+        className={`text-white flex align-items-center justify-content-center	cursor-pointer py-3 max-h-3rem min-w-full custom-bg-hover ${
           selectedOperator?.id === item?.id ? "custom-bg-selected" : ""
         }`}
       >
@@ -55,7 +56,7 @@ const OperatorList = ({ selectedOperator, onOperatorClick, operators }) => {
           />
         )}
       </span>
-      <Carousel
+      {/* <Carousel
         value={renderSearchedOperator}
         numVisible={12}
         numScroll={1}
@@ -72,7 +73,10 @@ const OperatorList = ({ selectedOperator, onOperatorClick, operators }) => {
           itemscontent: "flex-grow-1",
           item: "max-h-3rem flex justify-content-center",
         }}
-      />
+      /> */}
+      <div className="flex-grow-1 overflow-auto py-2 costume-scrollbar">
+        {renderSearchedOperator?.map((item) => operatorTemplate(item))}
+      </div>
     </div>
   );
 };

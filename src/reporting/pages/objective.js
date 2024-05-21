@@ -296,7 +296,7 @@ const Objective = () => {
       <InternHeader defaultPage="objective" onRangeDate={setRangeDate} />
       <div className="px-4 flex gap-3" style={{ height: "calc(100% - 39px)" }}>
         <div className="objective-page__left-col h-full">
-          <div className="h-full overflow-scroll">{renderDomainsCard}</div>
+          <div className="h-full overflow-auto">{renderDomainsCard}</div>
         </div>
         <div className="objective-page__right-col h-full">
           <div className="pt-6  pb-3 px-3 flex flex-column h-full bg-blue-800 border-round-2xl shadow-1 flex-grow-1">

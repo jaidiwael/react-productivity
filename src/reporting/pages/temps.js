@@ -279,7 +279,10 @@ const Temps = () => {
     <div className="p-4 bg-blue-900 h-screen flex flex-column">
       <InternHeader defaultPage="temps" onRangeDate={setRangeDate} />
 
-      <div className="px-4 flex gap-3 flex-grow-1">
+      <div
+        className="px-4 flex gap-3 flex-grow-1"
+        style={{ height: "calc(100% - 80px)" }}
+      >
         <div className="temps-page__left-col">
           <OperatorList
             onOperatorClick={(item) => {
