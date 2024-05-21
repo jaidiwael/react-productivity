@@ -45,7 +45,7 @@ const ProductivityDataTable = ({
           "--color": selectedColor || item.color,
         }}
       >
-        <div className="col-4 md:col-3 lg:col-4 flex">
+        <div className="col-4 flex">
           <div
             className="border-round-xl text-white px-3 py-1"
             style={{
@@ -56,15 +56,15 @@ const ProductivityDataTable = ({
           </div>
         </div>
 
-        <div className={`col-2 md:col-2 lg:col-2`}>
+        <div className={`col-2`}>
           <span className="font-bold">{item?.productivity}</span>
         </div>
         <div className={`col-2 z-1`}>
           <span className="mr-1">{item?.objective}</span>
         </div>
-        <div className="flex align-items-center gap-3 col-4 md:col-4 lg:col-4">
+        <div className="flex align-items-center gap-1 col-2">
           <div
-            className={`text-sm text-center ${
+            className={`text-xs text-center ${
               item?.performance[0] === "-" ? "text-red-400" : "text-teal-400"
             } ${
               item?.id === selectedRow
@@ -110,7 +110,7 @@ const ProductivityDataTable = ({
       }`}
     >
       <div
-        className={`header grid border-round-top-2xl border-bottom-1 border-opacity-white ml-3 mr-3 mb-3 mt-0 ${
+        className={`header grid border-round-top-2xl border-bottom-1 border-opacity-white text-xs ml-3 mr-3 mb-3 mt-0 ${
           blueTheme ? " text-light-blue" : "text-color surface-50"
         }`}
         style={{
@@ -119,47 +119,47 @@ const ProductivityDataTable = ({
       >
         <div
           onClick={() => updateOrder(0)}
-          className={`cursor-pointer col-4 md:col-3 lg:col-4 flex align-items-center ${
+          className={`cursor-pointer col-4 flex align-items-center ${
             order.column === 0 ? "text-white" : ""
           }`}
         >
           {firstColumn.header}
           <span
-            className={`pi ${
+            className={`text-xs pi ${
               order.column === 0 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
-            } ml-1`}
+            } ml-2`}
           ></span>
         </div>
         <div
           onClick={() => updateOrder(1)}
-          className={`cursor-pointer col-3 md:col-5 lg:col-3 flex align-items-center ${
+          className={`cursor-pointer col-2 flex align-items-center ${
             order.column === 1 ? "text-white" : ""
           }`}
         >
           Réalisé
           <span
-            className={`pi ${
+            className={`text-xs pi ${
               order.column === 1 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
-            } ml-1`}
+            } ml-2`}
           ></span>
         </div>
         <div
           onClick={() => updateOrder(2)}
-          className={`cursor-pointer col-3 md:col-2 lg:col-3 flex align-items-center ${
+          className={`cursor-pointer col-2 flex align-items-center ${
             order.column === 2 ? "text-white" : ""
           }`}
         >
           Cible
           <span
-            className={`pi ${
+            className={`text-xs pi ${
               order.column === 2 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
-            } ml-1`}
+            } ml-2`}
           ></span>
         </div>
         <div
@@ -170,11 +170,11 @@ const ProductivityDataTable = ({
         >
           Variation
           <span
-            className={`pi ${
+            className={`text-xs pi ${
               order.column === 3 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
-            } ml-1`}
+            } ml-2`}
           ></span>
         </div>
         <div
@@ -185,11 +185,11 @@ const ProductivityDataTable = ({
         >
           Volume
           <span
-            className={`pi ${
+            className={`text-xs pi ${
               order.column === 3 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
-            } ml-1`}
+            } ml-2`}
           ></span>
         </div>
       </div>
