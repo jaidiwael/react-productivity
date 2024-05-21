@@ -109,7 +109,7 @@ const ChargeCard = ({ values, onClick }) => {
         type="line"
         data={chartData}
         options={chartOptions}
-        style={{ height: "450px" }}
+        style={{ height: "40vh" }}
       />
     </div>
   );

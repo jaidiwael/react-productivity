@@ -129,7 +129,7 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
         <TimeRangeSelector
           options={[
             { label: "7 derniers jours", value: 7 },
-            { label: "cumule du mois", value: 30 },
+            { label: "Cumul du mois", value: 30 },
             { label: "3 mois", value: 90 },
           ]}
           selected={timeSelector}

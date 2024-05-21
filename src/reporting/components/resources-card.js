@@ -122,7 +122,7 @@ const ResourcesCard = ({ values, onClick }) => {
   return (
     <div className="bg-card border-round-2xl px-3 py-2" onClick={onClick}>
       <div className="flex gap-3 mb-2 justify-content-center">
-        <ResourcesPercentage
+        {/*<ResourcesPercentage
           value={+values?.ratiosList?.capaUsage}
           label={`Taux d'utilisation de la capacité`}
           className="w-8rem	"
@@ -132,11 +132,11 @@ const ResourcesCard = ({ values, onClick }) => {
           label={`Efficacité plannification charge/capa`}
           className="w-8rem	"
         />
-        {/* <ResourcesPercentage
+         <ResourcesPercentage
           value={+values?.ratiosList?.absenteeism}
           label={`Taux d'absenteisme`}
           className="w-8rem	"
-        /> */}
+        /> 
         <ResourcesPercentage
           value={+values?.ratiosList?.multiTask}
           label={
@@ -148,6 +148,7 @@ const ResourcesCard = ({ values, onClick }) => {
           }
           className="w-8rem	"
         />
+        */}
       </div>
       <Chart
         type="bar"
