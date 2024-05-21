@@ -95,7 +95,7 @@ export const elementArcGradient = {
 };
 
 export const doughnutOptions = {
-  responsive: true,
+  // responsive: true,
   maintainAspectRatio: true,
   cutout: "80%",
   plugins: {

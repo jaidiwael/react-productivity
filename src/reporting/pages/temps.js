@@ -59,7 +59,7 @@ const Temps = () => {
               (actL) => act?.trackingTypeName === actL?.trackingTypeName
             );
             return findActivity
-              ? findActivity?.TotalTimePassedByTrackingType
+              ? Math.floor(findActivity?.TotalTimePassedByTrackingType / 60)
               : 0;
           }),
           [`${act?.trackingTypeName}_percent`]: labels?.map((label) => {
@@ -84,8 +84,8 @@ const Temps = () => {
         )?.sort(customOrder("dateCreation", "asc"));
         activities = {
           ...activities,
-          [`${act?.trackingTypeName}_values`]: activity?.map(
-            (av) => av.TotalTimePassedByTrackingType
+          [`${act?.trackingTypeName}_values`]: activity?.map((av) =>
+            Math.floor(av?.TotalTimePassedByTrackingType / 60)
           ),
           [`${act?.trackingTypeName}_percent`]: activity?.map(
             (av) => av.percentage

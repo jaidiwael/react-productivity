@@ -1,3 +1,4 @@
+import { useMemo, memo } from "react";
 import { Chart } from "primereact/chart";
 
 import {
@@ -7,7 +8,6 @@ import {
   elementArcGradient,
 } from "../charts-options";
 import Logo from "../../assets/images/alki-logo.svg";
-import { useMemo } from "react";
 
 const ObjectiveCard = ({
   title,
@@ -19,44 +19,51 @@ const ObjectiveCard = ({
   containerClassName,
 }) => {
   const renderChartDonuts = useMemo(() => {
-    let plugins = [];
-    let datasets = {};
-    let extraOptions = {};
-    if (value < 100) {
-      plugins.push(customCanvasBackgroundColor);
-      datasets = [
-        {
-          id: "d1",
-          data: [value, 100 - value],
-          backgroundColor: ["#1A39D1", "#555C86"],
-          borderColor: ["#1A39D1", "#555C86"],
-          spacing: 1,
-          borderJoinStyle: "bevel",
-          borderRadius: [50, 0],
-          hoverBackgroundColor: ["#1A39D1", "#555C86"],
-          borderDash: [10, 0],
-          weight: 1,
-          borderWidth: 0,
-        },
-      ];
-    } else if (value === 100) {
-      datasets = [
-        {
-          data: [100],
-          backgroundColor: ["#54FCCF"],
-          borderWidth: 0,
-        },
-      ];
-    } else {
-      extraOptions = elementArcGradient;
-      datasets = [
-        {
-          data: [100],
-          borderWidth: 0,
-        },
-      ];
+    if (value) {
+      let plugins = [];
+      let datasets = {};
+      let extraOptions = {};
+      if (value < 100) {
+        plugins.push(customCanvasBackgroundColor);
+        datasets = [
+          {
+            id: "d1",
+            data: [value, 100 - value],
+            backgroundColor: ["#1A39D1", "#555C86"],
+            borderColor: ["#1A39D1", "#555C86"],
+            spacing: 1,
+            borderJoinStyle: "bevel",
+            borderRadius: [50, 0],
+            hoverBackgroundColor: ["#1A39D1", "#555C86"],
+            borderDash: [10, 0],
+            weight: 1,
+            borderWidth: 0,
+          },
+        ];
+      } else if (value === 100) {
+        datasets = [
+          {
+            data: [100],
+            backgroundColor: ["#54FCCF"],
+            borderWidth: 0,
+          },
+        ];
+      } else {
+        extraOptions = elementArcGradient;
+        datasets = [
+          {
+            data: [100],
+            borderWidth: 0,
+          },
+        ];
+      }
+      return { plugins, extraOptions, datasets };
     }
-    return { plugins, extraOptions, datasets };
+    return {
+      plugins: [],
+      extraOptions: {},
+      datasets: [],
+    };
   }, [value]);
 
   return (
@@ -90,4 +97,4 @@ const ObjectiveCard = ({
     </div>
   );
 };
-export default ObjectiveCard;
+export default memo(ObjectiveCard);
