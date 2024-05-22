@@ -15,6 +15,7 @@ import InternHeader from "../components/intern-header";
 const dataSetConfig = {
   //type: "bar",
   barThickness: 20,
+  tension: 0.4,
   borderRadius: {
     topLeft: 20,
     topRight: 20,

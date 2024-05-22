@@ -13,6 +13,7 @@ const ProductivityChart = ({
   realData,
   realEtp,
   plannedEtp,
+  diffDays,
 }) => {
   const [timeRange, setTimeRange] = useState(1);
   const [lineChartOptions, setLineChartOptions] = useState();
@@ -135,6 +136,7 @@ const ProductivityChart = ({
         borderColor: documentStyle.getPropertyValue("--gray-100"),
         data: renderOptionsChart?.realEtp,
         barThickness: 20,
+        tension: 0.4,
         borderRadius: {
           topLeft: 20,
           topRight: 20,
@@ -302,7 +304,7 @@ const ProductivityChart = ({
       <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1 mt-3">
         <div className="my-3">
           <Chart
-            type="bar"
+            type={`${diffDays > 7 ? "line" : "bar"}`}
             data={pieChartData}
             options={pieChartOptions}
             className="mt-3"
