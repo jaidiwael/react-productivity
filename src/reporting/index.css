@@ -45,7 +45,7 @@ code {
   border-left-color: var(--color);
   content: "";
   top: 0;
-  right: -24px;
+  right: 0;
   position: absolute;
   box-sizing: border-box;
 }

@@ -47,7 +47,7 @@ const ProductivityDataTable = ({
       >
         <div className="col-4 flex">
           <div
-            className="border-round-xl text-white px-3 py-1"
+            className="border-round-xl text-white px-3"
             style={{
               backgroundColor: item?.id === selectedRow ? "unset" : item?.color,
             }}
@@ -73,9 +73,9 @@ const ProductivityDataTable = ({
             }`}
           >
             {item?.performance[0] === "-" ? (
-              <i className="pi pi-sort-down-fill text-red-400 text-xs mr-2"></i>
+              <i className="pi pi-sort-down-fill text-red-400 text-xs mr-1"></i>
             ) : (
-              <i className="pi pi-sort-up-fill text-teal-400 text-xs mr-2"></i>
+              <i className="pi pi-sort-up-fill text-teal-400 text-xs mr-1"></i>
             )}
             {item?.performance}%
           </div>
@@ -193,7 +193,7 @@ const ProductivityDataTable = ({
           ></span>
         </div>
       </div>
-      <Carousel
+      {/* <Carousel
         value={renderProductByOrder}
         numVisible={2}
         numScroll={1}
@@ -218,56 +218,13 @@ const ProductivityDataTable = ({
             },
           },
         }}
-      />
-      {/*  <DataTable
-        value={products}
-        paginator
-        paginatorPosition={"both"}
-        rows={4}
-        className="text-center productivity-table"
-        size={"small"}
-        paginatorTemplate="PrevPageLink NextPageLink"
-        selectionMode="single"
-        selection={currentPage}
-        onSelectionChange={(e) => setCurrentPage(e.value)}
-        dataKey="id"
-        metaKeySelection={false}
-        pt={{
-          prevPageButton: {
-            style: {
-              transform: "rotate(-45deg)",
-            },
-          },
-        }}
+      /> */}
+      <div
+        className="flex-grow-1 overflow-auto py-2 costume-scrollbar"
+        style={{ height: "205px" }}
       >
-        <Column
-          key={firstColumn.field}
-          field={firstColumn.field}
-          header={firstColumn.header}
-        />
-        <Column
-          field="productivity"
-          header="Productivités"
-          body={productivityBodyTemplate}
-          className="text-center"
-          pt={{
-            headerContent: {
-              className: "justify-content-center",
-            },
-          }}
-        />
-        <Column
-          field="objective"
-          header="Objectif"
-          body={objectiveBodyTemplate}
-          className="text-right"
-          pt={{
-            headerContent: {
-              className: "justify-content-end",
-            },
-          }}
-        />
-      </DataTable> */}
+        {renderProductByOrder?.map((item) => itemTemplate(item))}
+      </div>
     </div>
   );
 };

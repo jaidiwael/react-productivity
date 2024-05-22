@@ -44,7 +44,7 @@ const ChargeActivityTable = ({
           "--color": selectedColor || item.color,
         }}
       >
-        <div className="col-4 md:col-3 lg:col-4 flex">
+        <div className="col-4 flex">
           <div
             className="border-round-xl text-white px-3 py-1"
             style={{
@@ -54,13 +54,13 @@ const ChargeActivityTable = ({
             {item[firstColumn?.field]}
           </div>
         </div>
-        <div className="flex align-items-center justify-content-center gap-3 col-4 md:col-4 lg:col-4">
+        <div className=" col-3 flex align-items-center justify-content-center gap-3">
           <span>{item.productivity}</span>
         </div>
         <div className={`col-2 md:col-2 lg:col-2`}>
           <span className="font-bold">{item?.volumes}</span>
         </div>
-        <div className={`col-2 z-1 text-teal-400`}>
+        <div className={`col-3 z-1 text-teal-400`}>
           <span className="mr-1">{item?.objective}</span>
         </div>
       </div>
@@ -90,8 +90,8 @@ const ChargeActivityTable = ({
       }`}
     >
       <div
-        className={`header grid border-round-top-2xl border-bottom-1 border-opacity-white ml-3 mr-3 mb-3 mt-0 ${
-          blueTheme ? " text-light-blue" : "text-color surface-50"
+        className={`header grid border-round-top-2xl border-bottom-1 border-opacity-white mx-3 mb-3 mt-0 text-xs ${
+          blueTheme ? "text-light-blue" : "text-color surface-50"
         }`}
         style={{
           marginTop: "0px !important",
@@ -99,13 +99,13 @@ const ChargeActivityTable = ({
       >
         <div
           onClick={() => updateOrder(0)}
-          className={`cursor-pointer col-4 md:col-3 lg:col-4 flex align-items-center ${
+          className={`cursor-pointer col-4 flex align-items-center ${
             order.column === 0 ? "text-white" : ""
           }`}
         >
           {firstColumn.header}
           <span
-            className={`pi ${
+            className={`text-xs pi ${
               order.column === 0 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
@@ -114,13 +114,13 @@ const ChargeActivityTable = ({
         </div>
         <div
           onClick={() => updateOrder(1)}
-          className={`cursor-pointer col-4 md:col-4 lg:col-4 flex align-items-center justify-content-center ${
+          className={`cursor-pointer col-3 flex align-items-center justify-content-center ${
             order.column === 1 ? "text-white" : ""
           }`}
         >
           Réel
           <span
-            className={`pi ${
+            className={`text-xs pi ${
               order.column === 1 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
@@ -129,13 +129,13 @@ const ChargeActivityTable = ({
         </div>
         <div
           onClick={() => updateOrder(2)}
-          className={`cursor-pointer col-2 md:col-2 lg:col-2 flex align-items-center justify-content-center ${
+          className={`cursor-pointer col-2 flex align-items-center justify-content-center ${
             order.column === 2 ? "text-white" : ""
           }`}
         >
           Planifié
           <span
-            className={`pi ${
+            className={`text-xs pi ${
               order.column === 2 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
@@ -144,13 +144,13 @@ const ChargeActivityTable = ({
         </div>
         <div
           onClick={() => updateOrder(3)}
-          className={`cursor-pointer col-2 flex align-items-center justify-content-center ${
+          className={`cursor-pointer col-3 flex align-items-center justify-content-center ${
             order.column === 3 ? "text-white" : ""
           }`}
         >
           <img src={Logo} width="10px" />
           <span
-            className={`pi ${
+            className={`text-xs pi ${
               order.column === 3 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
@@ -158,7 +158,7 @@ const ChargeActivityTable = ({
           ></span>
         </div>
       </div>
-      <Carousel
+      {/* <Carousel
         value={renderProductByOrder}
         numVisible={2}
         numScroll={1}
@@ -183,7 +183,13 @@ const ChargeActivityTable = ({
             },
           },
         }}
-      />
+      /> */}
+      <div
+        className="flex-grow-1 overflow-auto py-2 costume-scrollbar"
+        style={{ height: "200px" }}
+      >
+        {renderProductByOrder?.map((item) => itemTemplate(item))}
+      </div>
     </div>
   );
 };

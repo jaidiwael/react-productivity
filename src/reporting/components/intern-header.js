@@ -63,7 +63,9 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
           value={defaultPage}
           onChange={(e) => {
             const path =
-              e.value === "productivity" ? "productivity/1" : e.value;
+              e.value === "productivity" || e.value === "resources"
+                ? `${e.value}/1`
+                : e.value;
             navigate(`/${path}`);
           }}
           valueTemplate={selectedCountryTemplate}
