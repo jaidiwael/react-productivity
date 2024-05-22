@@ -190,7 +190,7 @@ const HomePage = () => {
           <div className="col-6">
             <ResourcesCard
               values={renderHomeResources}
-              onClick={() => navigate("/resources")}
+              onClick={() => navigate(`/resources/1`)}
             />
           </div>
         </div>
