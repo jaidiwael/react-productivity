@@ -13,7 +13,7 @@ import { arrayColors, customOrder } from "../helpers";
 import InternHeader from "../components/intern-header";
 
 const dataSetConfig = {
-  type: "bar",
+  //type: "bar",
   barThickness: 20,
   borderRadius: {
     topLeft: 20,
@@ -115,12 +115,15 @@ const Temps = () => {
           backgroundColor: arrayColors?.find(
             (c) => c?.label === activeItem?.label
           )?.color,
+          borderColor: arrayColors?.find((c) => c?.label === activeItem?.label)
+            ?.color,
           data:
             type === "percent"
               ? renderDataLabels?.[`${activeItem?.label}_percent`]
               : renderDataLabels?.[`${activeItem?.label}_values`],
           datalabels: {
             align: "end",
+            display: diffDays <= 7,
           },
         },
       ];
@@ -130,6 +133,9 @@ const Temps = () => {
           ...dataSetConfig,
           label: pdtttg?.trackingTypeName,
           backgroundColor: arrayColors?.find(
+            (c) => c?.label === pdtttg?.trackingTypeName
+          )?.color,
+          borderColor: arrayColors?.find(
             (c) => c?.label === pdtttg?.trackingTypeName
           )?.color,
           data:
@@ -218,7 +224,7 @@ const Temps = () => {
 
     setChartData(data);
     setChartOptions(options);
-  }, [activeItem, type, renderDataLabels]);
+  }, [activeItem, type, renderDataLabels, rangeDate]);
 
   const renderProductivityTimes = useMemo(() => {
     return productivityDetailTimes?.TotalTimeGlobal?.map(
@@ -275,6 +281,13 @@ const Temps = () => {
       })
     );
   }, [getGroupedOperators, selectedOperator]);
+
+  const diffDays = useMemo(() => {
+    const firstDay = moment(rangeDate[1]);
+    const secondDay = moment(rangeDate[0]);
+    return firstDay.diff(secondDay, "days");
+  }, [rangeDate]);
+
   return (
     <div className="p-4 bg-blue-900 h-screen flex flex-column">
       <InternHeader defaultPage="temps" onRangeDate={setRangeDate} />
@@ -325,7 +338,7 @@ const Temps = () => {
             <div className="py-3 px-4 bg-blue-800 border-round-2xl shadow-1 flex-grow-1 mt-3">
               <div className="text-white mb-7">Evolution des temps</div>
               <Chart
-                type="bar"
+                type={`${diffDays > 7 ? "line" : "bar"}`}
                 data={chartData}
                 options={chartOptions}
                 plugins={[ChartDataLabels]}

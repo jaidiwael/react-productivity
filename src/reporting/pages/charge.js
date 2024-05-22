@@ -317,7 +317,7 @@ const Charge = () => {
               },
             ]}
           />
-          <div className="mt-3">
+          {/* <div className="mt-3">
             <ChargeActivityTable
               firstColumn={{ field: "client", header: "Client" }}
               selectedRow={selectedClient}
@@ -358,7 +358,7 @@ const Charge = () => {
                 },
               ]}
             />
-          </div>
+          </div> */}
         </div>
         <div className="productivity__right-col p-1">
           <ChargeProductivityChart

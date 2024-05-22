@@ -22,11 +22,11 @@ const ProductivityDataTable = ({
       case 1:
         return products.sort(customOrder("productivity", order.direction));
       case 2:
-        return products.sort(customOrder("volumes", order.direction));
+        return products.sort(customOrder("objective", order.direction));
       case 3:
-        return products.sort(customOrder("objective", order.direction));
+        return products.sort(customOrder("performance", order.direction));
       case 4:
-        return products.sort(customOrder("objective", order.direction));
+        return products.sort(customOrder("volumes", order.direction));
     }
   }, [order, products, firstColumn]);
 
