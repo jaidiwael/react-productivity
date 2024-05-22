@@ -180,13 +180,13 @@ const ProductivityDataTable = ({
         <div
           onClick={() => updateOrder(4)}
           className={`cursor-pointer col-2 flex align-items-center ${
-            order.column === 3 ? "text-white" : ""
+            order.column === 4 ? "text-white" : ""
           }`}
         >
           Volume
           <span
             className={`text-xs pi ${
-              order.column === 3 && order.direction === "asc"
+              order.column === 4 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
             } ml-2`}

@@ -32,6 +32,12 @@ const Resources = () => {
 
   const { activityId } = useParams();
 
+  const diffDays = useMemo(() => {
+    const firstDay = moment(rangeDate[1]);
+    const secondDay = moment(rangeDate[0]);
+    return firstDay.diff(secondDay, "days");
+  }, [rangeDate]);
+
   const { data: productivityDetailRessources } = useQuery({
     queryKey: [
       "getProductivityDetailRessources",
@@ -71,6 +77,7 @@ const Resources = () => {
         borderColor: documentStyle.getPropertyValue("--cyan-300"),
         data: renderDataOptions?.planifier,
         barThickness: 20,
+        tension: 0.4,
         borderRadius: {
           topLeft: 20,
           topRight: 20,
@@ -87,6 +94,7 @@ const Resources = () => {
         borderColor: documentStyle.getPropertyValue("--gray-100"),
         data: renderDataOptions?.reel,
         barThickness: 20,
+        tension: 0.4,
         borderRadius: {
           topLeft: 20,
           topRight: 20,
@@ -123,6 +131,7 @@ const Resources = () => {
         //clamp: true,
         anchor: "end", // Position of the labels (start, end, center, etc.)
         // align: "end", // Alignment of the labels (start, end, center, etc.)
+        display: diffDays <= 7,
         padding: {
           bottom: 30,
         },
@@ -306,7 +315,7 @@ const Resources = () => {
         <div className="productivity__right-col p-1">
           <div className="bg-blue-800 border-round-2xl px-3 py-2">
             <Chart
-              type="bar"
+              type={`${diffDays > 7 ? "line" : "bar"}`}
               data={chartData}
               options={chartOptions}
               plugins={[ChartDataLabels]}

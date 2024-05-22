@@ -301,6 +301,12 @@ const Productivity = () => {
     }
     return [];
   }, [productivityDetailProd, selectedClient, selectedOperator]);
+
+  const diffDays = useMemo(() => {
+    const firstDay = moment(rangeDate[1]);
+    const secondDay = moment(rangeDate[0]);
+    return firstDay.diff(secondDay, "days");
+  }, [rangeDate]);
   return (
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
       <InternHeader onRangeDate={setRangeDate} defaultPage={"productivity"} />
@@ -359,6 +365,7 @@ const Productivity = () => {
             realData={renderRealData}
             realEtp={renderRealEtp}
             plannedEtp={renderPlannedEtp}
+            diffDays={diffDays}
           />
         </div>
       </div>

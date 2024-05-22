@@ -13,6 +13,7 @@ const ProductivityChart = ({
   realData,
   realEtp,
   plannedEtp,
+  diffDays,
 }) => {
   const [timeRange, setTimeRange] = useState(1);
   const [lineChartOptions, setLineChartOptions] = useState();
@@ -96,19 +97,20 @@ const ProductivityChart = ({
     labels: renderOptionsChart?.labels,
     datasets: [
       {
+        label: "Realisé",
+        data: renderOptionsChart?.realData,
+        fill: false,
+        borderColor: documentStyle.getPropertyValue("--gray-100"),
+        tension: 0.4,
+        backgroundColor: documentStyle.getPropertyValue("--gray-100"),
+      },
+      {
         label: "Cible",
         data: renderOptionsChart?.cibleData,
         fill: false,
         tension: 0.4,
         borderColor: documentStyle.getPropertyValue("--teal-300"),
-      },
-      {
-        label: "Realisé",
-        data: renderOptionsChart?.realData,
-        fill: false,
-        borderColor: documentStyle.getPropertyValue("--blue-500"),
-        tension: 0.4,
-        backgroundColor: "rgba(12, 105, 213,0.2)",
+        backgroundColor: documentStyle.getPropertyValue("--teal-300"),
       },
     ],
   };
@@ -134,6 +136,7 @@ const ProductivityChart = ({
         borderColor: documentStyle.getPropertyValue("--gray-100"),
         data: renderOptionsChart?.realEtp,
         barThickness: 20,
+        tension: 0.4,
         borderRadius: {
           topLeft: 20,
           topRight: 20,
@@ -152,11 +155,16 @@ const ProductivityChart = ({
         position: "bottom",
         align: "end",
         labels: {
-          //pointStyleWidth: 5,
-          usePointStyle: true,
           color: textColor,
+          usePointStyle: true,
+          backgroundColor: textColor,
           pointStyle: "circle",
-          padding: 30,
+          boxHeight: 5,
+          boxWidth: 5,
+          padding: 10,
+          font: {
+            size: 10,
+          },
         },
       },
     },
@@ -206,7 +214,14 @@ const ProductivityChart = ({
           labels: {
             color: textColor,
             usePointStyle: true,
-            pointStyle: "line",
+            backgroundColor: textColor,
+            pointStyle: "circle",
+            boxHeight: 5,
+            boxWidth: 5,
+            padding: 10,
+            font: {
+              size: 10,
+            },
           },
         },
       },
@@ -289,7 +304,7 @@ const ProductivityChart = ({
       <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1 mt-3">
         <div className="my-3">
           <Chart
-            type="bar"
+            type={`${diffDays > 7 ? "line" : "bar"}`}
             data={pieChartData}
             options={pieChartOptions}
             className="mt-3"
