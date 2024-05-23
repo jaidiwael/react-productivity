@@ -22,18 +22,18 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
       case 30:
         return [
           moment().startOf("month").format("YYYY-MM-DD"),
-          moment().format("YYYY-MM-DD"),
+          moment().add(-1, "days").format("YYYY-MM-DD"),
         ];
       case 90:
         return [
-          moment().add(-3, "months").format("YYYY-MM-DD"),
-          moment().format("YYYY-MM-DD"),
+          moment().add(-3, "months").add(-1, "days").format("YYYY-MM-DD"),
+          moment().add(-1, "days").format("YYYY-MM-DD"),
         ];
       case 7:
       default:
         return [
-          moment().add(-7, "days").format("YYYY-MM-DD"),
-          moment().format("YYYY-MM-DD"),
+          moment().add(-8, "days").format("YYYY-MM-DD"),
+          moment().add(-1, "days").format("YYYY-MM-DD"),
         ];
     }
   }, []);

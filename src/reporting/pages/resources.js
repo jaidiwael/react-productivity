@@ -19,8 +19,8 @@ const Resources = () => {
   const [selectedClient, setSelectedClient] = useState();
   // const [selectedOperator, setSelectedOperator] = useState();
   const [rangeDate, setRangeDate] = useState([
-    moment().add(-7, "days").format("YYYY-MM-DD"),
-    moment().format("YYYY-MM-DD"),
+    moment().add(-8, "days").format("YYYY-MM-DD"),
+    moment().add(-1, "days").format("YYYY-MM-DD"),
   ]);
 
   const navigate = useNavigate();

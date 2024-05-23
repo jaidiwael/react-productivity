@@ -1,8 +1,8 @@
 export const arrayColors = [
-  { color: "blue", label: "SUPPORT" },
-  { color: "red", label: "PICK" },
-  { color: "pink", label: "PACK" },
-  { color: "teal", label: "TEMPS MANQUANT" },
+  { color: "#036DDC", label: "SUPPORT" },
+  { color: "#63A0F9", label: "PICK" },
+  { color: "#53E492", label: "PACK" },
+  { color: "#FF5F5D", label: "TEMPS MANQUANT" },
 ];
 
 export const renderMinutes = (seconds) => {
