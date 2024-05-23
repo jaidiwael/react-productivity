@@ -136,7 +136,7 @@ const HomePage = () => {
 
   return (
     <div className="bg-blue-900 h-screen overflow-auto px-4 py-2">
-      <div className="flex-shrink-1">
+      <div style={{ height: "400px" }}>
         <div className="text-left text-base text-white font-semibold flex align-items-center gap-2">
           <img src={productivityIcon} width="20px" alt="" />
           Productivité (7 derniers jours)
@@ -165,7 +165,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="flex-shrink-1">
+      <div style={{ height: "calc(100% - 400px)" }}>
         <div className="grid">
           <div className="col-6">
             <div className="text-left text-base text-white font-semibold mb-1 flex align-items-center gap-2">
@@ -180,14 +180,14 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <div className="grid">
-          <div className="col-6">
+        <div className="grid" style={{ height: "calc(100% - 45px)" }}>
+          <div className="col-6 h-full">
             <ChargeCard
               values={renderRealForecast}
               onClick={() => navigate("/charge")}
             />
           </div>
-          <div className="col-6">
+          <div className="col-6 h-full">
             <ResourcesCard
               values={renderHomeResources}
               onClick={() => navigate(`/resources/1`)}

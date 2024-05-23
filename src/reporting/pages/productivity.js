@@ -310,21 +310,23 @@ const Productivity = () => {
   return (
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
       <InternHeader onRangeDate={setRangeDate} defaultPage={"productivity"} />
-      <div className="flex">
-        <div className="productivity__left-col p-1">
-          <ProductivityDataTable
-            firstColumn={{ field: "activity", header: "Activités" }}
-            selectedRow={+activityId}
-            onRowSelection={(activityId) => {
-              //  setSelectedActivity(activityId);
-              navigate(`/productivity/${activityId}`);
-              setSelectedClient(null);
-              setSelectedOperator(null);
-            }}
-            products={renderDomains}
-            blueTheme
-          />
-          <div className="mt-3">
+      <div className="flex" style={{ height: "calc(100% - 60px)" }}>
+        <div className="productivity__left-col p-1 h-full">
+          <div style={{ height: "calc(33%)" }}>
+            <ProductivityDataTable
+              firstColumn={{ field: "activity", header: "Activités" }}
+              selectedRow={+activityId}
+              onRowSelection={(activityId) => {
+                //  setSelectedActivity(activityId);
+                navigate(`/productivity/${activityId}`);
+                setSelectedClient(null);
+                setSelectedOperator(null);
+              }}
+              products={renderDomains}
+              blueTheme
+            />
+          </div>
+          <div className="mt-3" style={{ height: "calc(33% - 16px)" }}>
             <ProductivityDataTable
               firstColumn={{ field: "client", header: "Client" }}
               selectedRow={selectedClient}
@@ -340,7 +342,7 @@ const Productivity = () => {
             />
           </div>
           {selectedClient && (
-            <div className="mt-3">
+            <div className="mt-3" style={{ height: "calc(33% - 8px)" }}>
               <ProductivityDataTable
                 firstColumn={{ field: "operator", header: "Operator" }}
                 selectedRow={selectedOperator}
@@ -354,7 +356,7 @@ const Productivity = () => {
             </div>
           )}
         </div>
-        <div className="productivity__right-col p-1">
+        <div className="productivity__right-col p-1 h-full">
           <ProductivityChart
             breadCrumb={renderBreadCrumb}
             activity={renderDomains?.find(

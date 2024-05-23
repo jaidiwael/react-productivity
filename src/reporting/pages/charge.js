@@ -278,7 +278,7 @@ const Charge = () => {
   return (
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
       <InternHeader onRangeDate={setRangeDate} defaultPage={"charge"} />
-      <div className="flex">
+      <div className="flex" style={{ height: "calc(100% - 57px)" }}>
         <div className="productivity__left-col p-1">
           <ChargeActivityTable
             firstColumn={{ field: "activity", header: "Activités" }}
@@ -360,7 +360,7 @@ const Charge = () => {
             />
           </div> */}
         </div>
-        <div className="productivity__right-col p-1">
+        <div className="productivity__right-col h-full p-1">
           <ChargeProductivityChart
             breadCrumb={renderBreadCrumb}
             activity={renderDomains?.find(

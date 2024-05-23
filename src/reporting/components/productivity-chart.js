@@ -114,6 +114,8 @@ const ProductivityChart = ({
       },
     ],
   };
+
+  console.log("teal", documentStyle.getPropertyValue("--teal-300"));
   const pieChartData = {
     labels: renderOptionsChart?.labels,
     datasets: [
@@ -149,7 +151,7 @@ const ProductivityChart = ({
   const pieChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    aspectRatio: 0.92,
+    // aspectRatio: 0.92,
     plugins: {
       legend: {
         position: "bottom",
@@ -203,7 +205,7 @@ const ProductivityChart = ({
     setLineChartOptions({
       responsive: true,
       maintainAspectRatio: false,
-      aspectRatio: 0.85,
+      // aspectRatio: 0.85,
       plugins: {
         tooltip: {
           backgroundColor: activity?.color || "#fff",
@@ -259,8 +261,11 @@ const ProductivityChart = ({
   }, [activity]);
 
   return (
-    <div className=" h-full flex flex-column">
-      <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1">
+    <div className="h-full flex flex-column">
+      <div
+        className="bg-blue-800 text-white border-round-2xl px-3 shadow-1"
+        style={{ height: "50%" }}
+      >
         <div
           className=" text-white text-center -mx-3 p-2 border-round-top-2xl mb-3"
           style={{
@@ -297,17 +302,25 @@ const ProductivityChart = ({
             }}
           />
         </div> */}
-        <div className="my-3">
-          <Chart type="line" data={lineChartData} options={lineChartOptions} />
+        <div className="my-3" style={{ height: "calc(100% - 60px)" }}>
+          <Chart
+            type="line"
+            data={lineChartData}
+            options={lineChartOptions}
+            style={{ height: "100%" }}
+          />
         </div>
       </div>
-      <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1 mt-3">
-        <div className="my-3">
+      <div
+        className="bg-blue-800 text-white border-round-2xl px-3 shadow-1 mt-3"
+        style={{ height: "calc(50% - 16px)" }}
+      >
+        <div className="my-3 h-full">
           <Chart
             type={`${diffDays > 7 ? "line" : "bar"}`}
             data={pieChartData}
             options={pieChartOptions}
-            className="mt-3"
+            style={{ height: "calc(100% - 24px)" }}
           />
         </div>
       </div>

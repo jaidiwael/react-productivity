@@ -156,7 +156,7 @@ const Temps = () => {
     };
     const options = {
       maintainAspectRatio: false,
-      aspectRatio: 0.8,
+      // aspectRatio: 0.8,
       plugins: {
         tooltips: {
           mode: "index",
@@ -313,8 +313,8 @@ const Temps = () => {
         </div>
         <div className="temps-page__right-col h-full">
           <div className="flex flex-column h-full">
-            <div className="py-3 px-4 bg-blue-800 border-round-2xl shadow-1 h-full flex flex-column">
-              <div className="text-white">Répartition du temps</div>
+            <div className="py-4 px-4 bg-blue-800 border-round-2xl shadow-1 flex flex-column">
+              <div className="text-white mb-6">Répartition du temps</div>
               <div className="flex-grow-1 align-items-center justify-content-center flex">
                 <MeterGroup
                   data={
@@ -336,13 +336,19 @@ const Temps = () => {
                 />
               </div>
             </div>
-            <div className="py-3 px-4 bg-blue-800 border-round-2xl shadow-1 flex-grow-1 mt-3">
-              <div className="text-white mb-7">Evolution des temps</div>
+            <div
+              className="py-3 px-4 bg-blue-800 border-round-2xl shadow-1 flex-grow-1 mt-3"
+              style={{ maxHeight: "calc(100% - 158px)" }}
+            >
+              <div className="text-white mb-4">Evolution des temps</div>
               <Chart
                 type={`${diffDays > 7 ? "line" : "bar"}`}
                 data={chartData}
                 options={chartOptions}
                 plugins={[ChartDataLabels]}
+                style={{
+                  height: "calc(100% - 100px)",
+                }}
               />
               <div className="flex flex-column gap-2">
                 <div className="flex align-items-center">

@@ -29,7 +29,7 @@ code {
 }
 
 .tableRow {
-  height: 50px;
+  height: 36px;
 }
 .selectedTableRow {
   background-color: var(--color);
@@ -38,10 +38,10 @@ code {
 }
 
 .selectedTableRow::after {
-  width: 55px;
+  width: 36px;
   height: 100%;
-  border: 25px solid white;
-  border-left-width: 26px;
+  border: 18px solid white;
+  /* border-left-width: 12px; */
   border-left-color: var(--color);
   content: "";
   top: 0;
@@ -174,7 +174,7 @@ code {
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 6px;
-	background-color: rgba(0,0,0,0.2);
+	background-color: rgba(143, 250, 221,0.5);
 }
 
 .costume-scrollbar::-webkit-scrollbar
@@ -187,5 +187,5 @@ code {
 {
 	border-radius: 6px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	background-color: rgba(0,0,0,0.3); 
+	background-color: rgba(143, 250, 221,1); 
 }

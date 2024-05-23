@@ -230,46 +230,48 @@ const Resources = () => {
   return (
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
       <InternHeader onRangeDate={setRangeDate} defaultPage={"resources"} />
-      <div className="flex">
-        <div className="productivity__left-col p-1">
-          <ChargeActivityTable
-            firstColumn={{ field: "activity", header: "Activités" }}
-            selectedRow={+activityId}
-            onRowSelection={(activityId) => {
-              navigate(`/resources/${activityId}`);
-              setSelectedClient(null);
-              //setSelectedOperator(null);
-            }}
-            products={renderDomains}
-            blueTheme
-            columnConfig={[
-              {
-                label: "Activité",
-                value: "activity",
-                className: "col-4 md:col-3 lg:col-4 ",
-                icon: "",
-              },
-              {
-                label: "Réel",
-                value: "productivity",
-                className: "col-3 md:col-5 lg:col-3",
-                icon: "",
-              },
-              {
-                label: "Planifié",
-                value: "objective",
-                className: "col-3 md:col-2 lg:col-3",
-                icon: "",
-              },
-              {
-                label: "",
-                value: "icon",
-                className: "col-2",
-                icon: "",
-              },
-            ]}
-          />
-          <div className="mt-3">
+      <div className="flex" style={{ height: "calc(100% - 60px)" }}>
+        <div className="productivity__left-col p-1 h-full">
+          <div style={{ height: "calc(33%)" }}>
+            <ChargeActivityTable
+              firstColumn={{ field: "activity", header: "Activités" }}
+              selectedRow={+activityId}
+              onRowSelection={(activityId) => {
+                navigate(`/resources/${activityId}`);
+                setSelectedClient(null);
+                //setSelectedOperator(null);
+              }}
+              products={renderDomains}
+              blueTheme
+              columnConfig={[
+                {
+                  label: "Activité",
+                  value: "activity",
+                  className: "col-4 md:col-3 lg:col-4 ",
+                  icon: "",
+                },
+                {
+                  label: "Réel",
+                  value: "productivity",
+                  className: "col-3 md:col-5 lg:col-3",
+                  icon: "",
+                },
+                {
+                  label: "Planifié",
+                  value: "objective",
+                  className: "col-3 md:col-2 lg:col-3",
+                  icon: "",
+                },
+                {
+                  label: "",
+                  value: "icon",
+                  className: "col-2",
+                  icon: "",
+                },
+              ]}
+            />
+          </div>
+          <div className="mt-3" style={{ height: "calc(66% - 10px)" }}>
             <ChargeActivityTable
               firstColumn={{ field: "client", header: "Client" }}
               selectedRow={selectedClient}
@@ -312,14 +314,14 @@ const Resources = () => {
             />
           </div>
         </div>
-        <div className="productivity__right-col p-1">
-          <div className="bg-blue-800 border-round-2xl px-3 py-2">
+        <div className="productivity__right-col p-1 h-full">
+          <div className="bg-blue-800 border-round-2xl px-3 py-2 h-full">
             <Chart
               type={`${diffDays > 7 ? "line" : "bar"}`}
               data={chartData}
               options={chartOptions}
               plugins={[ChartDataLabels]}
-              // style={{ height: "295px" }}
+              style={{ height: "100%" }}
             />
           </div>
         </div>

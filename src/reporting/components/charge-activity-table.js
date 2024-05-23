@@ -85,7 +85,7 @@ const ChargeActivityTable = ({
 
   return (
     <div
-      className={`border-round-2xl shadow-2 ${
+      className={`border-round-2xl shadow-2 flex flex-column h-full ${
         blueTheme ? "bg-blue-800" : "bg-white"
       }`}
     >
@@ -184,10 +184,7 @@ const ChargeActivityTable = ({
           },
         }}
       /> */}
-      <div
-        className="flex-grow-1 overflow-auto py-2 costume-scrollbar"
-        style={{ height: "200px" }}
-      >
+      <div className="flex-grow-1 overflow-auto py-2 costume-scrollbar">
         {renderProductByOrder?.map((item) => itemTemplate(item))}
       </div>
     </div>

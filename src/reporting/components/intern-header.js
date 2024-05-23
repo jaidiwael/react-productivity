@@ -12,7 +12,7 @@ import tempIcon from "../../assets/images/temp.svg";
 import homeIcon from "../../assets/images/home.svg";
 
 const InternHeader = ({ defaultPage, onRangeDate }) => {
-  const [filter, setFilter] = useState("lignes");
+  // const [filter, setFilter] = useState("lignes");
   const [timeSelector, setTimeSelector] = useState(7);
   const [calendarPicker, setCalendarPicker] = useState(null);
   const navigate = useNavigate();
@@ -106,7 +106,7 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
             },
           }}
         />
-        <Dropdown
+        {/* <Dropdown
           value={filter}
           onChange={(e) => setFilter(e.value)}
           options={[
@@ -125,7 +125,7 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
               className: "py-2 text-white",
             },
           }}
-        />
+        /> */}
       </div>
       <div className="flex align-items-center gap-2">
         <TimeRangeSelector

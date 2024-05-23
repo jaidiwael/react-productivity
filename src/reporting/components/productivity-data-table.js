@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
-import { Carousel } from "primereact/carousel";
-import Logo from "../../assets/images/alki-logo.svg";
+import { InputText } from "primereact/inputtext";
+// import { Carousel } from "primereact/carousel";
+// import Logo from "../../assets/images/alki-logo.svg";
 
 import { customOrder } from "../helpers";
 
@@ -11,8 +12,11 @@ const ProductivityDataTable = ({
   onRowSelection,
   blueTheme,
   selectedColor,
+  withSearch,
 }) => {
   const [order, setOrder] = useState({ column: 0, direction: "asc" });
+  const [visibleSearch, setVisibleSearch] = useState(false);
+  const [search, setSearch] = useState("");
 
   const renderProductByOrder = useMemo(() => {
     switch (order.column) {
@@ -45,9 +49,11 @@ const ProductivityDataTable = ({
           "--color": selectedColor || item.color,
         }}
       >
-        <div className="col-4 flex">
+        <div className="col-4 flex py-0">
           <div
-            className="border-round-xl text-white px-3"
+            className={`border-round-xl text-white px-3 ${
+              item?.id === selectedRow ? "" : "py-1"
+            }`}
             style={{
               backgroundColor: item?.id === selectedRow ? "unset" : item?.color,
             }}
@@ -105,7 +111,7 @@ const ProductivityDataTable = ({
 
   return (
     <div
-      className={`border-round-2xl shadow-2 ${
+      className={`border-round-2xl shadow-2 h-full flex flex-column ${
         blueTheme ? "bg-blue-800" : "bg-white"
       }`}
     >
@@ -130,7 +136,16 @@ const ProductivityDataTable = ({
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
             } ml-2`}
-          ></span>
+          />
+          {withSearch && (
+            <i
+              className="pi pi-search text-xs ml-auto cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                setVisibleSearch(!visibleSearch);
+              }}
+            />
+          )}
         </div>
         <div
           onClick={() => updateOrder(1)}
@@ -219,9 +234,37 @@ const ProductivityDataTable = ({
           },
         }}
       /> */}
+      <div>
+        {visibleSearch && (
+          <div>
+            <span className="p-input-icon-left w-10rem mx-2">
+              <i className="pi pi-search text-xs" />
+              <InputText
+                placeholder="Search"
+                className="w-full border-round-3xl bg-white-alpha-10 border-none py-1 pr-3 pl-5 text-sm"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                pt={{
+                  root: {
+                    className: "text-white",
+                  },
+                }}
+              />
+              {search && (
+                <i
+                  className="pi pi-times-circle custom-remove-icon cursor-pointer"
+                  onClick={() => {
+                    setSearch("");
+                  }}
+                />
+              )}
+            </span>
+          </div>
+        )}
+      </div>
       <div
         className="flex-grow-1 overflow-auto py-2 costume-scrollbar"
-        style={{ height: "205px" }}
+        // style={{ height: "205px" }}
       >
         {renderProductByOrder?.map((item) => itemTemplate(item))}
       </div>

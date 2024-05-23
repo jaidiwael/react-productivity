@@ -120,7 +120,10 @@ const ResourcesCard = ({ values, onClick }) => {
     setChartOptions(options);
   }, [values]);
   return (
-    <div className="bg-card border-round-2xl px-3 py-2" onClick={onClick}>
+    <div
+      className="bg-card border-round-2xl px-3 py-2  h-full"
+      onClick={onClick}
+    >
       <div className="flex gap-3 mb-2 justify-content-center">
         {/*<ResourcesPercentage
           value={+values?.ratiosList?.capaUsage}
@@ -155,7 +158,7 @@ const ResourcesCard = ({ values, onClick }) => {
         data={chartData}
         options={chartOptions}
         plugins={[ChartDataLabels]}
-        style={{ height: "295px" }}
+        style={{ height: "100%" }}
       />
     </div>
   );

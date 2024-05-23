@@ -290,7 +290,7 @@ const Objective = () => {
           <div className="h-full overflow-auto">{renderDomainsCard}</div>
         </div>
         <div className="objective-page__right-col h-full">
-          <div className="pt-6  pb-3 px-3 flex flex-column h-full bg-blue-800 border-round-2xl shadow-1 flex-grow-1">
+          <div className="py-3 px-3 flex flex-column h-full bg-blue-800 border-round-2xl shadow-1 flex-grow-1">
             {/* <div className="text-white  flex justify-content-end">
               <SelectButton
                 allowEmpty={false}
@@ -313,7 +313,7 @@ const Objective = () => {
               type="line"
               data={chartData}
               options={chartOptions}
-              className=" flex-grow-1"
+              style={{ height: "100%" }}
             />
           </div>
         </div>

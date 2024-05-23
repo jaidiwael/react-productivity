@@ -117,7 +117,7 @@ const ChargeProductivityChart = ({
     setLineChartOptions({
       responsive: true,
       maintainAspectRatio: false,
-      aspectRatio: 0.418,
+      // aspectRatio: 0.418,
       plugins: {
         tooltip: {
           backgroundColor: activity?.color || "#fff",
@@ -171,8 +171,8 @@ const ChargeProductivityChart = ({
   }, [activity]);
 
   return (
-    <div className=" h-full flex flex-column">
-      <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1">
+    <div className="h-full flex flex-column">
+      <div className="bg-blue-800 text-white border-round-2xl px-3 shadow-1 h-full">
         <div
           className=" text-white text-center -mx-3 p-2 border-round-top-2xl mb-3"
           style={{
@@ -182,7 +182,7 @@ const ChargeProductivityChart = ({
           <BreadCrumb items={breadCrumb} />
         </div>
 
-        <div className="text-white flex justify-content-between">
+        <div className="text-white flex justify-content-between mb-3">
           <div className="flex align-items-center gap-2">
             <span>Volume</span>
             <InputSwitch
@@ -193,25 +193,13 @@ const ChargeProductivityChart = ({
             />
             <span>Fiabilité</span>
           </div>
-          {/* <SelectButton
-            allowEmpty={false}
-            value={timeRange}
-            onChange={(e) => setTimeRange(e.value)}
-            optionLabel="name"
-            options={[
-              { name: "Jour", value: 1 },
-              { name: "Semaine", value: 2 },
-              { name: "Mois", value: 3 },
-            ]}
-            pt={{
-              root: "border-round-2xl overflow-hidden",
-              button: "py-1 border-noround",
-            }}
-          /> */}
         </div>
-        <div className="my-3">
-          <Chart type="line" data={lineChartData} options={lineChartOptions} />
-        </div>
+        <Chart
+          type="line"
+          data={lineChartData}
+          options={lineChartOptions}
+          style={{ height: "calc(100% - 110px)" }}
+        />
       </div>
     </div>
   );
