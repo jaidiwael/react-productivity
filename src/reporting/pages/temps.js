@@ -31,8 +31,8 @@ const Temps = () => {
   const [type, setType] = useState("percent");
   const [selectedOperator, setSelectedOperator] = useState(null);
   const [rangeDate, setRangeDate] = useState([
-    moment().add(-7, "days").format("YYYY-MM-DD"),
-    moment().format("YYYY-MM-DD"),
+    moment().add(-8, "days").format("YYYY-MM-DD"),
+    moment().add(-1, "days").format("YYYY-MM-DD"),
   ]);
 
   const { data: productivityDetailTimes } = useQuery({

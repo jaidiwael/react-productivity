@@ -65,14 +65,14 @@ const ProductivityDataTable = ({
         <div className="flex align-items-center gap-1 col-2">
           <div
             className={`text-xs text-center ${
-              item?.performance[0] === "-" ? "text-red-400" : "text-teal-400"
+              item?.performance < 0 ? "text-red-400" : "text-teal-400"
             } ${
               item?.id === selectedRow
                 ? "border-round-xl bg-white pl-1 pr-1"
                 : ""
             }`}
           >
-            {item?.performance[0] === "-" ? (
+            {item?.performance < 0 ? (
               <i className="pi pi-sort-down-fill text-red-400 text-xs mr-1"></i>
             ) : (
               <i className="pi pi-sort-up-fill text-teal-400 text-xs mr-1"></i>

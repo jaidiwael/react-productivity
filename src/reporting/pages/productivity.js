@@ -15,8 +15,8 @@ const Productivity = () => {
   const [selectedClient, setSelectedClient] = useState();
   const [selectedOperator, setSelectedOperator] = useState();
   const [rangeDate, setRangeDate] = useState([
-    moment().add(-7, "days").format("YYYY-MM-DD"),
-    moment().format("YYYY-MM-DD"),
+    moment().add(-8, "days").format("YYYY-MM-DD"),
+    moment().add(-1, "days").format("YYYY-MM-DD"),
   ]);
 
   const navigate = useNavigate();
@@ -47,13 +47,13 @@ const Productivity = () => {
           productivityTarget,
           realProductivity,
           totalQuantity,
-          productivityRatioPcent,
+          productivityVariation,
         }) => {
           return {
             id: domainId,
             activity: domainName,
             productivity: realProductivity,
-            performance: productivityRatioPcent,
+            performance: productivityVariation,
             volumes: totalQuantity,
             objective: productivityTarget,
             color: domainColor,
@@ -72,13 +72,13 @@ const Productivity = () => {
           productivityTarget,
           realProductivity,
           totalQuantity,
-          productivityRatioPcent,
+          productivityVariation,
         }) => {
           return {
             id: customerCode,
             client: customerName,
             productivity: realProductivity,
-            performance: productivityRatioPcent,
+            performance: productivityVariation,
             volumes: totalQuantity,
             objective: productivityTarget,
             actId: 1,
@@ -100,13 +100,13 @@ const Productivity = () => {
             productivityTarget,
             realProductivity,
             totalQuantity,
-            productivityRatioPcent,
+            productivityVariation,
           }) => {
             return {
               id: operatorWmsId,
               operator: operatorName,
               productivity: realProductivity,
-              performance: productivityRatioPcent,
+              performance: productivityVariation,
               volumes: totalQuantity,
               objective: productivityTarget,
               clientId: selectedClient,
