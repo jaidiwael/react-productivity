@@ -339,6 +339,7 @@ const Productivity = () => {
               selectedColor={
                 renderDomains?.find((act) => act?.id === +activityId)?.color
               }
+              withSearch
             />
           </div>
           {selectedClient && (
@@ -352,6 +353,7 @@ const Productivity = () => {
                 selectedColor={
                   renderDomains?.find((act) => act?.id === +activityId)?.color
                 }
+                withSearch
               />
             </div>
           )}

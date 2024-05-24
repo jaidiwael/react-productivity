@@ -282,6 +282,7 @@ const Resources = () => {
               products={renderCustomers}
               blueTheme
               height={"430px"}
+              withSearch
               selectedColor={
                 renderDomains?.find((act) => act?.id === +activityId)?.color
               }

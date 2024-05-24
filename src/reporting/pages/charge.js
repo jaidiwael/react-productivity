@@ -279,7 +279,7 @@ const Charge = () => {
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
       <InternHeader onRangeDate={setRangeDate} defaultPage={"charge"} />
       <div className="flex" style={{ height: "calc(100% - 57px)" }}>
-        <div className="productivity__left-col p-1">
+        <div className="productivity__left-col align-self-start p-1">
           <ChargeActivityTable
             firstColumn={{ field: "activity", header: "Activités" }}
             selectedRow={+activityId}

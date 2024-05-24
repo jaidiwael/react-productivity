@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Carousel } from "primereact/carousel";
+import { InputText } from "primereact/inputtext";
 import Logo from "../../assets/images/alki-logo.svg";
 
 import { customOrder } from "../helpers";
@@ -12,22 +12,34 @@ const ChargeActivityTable = ({
   blueTheme,
   selectedColor,
   height,
+  withSearch,
 }) => {
   const [order, setOrder] = useState({ column: 0, direction: "asc" });
+  const [visibleSearch, setVisibleSearch] = useState(false);
+  const [search, setSearch] = useState("");
 
   const renderProductByOrder = useMemo(() => {
+    let newProducts = products;
+    if (search) {
+      const expr = new RegExp(search, "i");
+      newProducts = newProducts?.filter((op) =>
+        expr.test(op[firstColumn?.field])
+      );
+    }
     switch (order.column) {
       case 0:
       default:
-        return products.sort(customOrder(firstColumn?.field, order.direction));
+        return newProducts.sort(
+          customOrder(firstColumn?.field, order.direction)
+        );
       case 1:
-        return products.sort(customOrder("productivity", order.direction));
+        return newProducts.sort(customOrder("productivity", order.direction));
       case 2:
-        return products.sort(customOrder("volumes", order.direction));
+        return newProducts.sort(customOrder("volumes", order.direction));
       case 3:
-        return products.sort(customOrder("objective", order.direction));
+        return newProducts.sort(customOrder("objective", order.direction));
     }
-  }, [order, products, firstColumn]);
+  }, [order, products, firstColumn, search]);
 
   const itemTemplate = (item) => {
     return (
@@ -85,7 +97,7 @@ const ChargeActivityTable = ({
 
   return (
     <div
-      className={`border-round-2xl shadow-2 flex flex-column h-full ${
+      className={`border-round-2xl shadow-2 flex flex-column h-full pb-2 ${
         blueTheme ? "bg-blue-800" : "bg-white"
       }`}
     >
@@ -111,6 +123,15 @@ const ChargeActivityTable = ({
                 : "pi-chevron-up"
             } ml-1`}
           ></span>
+          {withSearch && (
+            <i
+              className="pi pi-search text-xs ml-auto cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                setVisibleSearch(!visibleSearch);
+              }}
+            />
+          )}
         </div>
         <div
           onClick={() => updateOrder(1)}
@@ -184,6 +205,32 @@ const ChargeActivityTable = ({
           },
         }}
       /> */}
+      {visibleSearch && (
+        <div>
+          <span className="p-input-icon-left w-10rem mx-2">
+            <i className="pi pi-search text-xs" />
+            <InputText
+              placeholder="Search"
+              className="w-full border-round-3xl bg-white-alpha-10 border-none py-1 pr-3 pl-5 text-sm"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              pt={{
+                root: {
+                  className: "text-white",
+                },
+              }}
+            />
+            {search && (
+              <i
+                className="pi pi-times-circle custom-remove-icon cursor-pointer"
+                onClick={() => {
+                  setSearch("");
+                }}
+              />
+            )}
+          </span>
+        </div>
+      )}
       <div className="flex-grow-1 overflow-auto py-2 costume-scrollbar">
         {renderProductByOrder?.map((item) => itemTemplate(item))}
       </div>

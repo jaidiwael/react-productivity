@@ -19,20 +19,29 @@ const ProductivityDataTable = ({
   const [search, setSearch] = useState("");
 
   const renderProductByOrder = useMemo(() => {
+    let newProducts = products;
+    if (search) {
+      const expr = new RegExp(search, "i");
+      newProducts = newProducts?.filter((op) =>
+        expr.test(op[firstColumn?.field])
+      );
+    }
     switch (order.column) {
       case 0:
       default:
-        return products.sort(customOrder(firstColumn?.field, order.direction));
+        return newProducts.sort(
+          customOrder(firstColumn?.field, order.direction)
+        );
       case 1:
-        return products.sort(customOrder("productivity", order.direction));
+        return newProducts.sort(customOrder("productivity", order.direction));
       case 2:
-        return products.sort(customOrder("objective", order.direction));
+        return newProducts.sort(customOrder("objective", order.direction));
       case 3:
-        return products.sort(customOrder("performance", order.direction));
+        return newProducts.sort(customOrder("performance", order.direction));
       case 4:
-        return products.sort(customOrder("volumes", order.direction));
+        return newProducts.sort(customOrder("volumes", order.direction));
     }
-  }, [order, products, firstColumn]);
+  }, [order, products, firstColumn, search]);
 
   const itemTemplate = (item) => {
     return (
@@ -234,34 +243,32 @@ const ProductivityDataTable = ({
           },
         }}
       /> */}
-      <div>
-        {visibleSearch && (
-          <div>
-            <span className="p-input-icon-left w-10rem mx-2">
-              <i className="pi pi-search text-xs" />
-              <InputText
-                placeholder="Search"
-                className="w-full border-round-3xl bg-white-alpha-10 border-none py-1 pr-3 pl-5 text-sm"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                pt={{
-                  root: {
-                    className: "text-white",
-                  },
+      {visibleSearch && (
+        <div>
+          <span className="p-input-icon-left w-10rem mx-2">
+            <i className="pi pi-search text-xs" />
+            <InputText
+              placeholder="Search"
+              className="w-full border-round-3xl bg-white-alpha-10 border-none py-1 pr-3 pl-5 text-sm"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              pt={{
+                root: {
+                  className: "text-white",
+                },
+              }}
+            />
+            {search && (
+              <i
+                className="pi pi-times-circle custom-remove-icon cursor-pointer"
+                onClick={() => {
+                  setSearch("");
                 }}
               />
-              {search && (
-                <i
-                  className="pi pi-times-circle custom-remove-icon cursor-pointer"
-                  onClick={() => {
-                    setSearch("");
-                  }}
-                />
-              )}
-            </span>
-          </div>
-        )}
-      </div>
+            )}
+          </span>
+        </div>
+      )}
       <div
         className="flex-grow-1 overflow-auto py-2 costume-scrollbar"
         // style={{ height: "205px" }}
