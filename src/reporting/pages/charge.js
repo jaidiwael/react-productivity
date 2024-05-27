@@ -9,7 +9,10 @@ import InternHeader from "../components/intern-header";
 import ChargeActivityTable from "../components/charge-activity-table";
 
 import { customOrder } from "../helpers";
-import { getProductivityDetailProd } from "../api";
+import {
+  getProductivityDetailProd,
+  getProductivityDetailRealForecast,
+} from "../api";
 
 const Charge = () => {
   const [selectedActivity, setSelectedActivity] = useState(1);
@@ -27,7 +30,11 @@ const Charge = () => {
   const { data: productivityDetailProd } = useQuery({
     queryKey: ["getProductivityDetailProd", "2024-05-01", "2024-05-08", 1],
     queryFn: getProductivityDetailProd,
-    // enabled: !!(rangeDate && activityId),
+  });
+
+  const { data: productivityDetailForecast } = useQuery({
+    queryKey: ["getProductivityDetailRealForecast", "2024-05-01", "2024-05-08"],
+    queryFn: getProductivityDetailRealForecast,
   });
 
   useEffect(() => {

@@ -56,7 +56,7 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
         <img
           alt=""
           src={homeIcon}
-          onClick={() => navigate(`/`)}
+          onClick={() => navigate(`/reporting`)}
           className="cursor-pointer text-white"
         />
         <Dropdown
@@ -66,7 +66,7 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
               e.value === "productivity" || e.value === "resources"
                 ? `${e.value}/1`
                 : e.value;
-            navigate(`/${path}`);
+            navigate(`/reporting/${path}`);
           }}
           valueTemplate={selectedCountryTemplate}
           options={[

@@ -237,7 +237,7 @@ const Resources = () => {
               firstColumn={{ field: "activity", header: "Activités" }}
               selectedRow={+activityId}
               onRowSelection={(activityId) => {
-                navigate(`/resources/${activityId}`);
+                navigate(`/reporting/resources/${activityId}`);
                 setSelectedClient(null);
                 //setSelectedOperator(null);
               }}
@@ -271,7 +271,7 @@ const Resources = () => {
               ]}
             />
           </div>
-          <div className="mt-3" style={{ height: "calc(66% - 10px)" }}>
+          {/* <div className="mt-3" style={{ height: "calc(66% - 10px)" }}>
             <ChargeActivityTable
               firstColumn={{ field: "client", header: "Client" }}
               selectedRow={selectedClient}
@@ -313,7 +313,7 @@ const Resources = () => {
                 },
               ]}
             />
-          </div>
+          </div> */}
         </div>
         <div className="productivity__right-col p-1 h-full">
           <div className="bg-blue-800 border-round-2xl px-3 py-2 h-full">

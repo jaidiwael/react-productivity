@@ -1,5 +1,6 @@
 import { PrimeReactProvider, addLocale } from "primereact/api";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Routes, Route } from "react-router-dom";
 
 import moment from "moment";
 
@@ -67,7 +68,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <PrimeReactProvider>
-        <Pages />
+        <Routes>
+          <Route path="/reporting/*" element={<Pages />} />
+        </Routes>
       </PrimeReactProvider>
     </QueryClientProvider>
   );

@@ -318,7 +318,7 @@ const Productivity = () => {
               selectedRow={+activityId}
               onRowSelection={(activityId) => {
                 //  setSelectedActivity(activityId);
-                navigate(`/productivity/${activityId}`);
+                navigate(`/reporting/productivity/${activityId}`);
                 setSelectedClient(null);
                 setSelectedOperator(null);
               }}

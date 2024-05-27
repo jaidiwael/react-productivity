@@ -144,21 +144,21 @@ const HomePage = () => {
         <div className="grid my-1">
           <div className="col-2">
             <ObjectiveCard
-              onClick={() => navigate("/objective")}
+              onClick={() => navigate("/reporting/objective")}
               value={isFetching === 0 && productivityHomeProdvalues?.goal}
               title={"Objectif Global"}
             />
           </div>
           <div className="col-2">
             <TempsCard
-              onClick={() => navigate("/temps")}
+              onClick={() => navigate("/reporting/temps")}
               values={renderProductivityTimes}
             />
           </div>
           <div className="col-8">
             <PerformanceSlider
               onClickCard={(activityId) =>
-                navigate(`/productivity/${activityId}`)
+                navigate(`/reporting/productivity/${activityId}`)
               }
               products={renderProdData}
             />
@@ -184,13 +184,13 @@ const HomePage = () => {
           <div className="col-6 h-full">
             <ChargeCard
               values={renderRealForecast}
-              onClick={() => navigate("/charge")}
+              onClick={() => navigate("/reporting/charge")}
             />
           </div>
           <div className="col-6 h-full">
             <ResourcesCard
               values={renderHomeResources}
-              onClick={() => navigate(`/resources/1`)}
+              onClick={() => navigate(`/reporting/resources/1`)}
             />
           </div>
         </div>
