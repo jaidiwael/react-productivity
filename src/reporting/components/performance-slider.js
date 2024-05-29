@@ -12,12 +12,12 @@ const PerformanceSlider = ({ onClickCard, products }) => {
         data={product}
         onClick={() => onClickCard(product?.id)}
         isMaximum={
-          product?.average ===
-          Math.max(...products.map(({ average }) => average))
+          product?.percentage ===
+          Math.max(...products.map(({ percentage }) => percentage))
         }
         isMinimum={
-          product?.average ===
-          Math.min(...products.map(({ average }) => average))
+          product?.percentage ===
+          Math.min(...products.map(({ percentage }) => percentage))
         }
       />
     );
