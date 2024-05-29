@@ -23,9 +23,8 @@ const Charge = () => {
     moment().add(-1, "days").format("YYYY-MM-DD"),
   ]);
 
-  //const navigate = useNavigate();
-  //const { activityId } = useParams();
-  const activityId = selectedActivity;
+  const navigate = useNavigate();
+  const { activityId } = useParams();
 
   const { data: productivityDetailProd } = useQuery({
     queryKey: ["getProductivityDetailProd", "2024-05-01", "2024-05-08", 1],
@@ -33,7 +32,12 @@ const Charge = () => {
   });
 
   const { data: productivityDetailForecast } = useQuery({
-    queryKey: ["getProductivityDetailRealForecast", "2024-05-01", "2024-05-08"],
+    queryKey: [
+      "getProductivityDetailRealForecast",
+      rangeDate[0],
+      rangeDate[1],
+      activityId,
+    ],
     queryFn: getProductivityDetailRealForecast,
   });
 
@@ -42,81 +46,81 @@ const Charge = () => {
   }, [activityId]);
 
   const renderDomains = useMemo(() => {
-    if (productivityDetailProd) {
-      return productivityDetailProd?.domains.map(
+    if (productivityDetailForecast) {
+      return productivityDetailForecast?.TotalRealForecastDomains?.map(
         ({
           domainId,
           domainName,
           domainColor,
-          productivityTarget,
-          realProductivity,
-          totalQuantity,
+          forecastValueTotal,
+          realValueTotal,
+          alkiValueTotal,
         }) => {
           return {
             id: domainId,
             activity: domainName,
-            productivity: realProductivity,
+            productivity: realValueTotal,
             performance: "+8%",
-            volumes: totalQuantity,
-            objective: productivityTarget,
+            volumes: alkiValueTotal,
+            objective: forecastValueTotal,
             color: domainColor,
           };
         }
       );
     }
     return [];
-  }, [productivityDetailProd]);
+  }, [productivityDetailForecast]);
   const renderCustomers = useMemo(() => {
-    if (productivityDetailProd) {
-      return productivityDetailProd?.customers.map(
+    if (productivityDetailForecast) {
+      return productivityDetailForecast?.TotalRealForecastDomainsCustomers?.map(
         ({
           customerCode,
           customerName,
-          productivityTarget,
-          realProductivity,
-          totalQuantity,
+          forecastValue,
+          realValue,
+          alkiValue,
         }) => {
           return {
             id: customerCode,
             client: customerName,
-            productivity: realProductivity,
+            productivity: realValue,
             performance: "+8%",
-            volumes: totalQuantity,
-            objective: productivityTarget,
+            volumes: alkiValue,
+            objective: forecastValue,
             actId: 1,
           };
         }
       );
     }
     return [];
-  }, [productivityDetailProd]);
+  }, [productivityDetailForecast]);
 
-  const renderOperators = useMemo(() => {
-    if (productivityDetailProd) {
-      return productivityDetailProd?.operators
-        ?.filter((op) => op?.customerCode === selectedClient)
-        ?.map(
-          ({
-            operatorWmsId,
-            operatorName,
-            productivityTarget,
-            realProductivity,
-            totalQuantity,
-          }) => {
-            return {
-              id: operatorWmsId,
-              operator: operatorName,
-              productivity: realProductivity,
-              performance: "+8%",
-              volumes: totalQuantity,
-              objective: productivityTarget,
-              clientId: selectedClient,
-            };
-          }
-        );
-    }
-    return [];
-  }, [productivityDetailProd, selectedClient]);
+  // const renderOperators = useMemo(() => {
+  //   if (productivityDetailProd) {
+  //     return productivityDetailProd?.operators
+  //       ?.filter((op) => op?.customerCode === selectedClient)
+  //       ?.map(
+  //         ({
+  //           operatorWmsId,
+  //           operatorName,
+  //           productivityTarget,
+  //           realProductivity,
+  //           totalQuantity,
+  //         }) => {
+  //           return {
+  //             id: operatorWmsId,
+  //             operator: operatorName,
+  //             productivity: realProductivity,
+  //             performance: "+8%",
+  //             volumes: totalQuantity,
+  //             objective: productivityTarget,
+  //             clientId: selectedClient,
+  //           };
+  //         }
+  //       );
+  //   }
+  //   return [];
+  // }, [productivityDetailProd, selectedClient]);
   const renderBreadCrumb = useMemo(() => {
     let breadCrumbArray = [
       {
@@ -143,44 +147,39 @@ const Charge = () => {
         },
       ];
     }
-    if (selectedOperator) {
-      breadCrumbArray = [
-        ...breadCrumbArray,
-        {
-          label: renderOperators?.find((act) => act?.id === selectedOperator)
-            ?.operator,
-          id: selectedClient,
-          action: (id) => {
-            // setSelectedClient(id);
-          },
-        },
-      ];
-    }
+    // if (selectedOperator) {
+    //   breadCrumbArray = [
+    //     ...breadCrumbArray,
+    //     {
+    //       label: renderOperators?.find((act) => act?.id === selectedOperator)
+    //         ?.operator,
+    //       id: selectedClient,
+    //       action: (id) => {
+    //         // setSelectedClient(id);
+    //       },
+    //     },
+    //   ];
+    // }
     return breadCrumbArray;
-  }, [
-    selectedActivity,
-    selectedClient,
-    selectedOperator,
-    renderDomains,
-    renderCustomers,
-    renderOperators,
-  ]);
+  }, [selectedActivity, selectedClient, renderDomains, renderCustomers]);
 
   const renderLabels = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.date);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
+    if (productivityDetailForecast) {
+      // if (selectedOperator) {
+      //   return productivityDetailProd?.operatorStats
+      //     ?.filter((op) => op?.operatorWmsId === selectedOperator)
+      //     ?.sort(customOrder("date", "asc"))
+      //     ?.map((opLabel) => opLabel?.date);
+      // } else
+      if (selectedClient) {
+        return productivityDetailForecast?.DetailRealForecastDomainsCustomers?.filter(
+          (clt) => clt?.customerCode === selectedClient
+        )
           ?.sort(customOrder("date", "asc"))
           ?.map((cltLabel) => cltLabel?.date);
       } else {
         return (
-          productivityDetailProd?.domainStats
+          productivityDetailForecast?.DetailRealForecastDomains
             // ?.filter((dm) => dm?.customerCode === selectedClient)
             ?.sort(customOrder("date", "asc"))
             ?.map((dmLabel) => dmLabel?.date)
@@ -188,143 +187,149 @@ const Charge = () => {
       }
     }
     return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
+  }, [selectedClient, productivityDetailForecast]);
 
   const renderCibleData = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
+    if (productivityDetailForecast) {
+      // if (selectedOperator) {
+      //   return productivityDetailProd?.operatorStats
+      //     ?.filter((op) => op?.operatorWmsId === selectedOperator)
+      //     ?.sort(customOrder("date", "asc"))
+      //     ?.map((opLabel) => opLabel?.productivityTarget);
+      // } else
+      if (selectedClient) {
+        return productivityDetailForecast?.DetailRealForecastDomainsCustomers?.filter(
+          (clt) => clt?.customerCode === selectedClient
+        )
           ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.productivityTarget);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((cltLabel) => cltLabel?.productivityTarget);
+          ?.map((cltLabel) => cltLabel?.forecastValue);
       } else {
         return (
-          productivityDetailProd?.domainStats
+          productivityDetailForecast?.DetailRealForecastDomains
             // ?.filter((dm) => dm?.customerCode === selectedClient)
             ?.sort(customOrder("date", "asc"))
-            ?.map((cltLabel) => cltLabel?.productivityTarget)
+            ?.map((cltLabel) => cltLabel?.forecastValue)
         );
       }
     }
     return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
+  }, [productivityDetailForecast, selectedClient]);
   const renderRealData = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
+    if (productivityDetailForecast) {
+      // if (selectedOperator) {
+      //   return productivityDetailProd?.operatorStats
+      //     ?.filter((op) => op?.operatorWmsId === selectedOperator)
+      //     ?.sort(customOrder("date", "asc"))
+      //     ?.map((opLabel) => opLabel?.realProductivity);
+      // } else
+      if (selectedClient) {
+        return productivityDetailForecast?.DetailRealForecastDomainsCustomers?.filter(
+          (clt) => clt?.customerCode === selectedClient
+        )
           ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.realProductivity);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((cltLabel) => cltLabel?.realProductivity);
+          ?.map((cltLabel) => cltLabel?.realValue);
       } else {
         return (
-          productivityDetailProd?.domainStats
+          productivityDetailForecast?.DetailRealForecastDomains
             // ?.filter((dm) => dm?.customerCode === selectedClient)
             ?.sort(customOrder("date", "asc"))
-            ?.map((cltLabel) => cltLabel?.realProductivity)
+            ?.map((cltLabel) => cltLabel?.realValue)
         );
       }
     }
     return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
-  const renderRealEtp = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.totalQuantity);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((cltLabel) => cltLabel?.totalQuantity);
-      } else {
-        return (
-          productivityDetailProd?.domainStats
-            // ?.filter((dm) => dm?.customerCode === selectedClient)
-            ?.sort(customOrder("date", "asc"))
-            ?.map((cltLabel) => cltLabel?.totalQuantity)
-        );
-      }
-    }
-    return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
-  const renderPlannedEtp = useMemo(() => {
-    if (productivityDetailProd) {
-      if (selectedOperator) {
-        return productivityDetailProd?.operatorStats
-          ?.filter((op) => op?.operatorWmsId === selectedOperator)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((opLabel) => opLabel?.productivityRatioPcent);
-      } else if (selectedClient) {
-        return productivityDetailProd?.customerStats
-          ?.filter((clt) => clt?.customerCode === selectedClient)
-          ?.sort(customOrder("date", "asc"))
-          ?.map((cltLabel) => cltLabel?.productivityRatioPcent);
-      } else {
-        return (
-          productivityDetailProd?.domainStats
-            // ?.filter((dm) => dm?.customerCode === selectedClient)
-            ?.sort(customOrder("date", "asc"))
-            ?.map((dmLabel) => dmLabel?.productivityRatioPcent)
-        );
-      }
-    }
-    return [];
-  }, [productivityDetailProd, selectedClient, selectedOperator]);
+  }, [productivityDetailForecast, selectedClient]);
+  // const renderRealEtp = useMemo(() => {
+  //   if (productivityDetailProd) {
+  //     if (selectedOperator) {
+  //       return productivityDetailProd?.operatorStats
+  //         ?.filter((op) => op?.operatorWmsId === selectedOperator)
+  //         ?.sort(customOrder("date", "asc"))
+  //         ?.map((opLabel) => opLabel?.totalQuantity);
+  //     } else if (selectedClient) {
+  //       return productivityDetailProd?.customerStats
+  //         ?.filter((clt) => clt?.customerCode === selectedClient)
+  //         ?.sort(customOrder("date", "asc"))
+  //         ?.map((cltLabel) => cltLabel?.totalQuantity);
+  //     } else {
+  //       return (
+  //         productivityDetailProd?.domainStats
+  //           // ?.filter((dm) => dm?.customerCode === selectedClient)
+  //           ?.sort(customOrder("date", "asc"))
+  //           ?.map((cltLabel) => cltLabel?.totalQuantity)
+  //       );
+  //     }
+  //   }
+  //   return [];
+  // }, [productivityDetailProd, selectedClient, selectedOperator]);
+  // const renderPlannedEtp = useMemo(() => {
+  //   if (productivityDetailProd) {
+  //     if (selectedOperator) {
+  //       return productivityDetailProd?.operatorStats
+  //         ?.filter((op) => op?.operatorWmsId === selectedOperator)
+  //         ?.sort(customOrder("date", "asc"))
+  //         ?.map((opLabel) => opLabel?.productivityRatioPcent);
+  //     } else if (selectedClient) {
+  //       return productivityDetailProd?.customerStats
+  //         ?.filter((clt) => clt?.customerCode === selectedClient)
+  //         ?.sort(customOrder("date", "asc"))
+  //         ?.map((cltLabel) => cltLabel?.productivityRatioPcent);
+  //     } else {
+  //       return (
+  //         productivityDetailProd?.domainStats
+  //           // ?.filter((dm) => dm?.customerCode === selectedClient)
+  //           ?.sort(customOrder("date", "asc"))
+  //           ?.map((dmLabel) => dmLabel?.productivityRatioPcent)
+  //       );
+  //     }
+  //   }
+  //   return [];
+  // }, [productivityDetailProd, selectedClient, selectedOperator]);
   return (
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
       <InternHeader onRangeDate={setRangeDate} defaultPage={"charge"} />
       <div className="flex" style={{ height: "calc(100% - 57px)" }}>
-        <div className="productivity__left-col align-self-start p-1">
-          <ChargeActivityTable
-            firstColumn={{ field: "activity", header: "Activités" }}
-            selectedRow={+activityId}
-            onRowSelection={(activityId) => {
-              setSelectedActivity(activityId);
-              setSelectedClient(null);
-              setSelectedOperator(null);
-            }}
-            products={renderDomains}
-            blueTheme
-            columnConfig={[
-              {
-                label: "Activité",
-                value: "activity",
-                className: "col-4 md:col-3 lg:col-4 ",
-                icon: "",
-              },
-              {
-                label: "Réel",
-                value: "productivity",
-                className: "col-3 md:col-5 lg:col-3",
-                icon: "",
-              },
-              {
-                label: "Planifié",
-                value: "objective",
-                className: "col-3 md:col-2 lg:col-3",
-                icon: "",
-              },
-              {
-                label: "",
-                value: "icon",
-                className: "col-2",
-                icon: "",
-              },
-            ]}
-          />
-          {/* <div className="mt-3">
+        <div className="productivity__left-col align-self-start p-1 h-full">
+          <div style={{ height: "calc(33%)" }}>
+            <ChargeActivityTable
+              firstColumn={{ field: "activity", header: "Activités" }}
+              selectedRow={+activityId}
+              onRowSelection={(activityId) => {
+                setSelectedActivity(activityId);
+                setSelectedClient(null);
+                setSelectedOperator(null);
+              }}
+              products={renderDomains}
+              blueTheme
+              columnConfig={[
+                {
+                  label: "Activité",
+                  value: "activity",
+                  className: "col-4 md:col-3 lg:col-4 ",
+                  icon: "",
+                },
+                {
+                  label: "Réel",
+                  value: "productivity",
+                  className: "col-3 md:col-5 lg:col-3",
+                  icon: "",
+                },
+                {
+                  label: "Planifié",
+                  value: "objective",
+                  className: "col-3 md:col-2 lg:col-3",
+                  icon: "",
+                },
+                {
+                  label: "",
+                  value: "icon",
+                  className: "col-2",
+                  icon: "",
+                },
+              ]}
+            />
+          </div>
+          <div className="mt-3" style={{ height: "calc(66% - 10px)" }}>
             <ChargeActivityTable
               firstColumn={{ field: "client", header: "Client" }}
               selectedRow={selectedClient}
@@ -364,8 +369,9 @@ const Charge = () => {
                   icon: "",
                 },
               ]}
+              withSearch
             />
-          </div> */}
+          </div>
         </div>
         <div className="productivity__right-col h-full p-1">
           <ChargeProductivityChart
@@ -376,8 +382,8 @@ const Charge = () => {
             labels={renderLabels}
             cibleData={renderCibleData}
             realData={renderRealData}
-            realEtp={renderRealEtp}
-            plannedEtp={renderPlannedEtp}
+            // realEtp={renderRealEtp}
+            // plannedEtp={renderPlannedEtp}
           />
         </div>
       </div>

@@ -62,10 +62,11 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
         <Dropdown
           value={defaultPage}
           onChange={(e) => {
-            const path =
-              e.value === "productivity" || e.value === "resources"
-                ? `${e.value}/1`
-                : e.value;
+            const path = ["productivity", "resources", "charge"].includes(
+              e.value
+            )
+              ? `${e.value}/1`
+              : e.value;
             navigate(`/reporting/${path}`);
           }}
           valueTemplate={selectedCountryTemplate}

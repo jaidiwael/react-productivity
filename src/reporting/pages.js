@@ -19,7 +19,7 @@ const Pages = () => {
         <Route path="/objective" element={<Objective />} />
         <Route path="/temps" element={<Temps />} />
         <Route path="/productivity/:activityId" element={<Productivity />} />
-        <Route path="/charge" element={<Charge />} />
+        <Route path="/charge/:activityId" element={<Charge />} />
         <Route path="/resources/:activityId" element={<Resources />} />
       </Routes>
       {isFetching > 0 && (

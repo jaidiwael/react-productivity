@@ -184,7 +184,7 @@ const HomePage = () => {
           <div className="col-6 h-full">
             <ChargeCard
               values={renderRealForecast}
-              onClick={() => navigate("/reporting/charge")}
+              onClick={() => navigate("/reporting/charge/1")}
             />
           </div>
           <div className="col-6 h-full">
