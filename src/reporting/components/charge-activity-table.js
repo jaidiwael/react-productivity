@@ -210,7 +210,7 @@ const ChargeActivityTable = ({
           <span className="p-input-icon-left w-10rem mx-2">
             <i className="pi pi-search text-xs" />
             <InputText
-              placeholder="Search"
+              placeholder="Rechercher..."
               className="w-full border-round-3xl bg-white-alpha-10 border-none py-1 pr-3 pl-5 text-sm"
               value={search}
               onChange={(e) => setSearch(e.target.value)}

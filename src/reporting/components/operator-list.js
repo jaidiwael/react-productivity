@@ -42,7 +42,7 @@ const OperatorList = ({ selectedOperator, onOperatorClick, operators }) => {
       <span className="p-input-icon-left w-15rem mx-auto mt-3">
         <i className="pi pi-search" />
         <InputText
-          placeholder="Search"
+          placeholder="Rechercher..."
           className="w-full border-round-3xl surface-200 border-none py-2 pr-5"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
