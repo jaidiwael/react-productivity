@@ -35,11 +35,25 @@ const Temps = () => {
     moment().add(-1, "days").format("YYYY-MM-DD"),
   ]);
 
-  const { data: productivityDetailTimes } = useQuery({
+  const { data: productivityDetailTimes, dataUpdatedAt } = useQuery({
     queryKey: ["getProductivityDetailTimes", rangeDate[0], rangeDate[1]],
     queryFn: getProductivityDetailTimes,
     enabled: !!rangeDate,
   });
+
+  useEffect(() => {
+    if (dataUpdatedAt) {
+      if (selectedOperator) {
+        const findOperator =
+          productivityDetailTimes?.TotalTimeDetailByOperators?.find(
+            (op) => op?.operatorWmsId === selectedOperator?.id
+          );
+        if (!findOperator) {
+          setSelectedOperator(null);
+        }
+      }
+    }
+  }, [dataUpdatedAt]);
 
   const renderDataLabels = useMemo(() => {
     let labels = [];

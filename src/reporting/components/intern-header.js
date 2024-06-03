@@ -164,6 +164,12 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
           icon="pi pi-calendar"
           showIcon={true}
           locale="fr"
+          dateFormat="dd-mm-yy"
+          maxDate={(() => {
+            const today = new Date();
+            today.setDate(today.getDate() - 1);
+            return today;
+          })()}
           pt={{
             input: {
               root: {
