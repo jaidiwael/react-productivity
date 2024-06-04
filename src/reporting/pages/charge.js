@@ -85,7 +85,7 @@ const Charge = () => {
             client: customerName,
             productivity: realValue,
             performance: "+8%",
-            volumes: alkiValue,
+            volumes: forecastValue,
             objective: forecastValue,
             actId: 1,
           };
@@ -311,21 +311,21 @@ const Charge = () => {
                 {
                   label: "Réel",
                   value: "productivity",
-                  className: "col-3 md:col-5 lg:col-3",
+                  className: "col-4 md:col-5 lg:col-3",
                   icon: "",
                 },
                 {
                   label: "Planifié",
                   value: "objective",
-                  className: "col-3 md:col-2 lg:col-3",
+                  className: "col-4 md:col-2 lg:col-3",
                   icon: "",
                 },
-                {
-                  label: "",
-                  value: "icon",
-                  className: "col-2",
-                  icon: "",
-                },
+                // {
+                //   label: "",
+                //   value: "icon",
+                //   className: "col-2",
+                //   icon: "",
+                // },
               ]}
             />
           </div>

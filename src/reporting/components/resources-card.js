@@ -16,7 +16,7 @@ const ResourcesCard = ({ values, onClick }) => {
       labels: values?.labels,
       datasets: [
         {
-          label: "ETP plannifié",
+          label: "ETP planifié",
           backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
           borderColor: documentStyle.getPropertyValue("--cyan-300"),
           data: values?.capaETPs,
@@ -121,7 +121,7 @@ const ResourcesCard = ({ values, onClick }) => {
   }, [values]);
   return (
     <div
-      className="bg-card border-round-2xl px-3 py-2  h-full"
+      className="bg-card border-round-2xl px-3 py-2  h-full cursor-pointer"
       onClick={onClick}
     >
       <div className="flex gap-3 mb-2 justify-content-center">

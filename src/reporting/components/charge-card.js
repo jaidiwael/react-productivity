@@ -22,7 +22,7 @@ const ChargeCard = ({ values, onClick }) => {
           //   backgroundColor: documentStyle.getPropertyValue("--yellow-500"),
           // },
           {
-            label: "Predit",
+            label: "Planifié",
             data: values?.forecastValues,
             fill: false,
             tension: 0.4,

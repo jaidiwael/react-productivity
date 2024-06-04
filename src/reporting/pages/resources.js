@@ -72,7 +72,7 @@ const Resources = () => {
     labels: renderDataOptions?.labels,
     datasets: [
       {
-        label: "ETP plannifié",
+        label: "ETP planifié",
         backgroundColor: documentStyle.getPropertyValue("--cyan-300"),
         borderColor: documentStyle.getPropertyValue("--cyan-300"),
         data: renderDataOptions?.planifier,

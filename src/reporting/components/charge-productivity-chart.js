@@ -96,7 +96,7 @@ const ChargeProductivityChart = ({
     labels: renderOptionsChart?.labels,
     datasets: [
       {
-        label: "Cible",
+        label: "Planifié",
         data: renderOptionsChart?.cibleData,
         fill: false,
         tension: 0.4,
@@ -184,14 +184,14 @@ const ChargeProductivityChart = ({
 
         <div className="text-white flex justify-content-between mb-3">
           <div className="flex align-items-center gap-2">
-            <span>Volume</span>
+            {/* <span>Volume</span>
             <InputSwitch
               checked={mode === "fiabilité"}
               onChange={() =>
                 setMode(mode === "fiabilité" ? "volume" : "fiabilité")
               }
             />
-            <span>Fiabilité</span>
+            <span>Fiabilité</span> */}
           </div>
         </div>
         <Chart

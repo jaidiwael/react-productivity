@@ -77,10 +77,10 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
               icon: productivityIcon,
               path: "productivity/1",
             },
-            {
-              label: "Performance",
-              value: "performance",
-            },
+            // {
+            //   label: "Performance",
+            //   value: "performance",
+            // },
             {
               label: "Temps",
               value: "temps",
