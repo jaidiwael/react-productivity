@@ -89,6 +89,7 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
             {
               label: "Objectif global",
               value: "objective",
+              icon: chargeIcon,
             },
             {
               label: "Charge",
@@ -98,6 +99,7 @@ const InternHeader = ({ defaultPage, onRangeDate }) => {
             {
               label: "Resources",
               value: "resources",
+              icon: chargeIcon,
             },
           ]}
           className="w-14rem surface-100 border-round-3xl text-primary"

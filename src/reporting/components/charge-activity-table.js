@@ -56,7 +56,7 @@ const ChargeActivityTable = ({
           "--color": selectedColor || item.color,
         }}
       >
-        <div className="col-4 flex">
+        <div className="col-6 flex">
           <div
             className="border-round-xl text-white px-3 py-1"
             style={{
@@ -66,15 +66,15 @@ const ChargeActivityTable = ({
             {item[firstColumn?.field]}
           </div>
         </div>
-        <div className=" col-3 flex align-items-center justify-content-center gap-3">
+        <div className="col-3 flex align-items-center  gap-3">
           <span>{item.productivity}</span>
         </div>
-        <div className={`col-2 md:col-2 lg:col-2`}>
+        <div className={`col-3 md:col-2 lg:col-2`}>
           <span className="font-bold">{item?.volumes}</span>
         </div>
-        <div className={`col-3 z-1 text-teal-400`}>
+        {/* <div className={`col-3 z-1 text-teal-400`}>
           <span className="mr-1">{item?.objective}</span>
-        </div>
+        </div> */}
       </div>
     );
   };
@@ -111,7 +111,7 @@ const ChargeActivityTable = ({
       >
         <div
           onClick={() => updateOrder(0)}
-          className={`cursor-pointer col-4 flex align-items-center ${
+          className={`cursor-pointer col-6 flex align-items-center ${
             order.column === 0 ? "text-white" : ""
           }`}
         >
@@ -135,7 +135,7 @@ const ChargeActivityTable = ({
         </div>
         <div
           onClick={() => updateOrder(1)}
-          className={`cursor-pointer col-3 flex align-items-center justify-content-center ${
+          className={`cursor-pointer col-3 flex align-items-center  ${
             order.column === 1 ? "text-white" : ""
           }`}
         >
@@ -150,7 +150,7 @@ const ChargeActivityTable = ({
         </div>
         <div
           onClick={() => updateOrder(2)}
-          className={`cursor-pointer col-2 flex align-items-center justify-content-center ${
+          className={`cursor-pointer col-3 flex align-items-center  ${
             order.column === 2 ? "text-white" : ""
           }`}
         >
@@ -163,7 +163,7 @@ const ChargeActivityTable = ({
             } ml-1`}
           ></span>
         </div>
-        <div
+        {/* <div
           onClick={() => updateOrder(3)}
           className={`cursor-pointer col-3 flex align-items-center justify-content-center ${
             order.column === 3 ? "text-white" : ""
@@ -177,7 +177,7 @@ const ChargeActivityTable = ({
                 : "pi-chevron-up"
             } ml-1`}
           ></span>
-        </div>
+        </div> */}
       </div>
       {/* <Carousel
         value={renderProductByOrder}

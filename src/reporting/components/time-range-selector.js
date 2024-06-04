@@ -15,7 +15,7 @@ const TimeRangeSelector = ({ options, selected, setSelected }) => {
             className={`py-2 border-transparent ${
               selected === option.value
                 ? "bg-gray-200 text-color"
-                : "text-gray-200 bg-blue-800"
+                : "text-white bg-blue-800"
             }`}
           />
         );
