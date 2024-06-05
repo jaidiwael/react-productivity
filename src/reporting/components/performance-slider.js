@@ -12,12 +12,30 @@ const PerformanceSlider = ({ onClickCard, products }) => {
         data={product}
         onClick={() => onClickCard(product?.id)}
         isMaximum={
-          product?.percentage === Math.max(...products.map(({ percentage }) => percentage)) &&
-          products.indexOf(product) === products.findIndex(({ percentage }) => percentage === Math.max(...products.map(({ percentage }) => percentage)))
+          product?.percentage ===
+            Math.max(...products.map(({ percentage }) => percentage)) &&
+          // products.indexOf(product) ===
+          //   products.findIndex(
+          //     ({ percentage }) =>
+          //       percentage ===
+          //       Math.max(...products.map(({ percentage }) => percentage))
+          //   ) &&
+          !products.some(({ percentage, id }) => {
+            return product?.percentage === percentage && id !== product?.id;
+          })
         }
         isMinimum={
-          product?.percentage === Math.min(...products.map(({ percentage }) => percentage)) &&
-          products.indexOf(product) === products.findIndex(({ percentage }) => percentage === Math.min(...products.map(({ percentage }) => percentage)))
+          product?.percentage ===
+            Math.min(...products.map(({ percentage }) => percentage)) &&
+          // products.indexOf(product) ===
+          //   products.findIndex(
+          //     ({ percentage }) =>
+          //       percentage ===
+          //       Math.min(...products.map(({ percentage }) => percentage))
+          //   ) &&
+          !products.some(({ percentage, id }) => {
+            return product?.percentage === percentage && id !== product?.id;
+          })
         }
       />
     );
