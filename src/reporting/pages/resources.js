@@ -194,7 +194,7 @@ const Resources = () => {
             activity: domainName,
             productivity: totalRealEtp,
             performance: "+8%",
-            objective: totalCapaETP,
+            volumes: totalCapaETP,
             color: domainColor,
           };
         }
@@ -202,30 +202,30 @@ const Resources = () => {
     }
     return [];
   }, [productivityDetailRessources]);
-  const renderCustomers = useMemo(() => {
-    if (productivityDetailProd) {
-      return productivityDetailProd?.customers.map(
-        ({
-          customerCode,
-          customerName,
-          productivityTarget,
-          realProductivity,
-          totalQuantity,
-        }) => {
-          return {
-            id: customerCode,
-            client: customerName,
-            productivity: realProductivity,
-            performance: "+8%",
-            volumes: totalQuantity,
-            objective: productivityTarget,
-            actId: 1,
-          };
-        }
-      );
-    }
-    return [];
-  }, [productivityDetailProd]);
+  // const renderCustomers = useMemo(() => {
+  //   if (productivityDetailProd) {
+  //     return productivityDetailProd?.customers.map(
+  //       ({
+  //         customerCode,
+  //         customerName,
+  //         productivityTarget,
+  //         realProductivity,
+  //         totalQuantity,
+  //       }) => {
+  //         return {
+  //           id: customerCode,
+  //           client: customerName,
+  //           productivity: realProductivity,
+  //           performance: "+8%",
+  //           volumes: totalQuantity,
+  //           objective: productivityTarget,
+  //           actId: 1,
+  //         };
+  //       }
+  //     );
+  //   }
+  //   return [];
+  // }, [productivityDetailProd]);
 
   return (
     <div className="p-4 bg-blue-900 h-screen overflow-auto">
