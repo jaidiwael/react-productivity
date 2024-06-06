@@ -19,7 +19,7 @@ const Resources = () => {
   const [selectedClient, setSelectedClient] = useState();
   // const [selectedOperator, setSelectedOperator] = useState();
   const [rangeDate, setRangeDate] = useState([
-    moment().add(-8, "days").format("YYYY-MM-DD"),
+    moment().add(-7, "days").format("YYYY-MM-DD"),
     moment().add(-1, "days").format("YYYY-MM-DD"),
   ]);
 
@@ -131,7 +131,7 @@ const Resources = () => {
         //clamp: true,
         anchor: "end", // Position of the labels (start, end, center, etc.)
         // align: "end", // Alignment of the labels (start, end, center, etc.)
-        display: diffDays <= 7,
+        display: diffDays + 1 <= 7,
         padding: {
           bottom: 30,
         },
@@ -318,7 +318,7 @@ const Resources = () => {
         <div className="productivity__right-col p-1 h-full">
           <div className="bg-blue-800 border-round-2xl px-3 py-2 h-full">
             <Chart
-              type={`${diffDays > 7 ? "line" : "bar"}`}
+              type={`${diffDays + 1 > 7 ? "line" : "bar"}`}
               data={chartData}
               options={chartOptions}
               plugins={[ChartDataLabels]}

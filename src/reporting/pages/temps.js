@@ -31,7 +31,7 @@ const Temps = () => {
   const [type, setType] = useState("percent");
   const [selectedOperator, setSelectedOperator] = useState(null);
   const [rangeDate, setRangeDate] = useState([
-    moment().add(-8, "days").format("YYYY-MM-DD"),
+    moment().add(-7, "days").format("YYYY-MM-DD"),
     moment().add(-1, "days").format("YYYY-MM-DD"),
   ]);
 
@@ -138,7 +138,7 @@ const Temps = () => {
               : renderDataLabels?.[`${activeItem?.label}_values`],
           datalabels: {
             align: "end",
-            display: diffDays <= 7,
+            display: diffDays + 1 <= 7,
           },
         },
       ];
@@ -356,7 +356,7 @@ const Temps = () => {
             >
               <div className="text-white mb-4">Evolution des temps</div>
               <Chart
-                type={`${diffDays > 7 ? "line" : "bar"}`}
+                type={`${diffDays + 1 > 7 ? "line" : "bar"}`}
                 data={chartData}
                 options={chartOptions}
                 plugins={[ChartDataLabels]}

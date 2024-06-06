@@ -15,7 +15,7 @@ const Productivity = () => {
   const [selectedClient, setSelectedClient] = useState();
   const [selectedOperator, setSelectedOperator] = useState();
   const [rangeDate, setRangeDate] = useState([
-    moment().add(-8, "days").format("YYYY-MM-DD"),
+    moment().add(-7, "days").format("YYYY-MM-DD"),
     moment().add(-1, "days").format("YYYY-MM-DD"),
   ]);
 
@@ -369,7 +369,7 @@ const Productivity = () => {
             realData={renderRealData}
             realEtp={renderRealEtp}
             plannedEtp={renderPlannedEtp}
-            diffDays={diffDays}
+            diffDays={diffDays + 1}
           />
         </div>
       </div>

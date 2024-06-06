@@ -19,11 +19,11 @@ const Charge = () => {
   const [selectedClient, setSelectedClient] = useState();
   const [selectedOperator, setSelectedOperator] = useState();
   const [rangeDate, setRangeDate] = useState([
-    moment().add(-8, "days").format("YYYY-MM-DD"),
+    moment().add(-7, "days").format("YYYY-MM-DD"),
     moment().add(-1, "days").format("YYYY-MM-DD"),
   ]);
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const { activityId } = useParams();
 
   const { data: productivityDetailProd } = useQuery({
