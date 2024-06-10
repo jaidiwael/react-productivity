@@ -1,23 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import moment from "moment";
 
-import ProductivityDataTable from "../components/productivity-data-table";
 import ChargeProductivityChart from "../components/charge-productivity-chart";
 import InternHeader from "../components/intern-header";
 import ChargeActivityTable from "../components/charge-activity-table";
 
 import { customOrder } from "../helpers";
-import {
-  getProductivityDetailProd,
-  getProductivityDetailRealForecast,
-} from "../api";
+import { getProductivityDetailRealForecast } from "../api";
 
 const Charge = () => {
   const [selectedActivity, setSelectedActivity] = useState(1);
   const [selectedClient, setSelectedClient] = useState();
-  const [selectedOperator, setSelectedOperator] = useState();
+  // const [selectedOperator, setSelectedOperator] = useState();
   const [rangeDate, setRangeDate] = useState([
     moment().add(-7, "days").format("YYYY-MM-DD"),
     moment().add(-1, "days").format("YYYY-MM-DD"),
@@ -26,10 +22,10 @@ const Charge = () => {
   //const navigate = useNavigate();
   const { activityId } = useParams();
 
-  const { data: productivityDetailProd } = useQuery({
-    queryKey: ["getProductivityDetailProd", "2024-05-01", "2024-05-08", 1],
-    queryFn: getProductivityDetailProd,
-  });
+  // const { data: productivityDetailProd } = useQuery({
+  //   queryKey: ["getProductivityDetailProd", "2024-05-01", "2024-05-08", 1],
+  //   queryFn: getProductivityDetailProd,
+  // });
 
   const { data: productivityDetailForecast } = useQuery({
     queryKey: [
@@ -55,15 +51,17 @@ const Charge = () => {
           forecastValueTotal,
           realValueTotal,
           alkiValueTotal,
+          variation,
         }) => {
           return {
             id: domainId,
             activity: domainName,
             productivity: realValueTotal,
             performance: "+8%",
-            volumes: alkiValueTotal,
+            volumes: forecastValueTotal,
             objective: forecastValueTotal,
             color: domainColor,
+            variation,
           };
         }
       );
@@ -79,6 +77,7 @@ const Charge = () => {
           forecastValue,
           realValue,
           alkiValue,
+          variation,
         }) => {
           return {
             id: customerCode,
@@ -88,6 +87,7 @@ const Charge = () => {
             volumes: forecastValue,
             objective: forecastValue,
             actId: 1,
+            variation,
           };
         }
       );
@@ -142,7 +142,7 @@ const Charge = () => {
           id: selectedClient,
           action: (id) => {
             setSelectedClient(id);
-            setSelectedOperator(null);
+            // setSelectedOperator(null);
           },
         },
       ];
@@ -297,7 +297,7 @@ const Charge = () => {
               onRowSelection={(activityId) => {
                 setSelectedActivity(activityId);
                 setSelectedClient(null);
-                setSelectedOperator(null);
+                // setSelectedOperator(null);
               }}
               products={renderDomains}
               blueTheme
@@ -335,7 +335,7 @@ const Charge = () => {
               selectedRow={selectedClient}
               onRowSelection={(clientId) => {
                 setSelectedClient(clientId);
-                setSelectedOperator(null);
+                // setSelectedOperator(null);
               }}
               products={renderCustomers}
               blueTheme

@@ -4,7 +4,7 @@ import Logo from "../../assets/images/alki-logo.svg";
 
 import { customOrder } from "../helpers";
 
-const ChargeActivityTable = ({
+const RessourceActivityTable = ({
   firstColumn,
   products,
   selectedRow,
@@ -37,7 +37,7 @@ const ChargeActivityTable = ({
       case 2:
         return newProducts.sort(customOrder("volumes", order.direction));
       case 3:
-        return newProducts.sort(customOrder("variation", order.direction));
+        return newProducts.sort(customOrder("objective", order.direction));
     }
   }, [order, products, firstColumn, search]);
 
@@ -56,7 +56,7 @@ const ChargeActivityTable = ({
           "--color": selectedColor || item.color,
         }}
       >
-        <div className="col-4 flex">
+        <div className="col-6 flex">
           <div
             className="border-round-xl text-white px-3 py-1"
             style={{
@@ -75,24 +75,6 @@ const ChargeActivityTable = ({
         {/* <div className={`col-3 z-1 text-teal-400`}>
           <span className="mr-1">{item?.objective}</span>
         </div> */}
-        <div className="flex align-items-center gap-1 col-2">
-          <div
-            className={`text-xs text-center ${
-              item?.variation < 0 ? "text-red-400" : "text-teal-400"
-            } ${
-              item?.id === selectedRow
-                ? "border-round-xl bg-white pl-1 pr-1"
-                : ""
-            }`}
-          >
-            {item?.variation < 0 ? (
-              <i className="pi pi-sort-down-fill text-red-400 text-xs mr-1"></i>
-            ) : (
-              <i className="pi pi-sort-up-fill text-teal-400 text-xs mr-1"></i>
-            )}
-            {item?.variation}%
-          </div>
-        </div>
       </div>
     );
   };
@@ -129,7 +111,7 @@ const ChargeActivityTable = ({
       >
         <div
           onClick={() => updateOrder(0)}
-          className={`cursor-pointer col-4 flex align-items-center ${
+          className={`cursor-pointer col-6 flex align-items-center ${
             order.column === 0 ? "text-white" : ""
           }`}
         >
@@ -181,22 +163,21 @@ const ChargeActivityTable = ({
             } ml-1`}
           ></span>
         </div>
-        <div
+        {/* <div
           onClick={() => updateOrder(3)}
-          className={`cursor-pointer col-2 flex align-items-center justify-content-center ${
+          className={`cursor-pointer col-3 flex align-items-center justify-content-center ${
             order.column === 3 ? "text-white" : ""
           }`}
         >
+          <img src={Logo} width="10px" />
           <span
             className={`text-xs pi ${
-              order.column === 4 && order.direction === "asc"
+              order.column === 3 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
             } ml-1`}
-          >
-            Variation
-          </span>
-        </div>
+          ></span>
+        </div> */}
       </div>
       {/* <Carousel
         value={renderProductByOrder}
@@ -257,9 +238,9 @@ const ChargeActivityTable = ({
   );
 };
 
-export default ChargeActivityTable;
+export default RessourceActivityTable;
 
-ChargeActivityTable.defaultProps = {
+RessourceActivityTable.defaultProps = {
   firstColumn: { field: "activity", header: "Activités" },
   products: [
     {

@@ -7,7 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 // import ChargeProductivityChart from "../components/charge-productivity-chart";
 import InternHeader from "../components/intern-header";
-import ChargeActivityTable from "../components/charge-activity-table";
+import RessourceActivityTable from "../components/ressource-activity-table";
 
 import { customOrder } from "../helpers";
 import {
@@ -233,7 +233,7 @@ const Resources = () => {
       <div className="flex" style={{ height: "calc(100% - 60px)" }}>
         <div className="productivity__left-col p-1 h-full">
           <div style={{ height: "calc(33%)" }}>
-            <ChargeActivityTable
+            <RessourceActivityTable
               firstColumn={{ field: "activity", header: "Activités" }}
               selectedRow={+activityId}
               onRowSelection={(activityId) => {
@@ -272,7 +272,7 @@ const Resources = () => {
             />
           </div>
           {/* <div className="mt-3" style={{ height: "calc(66% - 10px)" }}>
-            <ChargeActivityTable
+            <RessourceActivityTable
               firstColumn={{ field: "client", header: "Client" }}
               selectedRow={selectedClient}
               onRowSelection={(clientId) => {
