@@ -69,13 +69,13 @@ const ChargeActivityTable = ({
         <div className="col-3 flex align-items-center  gap-3">
           <span>{item.productivity}</span>
         </div>
-        <div className={`col-3 md:col-2 lg:col-2`}>
+        <div className={`col-2`}>
           <span className="font-bold">{item?.volumes}</span>
         </div>
         {/* <div className={`col-3 z-1 text-teal-400`}>
           <span className="mr-1">{item?.objective}</span>
         </div> */}
-        <div className="flex align-items-center gap-1 col-2">
+        <div className="col-3 flex align-items-center gap-1">
           <div
             className={`text-xs text-center ${
               item?.variation < 0 ? "text-red-400" : "text-teal-400"
@@ -168,7 +168,7 @@ const ChargeActivityTable = ({
         </div>
         <div
           onClick={() => updateOrder(2)}
-          className={`cursor-pointer col-3 flex align-items-center  ${
+          className={`cursor-pointer col-2 flex align-items-center  ${
             order.column === 2 ? "text-white" : ""
           }`}
         >
@@ -183,19 +183,18 @@ const ChargeActivityTable = ({
         </div>
         <div
           onClick={() => updateOrder(3)}
-          className={`cursor-pointer col-2 flex align-items-center justify-content-center ${
+          className={`cursor-pointer col-3 flex align-items-center ${
             order.column === 3 ? "text-white" : ""
           }`}
         >
+          Variation
           <span
             className={`text-xs pi ${
-              order.column === 4 && order.direction === "asc"
+              order.column === 3 && order.direction === "asc"
                 ? "pi-chevron-down"
                 : "pi-chevron-up"
             } ml-1`}
-          >
-            Variation
-          </span>
+          ></span>
         </div>
       </div>
       {/* <Carousel
